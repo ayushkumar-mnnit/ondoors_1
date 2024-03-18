@@ -3,3 +3,16 @@
   font-family: math;
   font-size: large;
 }
+.bg-body-tertiary{
+    background-color: rgba(17, 32, 35, 0.98) !important;;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+  color: rgb(255 248 248);
+  text-shadow: -2px -2.5px 5px #ff0a2c;
+}
+
+.navbar-nav .nav-link:hover{
+  color: rgb(150, 242, 239);
+  
+}
+

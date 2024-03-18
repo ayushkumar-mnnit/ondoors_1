@@ -1,6 +1,8 @@
 import React from 'react'
 import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
+import Cards from '../cards/Cards'
+import Footer from '../footer/Footer'
 
 export const Home = () => {
   return (
@@ -9,6 +11,8 @@ export const Home = () => {
         
        home='Home' services='Services' contact='Contact us' about='About us' login='Login' signup='Signup' />
         
+        <Cards/>
+        <Footer/>
     
     </>
   )
