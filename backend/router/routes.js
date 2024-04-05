@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const User=require('../models/user')
+const bcrypt=require('bcrypt')
 
 
 
@@ -10,7 +11,7 @@ router.get('/',(req,res)=>{
 
 
 
-// API for registering a new user:
+// API for registering a new user: Register
 
 router.post('/register', async(req,res)=>{
     try{
@@ -18,12 +19,12 @@ router.post('/register', async(req,res)=>{
         const {name,email,password}=req.body
         const existingUser=await User.findOne({email})
 
-        // checking if a user exists already or not: This could have be done in schema also using validator and 'unique' property
+        // checking if a user exists already or not: This could have been done in schema also using validator and 'unique' property
 
         if(existingUser)
         {
-            res.status(400).json({msg:'email already exists'})
             console.log('email already exists');
+            return res.status(400).json({msg:'email already exists'})  // here 'return' is imp else when this code is executed then due to asynch nature another response in line 37 gets send immediately (--> error will occur ) as for each http req. there must be only single response
             
         }  
         // creating new user using .create() method, .save() method can also be used
@@ -45,17 +46,41 @@ router.post('/register', async(req,res)=>{
 
 
 
-    // verify an existing user: Login
-
-    // router.post('/login',async(req,res)=>{
-    //     try{
-
-    //     }catch(er){
-    //         console.log(er);
-    //     }
-    // })
+    // API for an existing user: Login
 
 
+    router.post('/login',async(req,res)=>{
+        try{
+
+            const {email,password}=req.body
+            const existUser=await User.findOne({email})
+    
+            if(!existUser)
+            {
+                console.log('invalid credentials');  
+                return res.status(400).json({msg:'invalid credentials'})
+            }  
+
+            // email found, now match the password
+
+            const pass_match=await bcrypt.compare(password,existUser.password)
+
+            // if password also matched
+
+            if(pass_match)
+            {
+                var token=await existUser.createToken()
+                var userId= existUser._id.toString()
+              
+                res.status(200).json({msg:'Logged in successfully',token,userId})
+                console.log('user logged in successfully')
+            }
+
+        }catch(er){
+            res.status(500).json({msg:'internal server error'})
+            console.log(er);
+        }
+    })
 
 
 

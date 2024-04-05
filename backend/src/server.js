@@ -2,10 +2,21 @@
 require('dotenv').config()
 const express= require('express')
 const app=express()
+const cors=require('cors')
 const port=5000
 
 const connectDB = require('../db/conn')
 
+// handling cors policy:
+
+ 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+   methods:'GET,POST,PATCH,DELETE,HEAD',
+   Credentials:true
+  }
+
+  app.use(cors(corsOptions))
 
 const routers=require('../router/routes')
 
