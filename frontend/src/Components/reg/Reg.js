@@ -32,7 +32,7 @@ const handleChange=(e)=>{
 
 const handleSubmit=async(e)=>{
   e.preventDefault()
-  // console.log(user);
+  console.log(user);
   // alert('registered')
   try
   {

@@ -3,6 +3,7 @@ import './login.css'
 import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../jwt_Store/jwtStorage'
 
 
 
@@ -17,6 +18,8 @@ export const Login = () => {
 
 
   const navigate=useNavigate()
+
+  const {StoreToken}=useAuth()
 
 const handleChange=(e)=>{
 
@@ -46,8 +49,12 @@ const handleSubmit=async (e)=>{
 
   if(result.ok)
   { alert('Login successful')
+
+const response=await result.json()
+  StoreToken(response.token)
+
     setuser({email:"",password:""})
-    navigate('/')
+    navigate('/profile')
   }else{
     alert('invalid credentials')
   }

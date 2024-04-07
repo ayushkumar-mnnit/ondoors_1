@@ -1,0 +1,29 @@
+
+
+.contactform{
+    box-shadow: 2px 2px 10px 3px #071458;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: fit-content;
+    padding: 2rem;
+    background-color: rgb(225, 240, 249);
+}
+
+.lab{
+    display: flex;
+    margin-top: 1rem;
+}
+
+
+.c-email{
+    margin-top: 0.5rem;
+}
+.c-name{
+    margin-top: 0.5rem;
+}
+.msg{
+    margin-top: 0.5rem;
+}
+

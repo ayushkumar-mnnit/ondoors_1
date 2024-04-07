@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const User=require('../models/user')
+const Contact=require('../models/contact')
 const bcrypt=require('bcrypt')
 
 
@@ -84,6 +85,7 @@ router.post('/register', async(req,res)=>{
 
 
 
+
 // get existing user data:
 
 router.get('/userdata',async(req,res)=>{
@@ -97,9 +99,40 @@ router.get('/userdata',async(req,res)=>{
 })
 
 
-
     // Delete user:
     
+
+    // contact us:
+
+    router.post('/contact',async(req,res)=>{
+        try {
+
+            const {name,email,message}=req.body
+            const validName=await User.findOne({name})
+            
+            if(!validName)
+            {
+                console.log('user with this name does not exists')
+                return res.status(400).json({msg:'invalid user'})
+            }
+            const validEmail=await User.findOne({email})
+
+            if(!validEmail)
+            {
+                console.log('user with this email does not exists')
+                return res.status(400).json({msg:'invalid email'})
+            }
+
+            const msgSent=await Contact.create({name,email,message})
+            res.status(200).json({msg:'message sent successfully',msgSent})
+            console.log(msgSent);
+            
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({msg:'server error'})
+        }
+    })
+
 
 module.exports=router
 

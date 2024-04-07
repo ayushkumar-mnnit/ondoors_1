@@ -6,6 +6,7 @@ import { Profile } from './Components/profile/Profile'
 import { Login } from './Components/login/Login';
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import { Reg } from './Components/reg/Reg';
+import { Contact } from './Components/contact/Contact';
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
 <Route path='profile' element={<Profile/>} ></Route>
 <Route path='login' element={<Login/>} ></Route>
 <Route path='signup' element={<Reg/>} ></Route>
-
+<Route path='contact' element={<Contact/>} ></Route>
 
 
 
