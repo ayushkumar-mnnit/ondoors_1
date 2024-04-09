@@ -72,4 +72,4 @@ userSchema.methods.createToken=async function (){
 const User=new mongoose.model('User',userSchema)
 module.exports=User
 
-// there was another syntax for exporting, something like : export default 
+// there was another syntax for exporting, something like : export default

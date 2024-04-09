@@ -2,10 +2,11 @@
 import React from 'react'
 import './Nav.css'
 import { Link } from 'react-router-dom'
-
+import { useAuth } from '../../jwt_Store/jwtStorage'
 
 export const Navbar = (props) => {
 
+  const {isLoggedIn}=useAuth()
 
   return (
     <>
@@ -21,7 +22,7 @@ export const Navbar = (props) => {
           <Link className="nav-link active" aria-current="page" to="/">{props.home}</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/services">{props.services}</Link>
+          <Link className="nav-link active" aria-current="page" to="#section1">{props.services}</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/about">{props.about}</Link>
@@ -29,16 +30,25 @@ export const Navbar = (props) => {
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/contact">{props.contact}</Link>
         </li>
+       
+
+      {isLoggedIn
+        ?
+        <li className="nav-item">
+          <Link className="nav-link active" aria-current="page" to="/logout">{props.logout}</Link>
+        </li>
+        
+        :
+        <>
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/login">{props.login}</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/signup">{props.signup}</Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">{props.logout}</Link>
-        </li>
-       
+        </>
+
+        }
           </ul>
    
     </div>

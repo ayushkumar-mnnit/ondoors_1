@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import './cont.css'
 import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
+import { toast } from 'react-toastify'
 
 
 export const Contact = () => {
@@ -37,8 +38,10 @@ export const Contact = () => {
           console.log(result)
 
           if(result.ok){
-            alert('message sent successfully !!')
+            toast.success('Message sent successfully')
             setMsg({name:"",email:"",message:""})
+          }else{
+            toast.error('some error occured')
           }
 
         } catch (error) {

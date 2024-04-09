@@ -2,6 +2,7 @@ const express=require('express')
 const router=express.Router()
 const User=require('../models/user')
 const Contact=require('../models/contact')
+const Feedback=require('../models/feedback')
 const bcrypt=require('bcrypt')
 
 
@@ -12,7 +13,7 @@ router.get('/',(req,res)=>{
 
 
 
-// API for registering a new user: Register
+// API for registering a new user: Register route
 
 router.post('/register', async(req,res)=>{
     try{
@@ -47,7 +48,7 @@ router.post('/register', async(req,res)=>{
 
 
 
-    // API for an existing user: Login
+    // API for an existing user: Login route
 
 
     router.post('/login',async(req,res)=>{
@@ -102,7 +103,7 @@ router.get('/userdata',async(req,res)=>{
     // Delete user:
     
 
-    // contact us:
+    // contact us route:
 
     router.post('/contact',async(req,res)=>{
         try {
@@ -134,5 +135,20 @@ router.get('/userdata',async(req,res)=>{
     })
 
 
-module.exports=router
+    // feedback route:
+
+    router.post('/feedback',async(req,res)=>{
+        try {
+           const {feedbackMsg}=req.body
+            const feed_msg=await Feedback.create({feedbackMsg})
+        
+            res.status(200).json({msg:'feedback message sent successfully',feed_msg})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({msg:'server error'})
+        }
+    })
+
+
+    module.exports=router
 

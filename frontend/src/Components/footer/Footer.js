@@ -5,13 +5,51 @@ import git from "../../images/githubimg.png";
 import logo from "../../images/logo-1.png";
 import mail from "../../images/icons8-gmail.gif";
 import send from "../../images/sendbtn.png";
+import {toast} from 'react-toastify'
 
 import './footer.css'
 
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { useState } from "react"
 
 
 function Footer() {
+
+
+    const [feed, setFeed] = useState({ feedbackMsg: "" })
+
+    const handleChange = (e) => {
+        const {name,value}  = e.target
+
+        setFeed({ ...feed, [name]: value })
+    }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await fetch('http://localhost:5000/feedback', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(feed)
+            })
+
+            if (result.ok) {
+                toast.success('Feedback sent')
+                setFeed({feedbackMsg:""})
+            } else {
+                toast.error('some error occured')
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+
     return (
         <>
             <footer className="footer-section">
@@ -41,7 +79,11 @@ function Footer() {
                                     <i className="far fa-envelope-open"></i>
                                     <div className="cta-text">
                                         <h4>Mail us</h4>
-                                        <span><Link to="/contact"><img src={mail} alt="/" /></Link></span>
+
+                                    <form action="mailto:ayushkumar5167543@gmail.com" method="post">
+                                        <button><img src={mail} alt="mail" /></button>
+                                    </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +102,9 @@ function Footer() {
                                     <div className="footer-social-icon">
                                         <span>Follow us</span>
                                         <a href="https://www.instagram.com/hungry_learner.01/"><img src={insta} width={34} alt="/" /></a>
-                                       
+
                                         <a href="https://www.linkedin.com/in/ayushkumar2025/"><img src={linkd} width={40} alt="/" /></a>
-                                        <a href="/"><img src={git} width={42} alt="/" /></a>
+                                        <a href="https://github.com/ayushkumar-mnnit/"><img src={git} width={42} alt="/" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -85,16 +127,18 @@ function Footer() {
                                 <div className="footer-widget">
                                     <div className="footer-widget-heading">
                                         <h3>Feedback</h3>
-                                        </div>
-                                        <div className="footer-text mb-25">
+                                    </div>
+                                    <div className="footer-text mb-25">
                                         <p>Don't miss to give your valuable feedback.</p>
                                     </div>
+
                                     <div className="subscribe-form">
-                                        <form action="mailto:ayushkumar5167543@gmail.com">
-                                            <input type="text" placeholder="write your feedback here" />
-                                            <button><img src={send} width={35} alt="/" /></button>
+                                        <form onSubmit={handleSubmit}>
+                                            <input type="text" placeholder="write your feedback here" onChange={handleChange} name="feedbackMsg" value={feed.feedbackMsg} />
+                                            <button><img src={send} width={35} alt="btn" /></button>
                                         </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -105,7 +149,7 @@ function Footer() {
                         <div className="row">
                             <div className="col-xl-6 col-lg-6 text-center text-lg-left">
                                 <div className="copyright-text">
-                                    <p>Copyright &copy; 2023 OndoorS | All Rights Reserved</p>
+                                    <p>Copyright &copy; 2024 OndoorS | All Rights Reserved</p>
                                 </div>
                             </div>
 

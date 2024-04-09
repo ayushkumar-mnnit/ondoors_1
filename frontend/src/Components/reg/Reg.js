@@ -3,6 +3,7 @@ import './reg.css'
 import logo from '../../images/logo-1.png'
 import { Navbar } from '../navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 
 
@@ -47,11 +48,11 @@ const handleSubmit=async(e)=>{
 
   if(result.ok)
   {
-    alert('registeration successful')
+    toast.success('Registeration successful')
     setuser({name:"",email:"",password:""})
-    navigate('/login')
+    navigate('/')
   }else{
-    alert('some error occured')
+    toast.error('some error occured')
   }
 
   } catch (error) {

@@ -4,6 +4,7 @@ import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../jwt_Store/jwtStorage'
+import { toast } from 'react-toastify'
 
 
 
@@ -48,15 +49,15 @@ const handleSubmit=async (e)=>{
   console.log(result)
 
   if(result.ok)
-  { alert('Login successful')
+  { toast.success('Login successful')
 
 const response=await result.json()
   StoreToken(response.token)
 
     setuser({email:"",password:""})
-    navigate('/profile')
+    navigate('/')
   }else{
-    alert('invalid credentials')
+    toast.error('invalid credentials')
   }
 
   } catch (error) {
