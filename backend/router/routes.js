@@ -4,7 +4,7 @@ const User=require('../models/user')
 const Contact=require('../models/contact')
 const Feedback=require('../models/feedback')
 const bcrypt=require('bcrypt')
-
+const jwt=require('jsonwebtoken')
 
 
 router.get('/',(req,res)=>{
@@ -18,7 +18,7 @@ router.get('/',(req,res)=>{
 router.post('/register', async(req,res)=>{
     try{
        
-        const {name,email,password}=req.body
+        const {name,email,password,address,role}=req.body
         const existingUser=await User.findOne({email})
 
         // checking if a user exists already or not: This could have been done in schema also using validator and 'unique' property
@@ -31,7 +31,7 @@ router.post('/register', async(req,res)=>{
         }  
         // creating new user using .create() method, .save() method can also be used
 
-        const createUser=await User.create({name,email,password})
+        const createUser=await User.create({name,email,password,address,role})
 
         var token=await createUser.createToken()
         var userId= createUser._id.toString()
@@ -89,21 +89,55 @@ router.post('/register', async(req,res)=>{
 
 // get existing user data:
 
-router.get('/userdata',async(req,res)=>{
+
+const authMiddleware = async (req, res, next) => {
+    try {
+        const token = req.header('Authorization');
+        console.log('Token:', token);
+
+        if (!token) return res.status(401).json({ msg: 'Token not provided' });
+
+        const jwtToken = token.replace('Bearer', '').trim();
+        console.log('JWT Token:', jwtToken);
+
+        const isVerified = jwt.verify(jwtToken, process.env.SECRET_KEY);
+        console.log('Decoded Token:', isVerified);
+
+        const data = await User.findOne({ email: isVerified.email }).select({ password: 0 });
+        console.log('User Data:', data);
+
+        if (!data) return res.status(401).json({ msg: 'User not found' });
+
+        req.user = data;
+        req.token = token;
+        req.Id = data._id;
+        next();
+    } catch (error) {
+        console.error('Error in authMiddleware:', error);
+        return res.status(401).json({ msg: 'Unauthorized user: invalid token' });
+    }
+};
+
+
+
+router.get('/user',authMiddleware,async(req,res)=>{
     try{
-        const result=await User.find()
-        res.send(result)
+        
+     
+        const result=req.user
+        res.status(200).json({result})
 
     }catch(er){
         console.log(er)
+        res.status(500).json({msg:error})
     }
 })
 
 
-    // Delete user:
+    // Delete user:  
     
 
-    // contact us route:
+    // contact route:
 
     router.post('/contact',async(req,res)=>{
         try {

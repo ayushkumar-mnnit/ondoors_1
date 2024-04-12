@@ -23,6 +23,17 @@ const userSchema=new mongoose.Schema({
         type:String,
         minlength:5,
         required:true
+    },
+    address:{
+        type:String,
+        minlength:10,
+        maxlength:30,
+        required:true
+    },
+    role:{
+        type:String,
+        required:true,
+        enum:['Client','Service Provider']
     }
 })
 

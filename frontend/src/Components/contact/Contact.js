@@ -5,6 +5,7 @@ import './cont.css'
 import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../jwt_Store/jwtStorage'
 
 
 export const Contact = () => {
@@ -14,6 +15,23 @@ export const Contact = () => {
         email:"",
         message:""
     })
+
+const [userData,setUserData]=useState(true)  // 'true' ensures prior name and email of user should present in contact form only for the first time form loading, and after that it sets to false.
+
+    const {user}=useAuth() 
+
+    if(userData && user)
+    {
+      setMsg({
+        name:user.name,
+        email:user.email,
+        message:""
+      })
+      setUserData(false)
+    }
+
+
+
 
     const handleChange=(e)=>{
         const {name,value}=e.target
