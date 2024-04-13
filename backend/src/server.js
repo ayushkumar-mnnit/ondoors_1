@@ -9,7 +9,6 @@ const connectDB = require('../db/conn')
 
 // handling cors policy:
 
- 
 const corsOptions = {
     origin: 'http://localhost:3000',
    methods:'GET,POST,PATCH,DELETE,HEAD',

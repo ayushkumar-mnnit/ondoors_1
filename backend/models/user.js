@@ -38,7 +38,7 @@ const userSchema=new mongoose.Schema({
 })
 
 
-// securing the password: hashing
+// securing the password: hashing  (a middleware)
 
 userSchema.pre('save',async function (next){   // note that here we are not using fat arrow function, otherwise 'this' can't be exploited
     
@@ -58,7 +58,7 @@ userSchema.pre('save',async function (next){   // note that here we are not usin
 })
 
 
-// creating and returning JWT:
+// creating and returning JWT:  (a middleware)
 
 userSchema.methods.createToken=async function (){
    try 
@@ -82,5 +82,3 @@ userSchema.methods.createToken=async function (){
 
 const User=new mongoose.model('User',userSchema)
 module.exports=User
-
-// there was another syntax for exporting, something like : export default

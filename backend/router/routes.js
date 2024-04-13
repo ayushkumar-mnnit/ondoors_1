@@ -4,7 +4,7 @@ const User=require('../models/user')
 const Contact=require('../models/contact')
 const Feedback=require('../models/feedback')
 const bcrypt=require('bcrypt')
-const jwt=require('jsonwebtoken')
+const authMiddleware = require('../middlewares/jwtAuth')
 
 
 router.get('/',(req,res)=>{
@@ -15,41 +15,30 @@ router.get('/',(req,res)=>{
 
 // API for registering a new user: Register route
 
-router.post('/register', async(req,res)=>{
-    try{
-       
-        const {name,email,password,address,role}=req.body
-        const existingUser=await User.findOne({email})
+router.post('/register', async (req, res) => {
+    try {
+        const { name, email, password, address, role } = req.body;
+        const existingUser = await User.findOne({ email });
 
-        // checking if a user exists already or not: This could have been done in schema also using validator and 'unique' property
+        if (existingUser) {
+            console.log('Email already exists');
+            return res.status(400).json({ msg: 'Email already exists' });
+        }
 
-        if(existingUser)
-        {
-            console.log('email already exists');
-            return res.status(400).json({msg:'email already exists'})  // here 'return' is imp else when this code is executed then due to asynch nature another response in line 37 gets send immediately (--> error will occur ) as for each http req. there must be only single response
-            
-        }  
-        // creating new user using .create() method, .save() method can also be used
+        const createUser = await User.create({ name, email, password, address, role });
+        const token = await createUser.createToken();
+        const userId = createUser._id.toString();
 
-        const createUser=await User.create({name,email,password,address,role})
-
-        var token=await createUser.createToken()
-        var userId= createUser._id.toString()
-      
-        res.status(200).json({msg:'Registered successfully',createUser,token,userId})
-        console.log('user registered successfully',createUser)
-
-    }catch(er){
-        res.status(500).json({msg:'internal server error'})
-        console.log(er)
+        res.status(200).json({ msg: 'Registered successfully', createUser, token, userId });
+        console.log('User registered successfully', createUser);
+    } catch (err) {
+        res.status(500).json({ msg: 'Internal server error' });
+        console.error(err);
     }
-   
-})
-
+});
 
 
     // API for an existing user: Login route
-
 
     router.post('/login',async(req,res)=>{
         try{
@@ -85,45 +74,10 @@ router.post('/register', async(req,res)=>{
     })
 
 
-
-
 // get existing user data:
-
-
-const authMiddleware = async (req, res, next) => {
-    try {
-        const token = req.header('Authorization');
-        console.log('Token:', token);
-
-        if (!token) return res.status(401).json({ msg: 'Token not provided' });
-
-        const jwtToken = token.replace('Bearer', '').trim();
-        console.log('JWT Token:', jwtToken);
-
-        const isVerified = jwt.verify(jwtToken, process.env.SECRET_KEY);
-        console.log('Decoded Token:', isVerified);
-
-        const data = await User.findOne({ email: isVerified.email }).select({ password: 0 });
-        console.log('User Data:', data);
-
-        if (!data) return res.status(401).json({ msg: 'User not found' });
-
-        req.user = data;
-        req.token = token;
-        req.Id = data._id;
-        next();
-    } catch (error) {
-        console.error('Error in authMiddleware:', error);
-        return res.status(401).json({ msg: 'Unauthorized user: invalid token' });
-    }
-};
-
-
 
 router.get('/user',authMiddleware,async(req,res)=>{
     try{
-        
-     
         const result=req.user
         res.status(200).json({result})
 
@@ -132,10 +86,6 @@ router.get('/user',authMiddleware,async(req,res)=>{
         res.status(500).json({msg:error})
     }
 })
-
-
-    // Delete user:  
-    
 
     // contact route:
 

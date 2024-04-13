@@ -27,7 +27,7 @@ const LogoutUser=()=>{
   return localStorage.removeItem('token')
 }
 
-// jWt authentication : get loggedin user data------------------------------------------------------
+// get loggedin user data--- this is similar to making request to /user route from frontend and , since we may need this user data at various places in our app so instead of making this request everywhere again and again , juts use here with contextAPI.
 
     const userAuthenticate=async()=>{
 
@@ -38,7 +38,6 @@ const LogoutUser=()=>{
           Authorization:`Bearer ${token}`
         }
       })
-
 
       if(result.ok)
       {
