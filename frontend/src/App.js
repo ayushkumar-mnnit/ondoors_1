@@ -14,6 +14,7 @@ import { Allusers } from './Components/admin/Allusers';
 import { AllContacts } from './Components/admin/AllContacts';
 import { AllFeedbacks } from './Components/admin/AllFeedbacks';
 import { Admin } from './Components/admin/Admin';
+import { EditPage } from './Components/admin/EditPage';
 
 export const App = () => {
   return (
@@ -38,6 +39,7 @@ export const App = () => {
 <Route path='allusers' element={<Allusers/>}></Route>
 <Route path='allcontacts' element={<AllContacts/>}></Route>
 <Route path='allfeedbacks' element={<AllFeedbacks/>}></Route>
+<Route path='allusers/:id/editpage' element={<EditPage/>}></Route>
 
 </Route>
 

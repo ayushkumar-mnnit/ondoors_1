@@ -192,6 +192,41 @@ router.delete('/admin/allfeedbacks/delete/:id',authMiddleware,async(req,res)=>{
 
 
 
+// update users:
+
+
+// first we'll create a route to get the id and data of the current user to fetch current user data so that we can update it later. This is not required with other methods of CRUD (except in new registration) but here needed becoz we need the previous data to update it 
+
+router.get('/admin/allusers/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const data=await User.findOne({_id:id},{password:0})
+        const result=await data
+        res.status(200).json({result})
+    } catch (error) {
+        res.status(400).json({msg:'error fetching user data'})
+    }
+})
+
+
+
+// now update the user as we done other CRUD operations 
+
+
+router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const updatedData=req.body
+        const result=await User.updateOne({_id:id},{$set:updatedData})
+
+        console.log('user updated successfully');
+
+        res.status(200).json({msg:'user updated successfully',result})
+
+    } catch (error) {
+        res.status(500).json({msg:'some error occured while deleting user'})
+    }
+})
 
 
 

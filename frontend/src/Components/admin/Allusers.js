@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './alluser.css';
 import { useAuth } from '../../jwt_Store/jwtStorage';
 import { MdEdit, MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 export const Allusers = () => {
     const [users, setUsers] = useState([]);
@@ -64,7 +65,7 @@ export const Allusers = () => {
                                 <td>{cur.email}</td>
                                 <td>{cur.role}</td>
                                 <td>{cur.isAdmin}</td>
-                                <td><MdEdit /></td>
+                                <td><Link to={`/admin/allusers/${cur._id}/editpage`}><MdEdit className='edibtn'/></Link></td>
                                 <td><MdDelete className='delbtn' onClick={() => deleteUser(cur._id)} /></td>
                             </tr>
                         ))}

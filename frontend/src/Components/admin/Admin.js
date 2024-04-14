@@ -37,7 +37,7 @@ export const Admin = () => {
             <li>
               <NavLink to="/admin">
                 <FaHome />
-                Home
+                Dashboard
               </NavLink>
             </li>
             <li>
