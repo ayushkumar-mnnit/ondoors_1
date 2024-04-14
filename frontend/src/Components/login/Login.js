@@ -55,7 +55,7 @@ const response=await result.json()
   StoreToken(response.token)
 
     setuser({email:"",password:""})
-    navigate('/profile')
+    navigate('/')
   }else{
     toast.error('invalid credentials')
   }

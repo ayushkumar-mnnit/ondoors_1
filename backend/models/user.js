@@ -34,7 +34,13 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         enum:['Client','Service Provider']
+    },
+
+    isAdmin:{
+        type:Boolean,
+        default:false
     }
+
 })
 
 

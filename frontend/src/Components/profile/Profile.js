@@ -1,41 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import './prof.css';
-import { toast } from 'react-toastify';
+import React from 'react'
+import './prof.css'
 
-const profImg = 'https://cdn-icons-png.flaticon.com/256/149/149071.png';
+const profImg = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
 
 export const Profile = () => {
-  const [prof, setProf] = useState({
-    name: '',
-    email: '',
-    address: '',
-    role: ''
-  });
-
+  
   const handleChange = (e) => {
    
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const result = await fetch(`http://localhost:5000/user`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(prof)
-      });
-
-      if (result.ok) {
-        toast.success('Profile updated successfully');
-      } else {
-        toast.error('Some error occurred while updating profile');
-      }
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      toast.error('An error occurred while updating profile');
-    }
+    e.preventDefault()
+   
   }
 
   return (
@@ -44,8 +20,8 @@ export const Profile = () => {
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
             <img className="rounded-circle mt-5" width="150px" src={profImg} alt="userImg" />
-            <span className="font-weight-bold">{prof.name}</span>
-            <span className="text-black-50">{prof.email}</span>
+            <span className="font-weight-bold">user</span>
+            <span className="text-black-50">email</span>
             <span> </span>
           </div>
         </div>
@@ -63,7 +39,7 @@ export const Profile = () => {
                   className="form-control"
                   placeholder="name"
                   name="name"
-                  value={prof.name}
+                  
                 />
               </div>
             </div>
@@ -76,7 +52,7 @@ export const Profile = () => {
                   className="form-control"
                   name="email"
                   placeholder="email id"
-                  value={prof.email}
+                 
                 />
               </div>
               <div className="col-md-12">
@@ -87,7 +63,7 @@ export const Profile = () => {
                   className="form-control"
                   name="address"
                   placeholder="address"
-                  value={prof.address}
+                
                 />
               </div>
               <div className="col-md-12">
@@ -98,7 +74,7 @@ export const Profile = () => {
                   className="form-control"
                   name="role"
                   placeholder="user or client"
-                  value={prof.role}
+                 
                 />
               </div>
             </div>
@@ -111,5 +87,5 @@ export const Profile = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

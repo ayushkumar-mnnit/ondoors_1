@@ -1,8 +1,10 @@
 
+import React from 'react'
 import './cards.css'
 
 
-function Cards(){
+
+export const Cards=()=>{
     return (
         <>
             
@@ -83,6 +85,5 @@ function Cards(){
     )
 }
 
-export default Cards;
 
 

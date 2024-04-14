@@ -9,6 +9,11 @@ import { Reg } from './Components/reg/Reg';
 import { Contact } from './Components/contact/Contact';
 import { Logout } from './Components/logout/Logout';
 import { About } from './Components/about/About';
+import { Service } from './Components/services_/Service';
+import { Allusers } from './Components/admin/Allusers';
+import { AllContacts } from './Components/admin/AllContacts';
+import { AllFeedbacks } from './Components/admin/AllFeedbacks';
+import { Admin } from './Components/admin/Admin';
 
 export const App = () => {
   return (
@@ -24,9 +29,19 @@ export const App = () => {
 <Route path='contact' element={<Contact/>} ></Route>
 <Route path='logout' element={<Logout/>} ></Route>
 <Route path='about' element={<About/>} ></Route>
+<Route path='/service' element={<Service/>}></Route>
 
+{/* nested routes for admin panel */}
 
+<Route path='/admin' element={<Admin/>}>
 
+<Route path='allusers' element={<Allusers/>}></Route>
+<Route path='allcontacts' element={<AllContacts/>}></Route>
+<Route path='allfeedbacks' element={<AllFeedbacks/>}></Route>
+
+</Route>
+
+  
 
 </Routes>
     </Router>

@@ -17,7 +17,7 @@ router.get('/',(req,res)=>{
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, address, role } = req.body;
+        const { name, email, password, address, role,isAdmin } = req.body;
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ msg: 'Email already exists' });
         }
 
-        const createUser = await User.create({ name, email, password, address, role });
+        const createUser = await User.create({ name, email, password, address, role,isAdmin });
         const token = await createUser.createToken();
         const userId = createUser._id.toString();
 
@@ -74,7 +74,7 @@ router.post('/register', async (req, res) => {
     })
 
 
-// get existing user data:
+// get existing user data: (individual user)
 
 router.get('/user',authMiddleware,async(req,res)=>{
     try{
@@ -86,6 +86,117 @@ router.get('/user',authMiddleware,async(req,res)=>{
         res.status(500).json({msg:error})
     }
 })
+
+
+// -------------------------Admin routes-----------------------------
+
+// get all registered users : 
+
+router.get('/admin/allusers',authMiddleware,async(req,res)=>{
+    try{
+        const result=await User.find({},{password:0})
+        if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
+        console.log(result);
+        res.status(200).json({result})
+
+    }catch(er){
+        console.log(er)
+        res.status(500).json({msg:error})
+    }
+})
+
+// get all contacts: 
+
+router.get('/admin/allcontacts',authMiddleware,async(req,res)=>{
+    try{
+        const result=await Contact.find({})
+        if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
+        console.log(result);
+        res.status(200).json({result})
+
+    }catch(er){
+        console.log(er)
+        res.status(500).json({msg:error})
+    }
+})
+
+// get all feedbacks: 
+
+
+router.get('/admin/allfeedbacks',authMiddleware,async(req,res)=>{
+    try{
+        const result=await Feedback.find({})
+        if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
+        console.log(result);
+        res.status(200).json({result})
+
+    }catch(er){
+        console.log(er)
+        res.status(500).json({msg:error})
+    }
+})
+
+
+
+// delete users:
+
+router.delete('/admin/allusers/delete/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const result=await User.deleteOne({_id:id})
+
+        console.log('user deleted successfully');
+
+        res.status(200).json({msg:'user deleted successfully',result})
+
+    } catch (error) {
+        res.status(500).json({msg:'some error occured while deleting user'})
+    }
+})
+
+
+
+// delete contacts:
+
+router.delete('/admin/allcontacts/delete/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const result=await Contact.deleteOne({_id:id})
+
+        console.log('user deleted successfully');
+
+        res.status(200).json({msg:'user deleted successfully',result})
+
+    } catch (error) {
+        res.status(500).json({msg:'some error occured while deleting user'})
+    }
+})
+
+
+
+// delete feedbacks:
+
+router.delete('/admin/allfeedbacks/delete/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const result=await Feedback.deleteOne({_id:id})
+
+        console.log('user deleted successfully');
+
+        res.status(200).json({msg:'user deleted successfully',result})
+
+    } catch (error) {
+        res.status(500).json({msg:'some error occured while deleting user'})
+    }
+})
+
+
+
+
+
+
+// -------------------------------------------------------------------------------
+
 
     // contact route:
 
