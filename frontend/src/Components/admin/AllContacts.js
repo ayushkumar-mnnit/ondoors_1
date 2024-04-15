@@ -4,12 +4,11 @@ import { useAuth } from '../../jwt_Store/jwtStorage'
 import { MdEdit,MdDelete } from "react-icons/md";
 
 
-
-
 export const AllContacts = () => {
 
     const [users, setUsers] = useState([])
     const { authToken } = useAuth()
+ 
 
     const getAllusers = async () => {
 
@@ -47,6 +46,7 @@ export const AllContacts = () => {
             });
             if (result.ok) {
                 getAllusers() // Refresh the users list after deletion
+               
             }
         } catch (error) {
             console.log('Error deleting user:', error);

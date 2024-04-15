@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from 'react'
 import './edit.css'
 import { useAuth } from '../../jwt_Store/jwtStorage'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 
@@ -10,7 +10,8 @@ import { toast } from 'react-toastify'
 export const EditPage = () => {
 
     const [loading,setLoading]=useState(true);
-    
+    const navigate = useNavigate(); // Initialize useNavigate
+
   const [user, setUser] = useState({
     name:"",
     email:"",
@@ -74,7 +75,7 @@ const {authToken}=useAuth()
                 role:""
               })
             
-              return <Navigate to='/admin/allusers'/>
+              navigate('/admin/allusers'); 
 
         }else{
             toast.error('updation failed')
