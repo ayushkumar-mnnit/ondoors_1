@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import './edit.css'
+import './editAdmin.css'
 import { useAuth } from '../../jwt_Store/jwtStorage'
 import { Navigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -7,16 +7,11 @@ import { toast } from 'react-toastify'
 
 
 
-export const EditPage = () => {
+export const EditAdmin = () => {
 
     const [loading,setLoading]=useState(true);
     
-  const [user, setUser] = useState({
-    name:"",
-    email:"",
-    address:"",
-    role:""
-  })
+  const [user, setUser] = useState({isAdmin:false})
 
 
 const params=useParams()
@@ -40,7 +35,7 @@ const {authToken}=useAuth()
         }
     
     } catch (error) {
-        console.log('Error deleting user:', error)
+        console.log('Error updating user:', error)
     }
 }
 
@@ -67,12 +62,7 @@ const {authToken}=useAuth()
 
         if(result.ok){
             toast.success('updated');
-            setUser({
-                name:"",
-                email:"",
-                address:"",
-                role:""
-              })
+            setUser({isAdmin:""})
             
               return <Navigate to='/admin/allusers'/>
 
@@ -104,19 +94,13 @@ const {authToken}=useAuth()
 
       <div className='regform'>
         <form onSubmit={handleSubmit}>
-          <label className='lab'>Name</label>
-          <input type="text" className='name' placeholder='Enter your name' name='name'onChange={handleChange} value={user.name}  required />
-          <label className='lab'>Email</label>
-          <input type="email" className='email' placeholder='Enter your email' name='email'onChange={handleChange} value={user.email}  required />
-          
-          <label className='lab'>Address</label>
-          <input type="text" className='address' placeholder='Enter your address' name='address'onChange={handleChange} value={user.address}  required />
-          <div className='check'>
-            <label className='lab2'>Service provider</label>
-            <input type="radio" name="role" id="sp"onChange={handleChange} value='Service Provider'  checked={user.role === 'Service Provider'} required />
+         <div>
+         <h4> Change admin role?</h4>
+            <label className='lab2'>Make admin</label>
+            <input type="radio" name="isAdmin" id="sp"onChange={handleChange} value={true}  checked={user.isAdmin === true} required />
             <br/>
-            <label className='lab1'>Client</label>
-            <input type="radio" name="role" id="clt"onChange={handleChange} value='Client' checked={user.role === 'Client'} required />
+            <label className='lab1'>Remove admin</label>
+            <input type="radio" name="isAdmin" id="clt"onChange={handleChange} value={false} checked={user.isAdmin === false} required />
           </div>
 
           <button className='btn'>Save Changes</button>
