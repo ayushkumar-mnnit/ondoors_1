@@ -1,48 +1,60 @@
-
-
-.form-control:focus {
-    box-shadow: none;
-    border-color: #BA68C8
-}
-
-.profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
-}
-
-.profile-button:hover {
-    background: #682773
-}
-
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
-}
-
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
-}
-
-.back:hover {
-    color: #682773;
-    cursor: pointer
-}
-
-.labels {
-    font-size: 11px
-}
-
-.add-experience:hover {
-    background: #BA68C8;
-    color: #fff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
-}
-
-.rounded{
-
-    border: 2px solid;
-    box-shadow: 1px 3px 15px 4px mediumpurple;
-}
+/* Profile page styling */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .profile {
+    background-color: #ffffff;
+    padding: 60px; /* Increased padding for larger box size */
+    border-radius: 20px; /* Increased border radius */
+    box-shadow: 2px 2px 15px 8px #1c0532e8;
+    max-width: 800px; /* Increased max-width for larger box */
+    width: 100%;
+    position: relative; /* Ensure positioning of the icon container */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #333333;
+  }
+  
+  .profile-info {
+    margin-top: 20px; /* Increased margin-top for spacing */
+    flex-grow: 1; /* Allow profile info to expand to fill remaining space */
+  }
+  
+  .field {
+    margin-bottom: 30px; /* Increased margin-bottom for spacing */
+  }
+  
+  .field label {
+    font-weight: bold;
+    color: #555555;
+  }
+  
+  .field span {
+    display: block;
+    margin-top: 10px; /* Increased margin-top for spacing */
+    color: #777777;
+  }
+  
+  
+  
+  .edit-icon {
+    display: flex;
+    justify-content: space-between; /* Add space between icons */
+  }
+  
+  .edit-icon > * {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  .proHome{
+    color: black;
+    
+  }

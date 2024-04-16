@@ -15,7 +15,7 @@ export const Home = () => {
         <Navbar logo=<img src={logo} alt='ondoors' width={100} height={50}/> 
         
        home='Home' services='Services' contact='Contact us' about='About us'
-        login='Login' signup='Signup' profile='Profile' logout='Logout'  />
+        login='Login' signup='Signup' profile='Profile' admin='Admin' logout='Logout'  />
         
         <Cards/>
         <Footer/>

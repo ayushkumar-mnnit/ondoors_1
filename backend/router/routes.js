@@ -79,6 +79,7 @@ router.post('/register', async (req, res) => {
 router.get('/user',authMiddleware,async(req,res)=>{
     try{
         const result=req.user
+        // const userId=req.Id
         res.status(200).json({result})
 
     }catch(er){
@@ -86,6 +87,25 @@ router.get('/user',authMiddleware,async(req,res)=>{
         res.status(500).json({msg:error})
     }
 })
+
+
+// update profile
+
+router.patch('/profile/update/:id',authMiddleware,async(req,res)=>{
+    try {
+        const id=req.params.id
+        const updatedData=req.body
+        const result=await User.updateOne({_id:id},{$set:updatedData})
+
+        console.log('updated successfully');
+
+        res.status(200).json({msg:'updated successfully',result})
+
+    } catch (error) {
+        res.status(500).json({msg:"error updating.."})
+    }
+})
+
 
 
 // -------------------------Admin routes-----------------------------

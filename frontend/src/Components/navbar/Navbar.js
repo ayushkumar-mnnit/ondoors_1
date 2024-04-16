@@ -3,10 +3,12 @@ import React from 'react'
 import './Nav.css'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../jwt_Store/jwtStorage'
+import { MdVerifiedUser } from "react-icons/md";
+
 
 export const Navbar = (props) => {
 
-  const {isLoggedIn}=useAuth()
+  const {isLoggedIn,user}=useAuth()
 
   return (
     <>
@@ -40,10 +42,17 @@ export const Navbar = (props) => {
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/service">{props.services}</Link>
         </li>
-
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/profile">{props.profile}</Link>
         </li>
+        
+
+        {user.isAdmin?
+        <li className="nav-item">
+          <Link className="nav-link active" aria-current="page" to="/admin"><MdVerifiedUser className='adm'/>{props.admin}</Link>
+        </li>:void 0
+        }
+
 
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/logout">{props.logout}</Link>
