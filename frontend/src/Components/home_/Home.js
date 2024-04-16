@@ -6,6 +6,7 @@ import Footer from '../footer/Footer'
 
 
 
+
 export const Home = () => {
 
 

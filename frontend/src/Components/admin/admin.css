@@ -1,48 +1,60 @@
 /* admin.css */
 
 .admin-container {
-    display: flex;
-  }
-  
-  .nav {
-    width: 250px;
-    position: fixed;
-    top: 50%;
-    left: 0; /* Position the navbar on the left */
-    transform: translateY(-50%);
-    height: 100%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column; /* Ensure list items are stacked vertically */
-    justify-content: center; /* Center the list items vertically */
-  }
-  
-  .nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .nav ul li {
-    margin-bottom: 20px; /* Increase vertical separation */
-    margin-left: 10px; /* Shift all list items slightly to the right */
-  }
-  
-  .nav ul li a {
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-  }
-  
-  .nav ul li a svg {
-    margin-right: 12px;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    overflow-y: auto;
-  }
-  
+  display: flex;
+}
+
+.nav {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex; /* Add this line to make the items horizontal */
+  flex-direction: column; /* Add this line to keep the items stacked */
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav ul li {
+  margin: 0;
+  padding: 10px 20px;
+  width: 100%;
+  display: flex; /* Add this line to make the items horizontal */
+  align-items: center; /* Add this line to vertically center the items */
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.nav ul li a svg {
+  margin-right: 12px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  overflow-y: auto;
+}
+
+h1 {
+  color: navy;
+  font-family: monospace;
+  text-align: center;
+}
+
+#admuser {
+  color: green;
+  font-family: 'Times New Roman', Times, serif;
+}

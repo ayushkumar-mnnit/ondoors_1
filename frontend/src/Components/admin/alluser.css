@@ -1,40 +1,57 @@
+/* alluser.css */
+
 .users-data {
-    margin-top: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow-x: auto;
+  background-color: #fff; /* Add light background color */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.edibtn, .delbtn, .adm {
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.edibtn:hover, .delbtn:hover, .adm:hover {
+  color: #007bff;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
   }
-  
-  .users-data table {
-    width: 100%;
-    border-collapse: collapse;
+  table thead {
+    display: none;
   }
-  
-  .users-data th,
-  .users-data td {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .users-data th {
-    background-color: #f2f2f2;
+  table tr {
+    margin-bottom: 10px;
+    display: block;
     border-bottom: 2px solid #ddd;
   }
-  
-  .users-data td {
-    border-bottom: 1px solid #ddd;
+  table td {
+    display: block;
+    text-align: right;
+    border-bottom: none;
   }
-  
-  .users-data tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .users-data tr:hover {
-    background-color: #ddd;
-  }
-  
-  .delbtn:hover{
-    cursor: pointer;
-    color: red;
-  }
-
-  .adm{
-    color: rgb(26, 164, 1);
-  }
+}

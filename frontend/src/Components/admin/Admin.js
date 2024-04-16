@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './admin.css';
 import { NavLink, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../jwt_Store/jwtStorage';
@@ -9,12 +9,10 @@ import { FaCircleUser } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 
-
-
-
-
 export const Admin = () => {
+ 
   const { user, loading } = useAuth();
+
 
   if (loading) {
     return <h1>Access denied !! You are not Admin</h1>
@@ -25,9 +23,9 @@ export const Admin = () => {
   }
 
   return (
-    <>
+     <>
+      <h1 className='wlm'>Welcome ! <span id='admuser'>{user.name}</span> , to Admin Dashboard </h1>
       
-
       <div className="admin-container">
         <div className="nav">
           <ul>
@@ -72,10 +70,6 @@ export const Admin = () => {
         <div className="content">
           <Outlet />
         </div>
-      </div>
-      
-      <div className="homepage-content">
-        
       </div>
     </>
   );

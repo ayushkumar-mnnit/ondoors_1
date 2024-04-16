@@ -68,14 +68,16 @@ export const Navbar = (props) => {
           <Link className="nav-link active" aria-current="page" to="/signup">{props.signup}</Link>
         </li>
         </>
-
         }
           </ul>
-   
     </div>
   </div>
 </nav>
     </>
   )
 }
+
+
+
+
 
