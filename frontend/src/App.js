@@ -17,6 +17,7 @@ import { Admin } from './Components/admin/Admin';
 import { EditPage } from './Components/admin/EditPage';
 import { EditAdmin } from './Components/admin/EditAdmin';
 import { EditProfile } from './Components/profile/EditProfile';
+import { ServiceForm } from './Components/services_/ServiceForm';
 
 export const App = () => {
   return (
@@ -35,6 +36,7 @@ export const App = () => {
           <Route path='service' element={<Service />}></Route>
           <Route path='editprofile/:id' element={<EditProfile />}></Route>
           <Route path='profile' element={<Profile />}></Route>
+          <Route path='serviceform' element={<ServiceForm />}></Route>
 
           {/* nested routes for admin panel */}
 

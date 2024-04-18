@@ -33,9 +33,7 @@ tbody tr:hover {
   transition: color 0.3s;
 }
 
-.edibtn:hover, .delbtn:hover, .adm:hover {
-  color: #007bff;
-}
+
 
 @media screen and (max-width: 600px) {
   table {
@@ -54,4 +52,8 @@ tbody tr:hover {
     text-align: right;
     border-bottom: none;
   }
+}
+
+.adm{
+  color: rgb(12, 193, 12);
 }

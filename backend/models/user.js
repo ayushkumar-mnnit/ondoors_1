@@ -40,6 +40,9 @@ const userSchema=new mongoose.Schema({
         type:Boolean,
         default:false,
         enum:[true,false]
+    },
+    serviceType: {
+        type: String 
     }
 
 })

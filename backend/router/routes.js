@@ -5,6 +5,7 @@ const Contact=require('../models/contact')
 const Feedback=require('../models/feedback')
 const bcrypt=require('bcrypt')
 const authMiddleware = require('../middlewares/jwtAuth')
+const Service = require('../models/services')
 
 
 router.get('/',(req,res)=>{
@@ -12,12 +13,11 @@ router.get('/',(req,res)=>{
 })
 
 
-
 // API for registering a new user: Register route
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, address, role,isAdmin } = req.body;
+        const { name, email, password, address, role, isAdmin, serviceType } = req.body;
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
@@ -25,7 +25,13 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ msg: 'Email already exists' });
         }
 
-        const createUser = await User.create({ name, email, password, address, role,isAdmin });
+        let createUser;
+        if (role === 'Service Provider') {
+            createUser = await User.create({ name, email, password, address, role, isAdmin, serviceType });
+        } else {
+            createUser = await User.create({ name, email, password, address, role, isAdmin });
+        }
+
         const token = await createUser.createToken();
         const userId = createUser._id.toString();
 
@@ -38,6 +44,7 @@ router.post('/register', async (req, res) => {
 });
 
 
+
     // API for an existing user: Login route
 
     router.post('/login',async(req,res)=>{
@@ -48,7 +55,7 @@ router.post('/register', async (req, res) => {
     
             if(!existUser)
             {
-                console.log('invalid credentials');  
+                console.log('invalid credentials')  
                 return res.status(400).json({msg:'invalid credentials'})
             }  
 
@@ -69,7 +76,7 @@ router.post('/register', async (req, res) => {
 
         }catch(er){
             res.status(500).json({msg:'internal server error'})
-            console.log(er);
+            console.log(er)
         }
     })
 
@@ -97,7 +104,7 @@ router.patch('/profile/update/:id',authMiddleware,async(req,res)=>{
         const updatedData=req.body
         const result=await User.updateOne({_id:id},{$set:updatedData})
 
-        console.log('updated successfully');
+        console.log('updated successfully')
 
         res.status(200).json({msg:'updated successfully',result})
 
@@ -116,7 +123,7 @@ router.get('/admin/allusers',authMiddleware,async(req,res)=>{
     try{
         const result=await User.find({},{password:0})
         if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
-        console.log(result);
+        console.log(result)
         res.status(200).json({result})
 
     }catch(er){
@@ -131,7 +138,7 @@ router.get('/admin/allcontacts',authMiddleware,async(req,res)=>{
     try{
         const result=await Contact.find({})
         if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
-        console.log(result);
+        console.log(result)
         res.status(200).json({result})
 
     }catch(er){
@@ -147,7 +154,7 @@ router.get('/admin/allfeedbacks',authMiddleware,async(req,res)=>{
     try{
         const result=await Feedback.find({})
         if(!result || result.length===0) res.status(400).json({msg:'no data exists'})
-        console.log(result);
+        console.log(result)
         res.status(200).json({result})
 
     }catch(er){
@@ -165,7 +172,7 @@ router.delete('/admin/allusers/delete/:id',authMiddleware,async(req,res)=>{
         const id=req.params.id
         const result=await User.deleteOne({_id:id})
 
-        console.log('user deleted successfully');
+        console.log('user deleted successfully')
 
         res.status(200).json({msg:'user deleted successfully',result})
 
@@ -183,7 +190,7 @@ router.delete('/admin/allcontacts/delete/:id',authMiddleware,async(req,res)=>{
         const id=req.params.id
         const result=await Contact.deleteOne({_id:id})
 
-        console.log('user deleted successfully');
+        console.log('user deleted successfully')
 
         res.status(200).json({msg:'user deleted successfully',result})
 
@@ -201,7 +208,7 @@ router.delete('/admin/allfeedbacks/delete/:id',authMiddleware,async(req,res)=>{
         const id=req.params.id
         const result=await Feedback.deleteOne({_id:id})
 
-        console.log('user deleted successfully');
+        console.log('user deleted successfully')
 
         res.status(200).json({msg:'user deleted successfully',result})
 
@@ -239,7 +246,7 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
         const updatedData=req.body
         const result=await User.updateOne({_id:id},{$set:updatedData})
 
-        console.log('user updated successfully');
+        console.log('user updated successfully')
 
         res.status(200).json({msg:'user updated successfully',result})
 
@@ -247,7 +254,6 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
         res.status(500).json({msg:'some error occured while deleting user'})
     }
 })
-
 
 
 // -------------------------------------------------------------------------------
@@ -276,10 +282,10 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
 
             const msgSent=await Contact.create({name,email,message})
             res.status(200).json({msg:'message sent successfully',msgSent})
-            console.log(msgSent);
+            console.log(msgSent)
             
         } catch (error) {
-            console.log(error);
+            console.log(error)
             res.status(500).json({msg:'server error'})
         }
     })
@@ -299,6 +305,67 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
         }
     })
 
+
+
+
+//  router.post('/serviceformdata',async(req,res)=>{
+//     try {
+//         const {name,email,address}=req.body
+//         res.status(200).json({msg:{name,email,address}})
+//     } catch (error) {
+//         res.status(500).json({msg:error.message})
+//     }
+//  })
+
+
+
+    
+// ------------------------Card routes------------
+    
+    // creating new service route:
+
+    router.post('/newcard',async(req,res)=>{
+        try {
+            const {title,description}=req.body
+            const alreadyPresent=await Service.findOne({title})
+            if(alreadyPresent){
+                res.status(400).json({msg:'already present'})
+            }
+            const createOne=await Service.create({title,description})
+            res.status(200).json({msg:'created successfully',createOne})
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+    // delete card:
+
+    router.delete('/newcard/delete/:id',async(req,res)=>{
+        try {
+            
+            const id=req.params.id
+            const result=await Service.deleteOne({_id:id})
+            res.status(200).json({msg:'card deleted successfully',result})
+
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+
+    // get card data:
+
+    router.get('/newcard/getcard',async(req,res)=>{
+        try {
+            const cardData=await Service.find({})
+            res.status(200).json({msg:'card data',cardData})
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+
+    // --------------------------------------------------------------
 
     module.exports=router
 

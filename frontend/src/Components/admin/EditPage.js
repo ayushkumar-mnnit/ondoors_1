@@ -1,127 +1,112 @@
-import React, { useState ,useEffect} from 'react'
-import './edit.css'
-import { useAuth } from '../../jwt_Store/jwtStorage'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
-
-
-
+import React, { useState, useEffect } from 'react';
+import './edit.css';
+import { useAuth } from '../../jwt_Store/jwtStorage';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const EditPage = () => {
-
-    const [loading,setLoading]=useState(true);
-    const navigate = useNavigate(); // Initialize useNavigate
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [user, setUser] = useState({
-    name:"",
-    email:"",
-    address:"",
-    role:""
-  })
+    name: "",
+    email: "",
+    address: "",
+    role: ""
+  });
 
+  const params = useParams();
+  const { authToken } = useAuth();
 
-const params=useParams()
-const {authToken}=useAuth()
-
-
-  const getUserbyId = async () => {
+  const getUserById = async () => {
     try {
-        
-        const result = await fetch(`http://localhost:5000/admin/allusers/${params.id}`, {
-            method: 'GET',
-            headers: {
-                Authorization: authToken
-            }
-        })
-        
-        const data=await result.json()
-        setUser(data.result)
-        if(data){
-            setLoading(false);
+      const result = await fetch(`http://localhost:5000/admin/allusers/${params.id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: authToken
         }
-    
+      });
+
+      const data = await result.json();
+      setUser(data.result);
+      if (data) {
+        setLoading(false);
+      }
+
     } catch (error) {
-        console.log('Error deleting user:', error)
+      console.log('Error fetching user:', error);
     }
-}
+  };
 
+  useEffect(() => {
+    getUserById();
+  }, [loading]);
 
-  useEffect(()=>{
-    getUserbyId()
-  },[loading])
+  console.log('my user', user);
 
-  console.log('my user',user)
-
-
-  const handleSubmit=async(e)=>{
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
-        const result = await fetch(`http://localhost:5000/admin/allusers/update/${params.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type':'application/json',
-                Authorization: authToken
-            },
-            body:JSON.stringify(user)
-        })
+      const result = await fetch(`http://localhost:5000/admin/allusers/update/${params.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: authToken
+        },
+        body: JSON.stringify(user)
+      });
 
-        if(result.ok){
-            toast.success('updated');
-            setUser({
-                name:"",
-                email:"",
-                address:"",
-                role:""
-              })
-            
-              navigate('/admin/allusers'); 
-
-        }else{
-            toast.error('updation failed')
-        }
-        
+      if (result.ok) {
+        toast.success('Updated');
+        navigate('/admin/allusers');
+      } else {
+        toast.error('Update failed');
+      }
     } catch (error) {
-        console.log('Error updating user:', error);
+      console.log('Error updating user:', error);
     }
+  };
 
-  }
+  const handleChange = async (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
-  const handleChange=async(e)=>{
-    const {name,value}=e.target
-    setUser({...user,[name]:value})
-  }
-
-
-  if(loading)return <>loading...</>
-
+  if (loading) return <>Loading...</>;
 
   return (
-
-
     <>
-      
-
-      <div className='regform'>
-        <form onSubmit={handleSubmit}>
-          <label className='lab'>Name</label>
-          <input type="text" className='name' placeholder='Enter your name' name='name'onChange={handleChange} value={user.name}  required />
-          <label className='lab'>Email</label>
-          <input type="email" className='email' placeholder='Enter your email' name='email'onChange={handleChange} value={user.email}  required />
-          
-          <label className='lab'>Address</label>
-          <input type="text" className='address' placeholder='Enter your address' name='address'onChange={handleChange} value={user.address}  required />
-          <div className='check'>
-            <label className='lab2'>Service provider</label>
-            <input type="radio" name="role" id="sp"onChange={handleChange} value='Service Provider'  checked={user.role === 'Service Provider'} required />
-            <br/>
-            <label className='lab1'>Client</label>
-            <input type="radio" name="role" id="clt"onChange={handleChange} value='Client' checked={user.role === 'Client'} required />
+      <div className='profile-container'>
+        <div className='profile'>
+          <div className='profile-info'>
+            <form onSubmit={handleSubmit}>
+              <div className='field'>
+                <label className='lab'>Name</label>
+                <input type="text" className='name-input' placeholder='Enter your name' name='name' onChange={handleChange} value={user.name} required />
+              </div>
+              <div className='field'>
+                <label className='lab'>Email</label>
+                <input type="email" className='email-input' placeholder='Enter your email' name='email' onChange={handleChange} value={user.email} required />
+              </div>
+              <div className='field'>
+                <label className='lab'>Address</label>
+                <input type="text" className='address-input' placeholder='Enter your address' name='address' onChange={handleChange} value={user.address} required />
+              </div>
+              <div className='check'>
+                <label className='lab2'>Service provider</label>
+                <input type="radio" name="role" id="sp" onChange={handleChange} value='Service Provider' checked={user.role === 'Service Provider'} required />
+                <br />
+                <label className='lab1'>Client</label>
+                <input type="radio" name="role" id="clt" onChange={handleChange} value='Client' checked={user.role === 'Client'} required />
+              </div>
+              <div className='field'>
+                <button className='btn-rlog'>Save Changes</button>
+              </div>
+            </form>
           </div>
-
-          <button className='btn'>Save Changes</button>
-        </form>
+        </div>
       </div>
     </>
-  )
-}
+  );
+};

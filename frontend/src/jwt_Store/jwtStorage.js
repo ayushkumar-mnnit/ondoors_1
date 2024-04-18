@@ -46,7 +46,7 @@ const LogoutUser=()=>{
       if(result.ok)
       {
         const data=await result.json()
-        console.log('this is logged user:----',data.result);
+       
         setUser(data.result)
         setLoading(false)
       }
