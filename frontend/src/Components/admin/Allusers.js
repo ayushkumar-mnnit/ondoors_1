@@ -67,6 +67,7 @@ export const Allusers = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>User Role</th>
+                            <th>Service type </th>
                             <th>Admin role</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -79,6 +80,7 @@ export const Allusers = () => {
                                 <td>{cur.name}</td>
                                 <td>{cur.email}</td>
                                 <td>{cur.role}</td>
+                                <td>{cur.serviceType}</td>
                                 <td>
                                 <Link to={`/admin/allusers/${cur._id}/editadminpage`}>
                                 {cur.isAdmin==true?<MdVerifiedUser className='adm' />:<FaUserLargeSlash />}</Link>

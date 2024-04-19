@@ -12,12 +12,13 @@ import { toast } from 'react-toastify';
 export const EditProfile = () => {
     
     const navigate=useNavigate()
-    const { user,authToken} = useAuth();
+    const { user,authToken,card} = useAuth();
     const params=useParams()
     const [data, setData] = useState({
         name: '',
         address: '',
-        role: ''
+        role: '',
+        serviceType:''
     });
 
     // Initialize state once user data is available
@@ -93,8 +94,19 @@ export const EditProfile = () => {
                                 <label htmlFor="edit-role-provider">Service Provider</label>
                             </div>
                         </div>
+                        {data.role === 'Service Provider' && (
+                <div className='field'>
+                  <label htmlFor='serviceType'>Service Type:</label>
+                  <select id='serviceType' name='serviceType' value={data.serviceType} onChange={handleChange} required>
+                    <option value=''>Select Service Type</option> {/* Add a default option */}
+                    {card.map((cur,index)=>{
+                      return <option key={index} value={cur.title}>{cur.title}</option> 
+                    })}
+                  </select>
+                </div>
+              )}
                     </div>
-                    <button className='btn' type="submit"><MdPublishedWithChanges size={20} /></button>
+                    <button className='btn-rlog' type="submit"><MdPublishedWithChanges size={20} /></button>
                 </form>
 
             </div>

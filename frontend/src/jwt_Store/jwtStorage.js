@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) => {
   const [token,setToken]=useState(localStorage.getItem('token'))
   
   const [user,setUser]=useState("")
+  const [card,setCard]=useState("")
   
   const [loading,setLoading]=useState(true)
   
@@ -61,9 +62,40 @@ const LogoutUser=()=>{
       userAuthenticate()
     },[])
 
+
+// same for cards:
+
+const serviceCards=async()=>{
+
+  try {
+
+    setLoading(true)
+    const result=await fetch('http://localhost:5000/newcard/getcard',{
+    method:'GET'
+  })
+
+  if(result.ok)
+  {
+    const data=await result.json()
+   
+    setCard(data.cardData)
+    setLoading(false)
+  }
+
+  } catch (error) {
+    console.log('error fetching card data');
+  }
+  
+}
+
+useEffect(()=>{
+  serviceCards()
+},[])
+
+
 // ---------------------------------------------------------------------
 
-  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken}}>
+  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken,card}}>
         {children}
     </AuthContext.Provider> 
   

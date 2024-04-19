@@ -26,8 +26,8 @@ const userSchema=new mongoose.Schema({
     },
     address:{
         type:String,
-        minlength:10,
-        maxlength:30,
+        minlength:15,
+        maxlength:50,
         required:true
     },
     role:{

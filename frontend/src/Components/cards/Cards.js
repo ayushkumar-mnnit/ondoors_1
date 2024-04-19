@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './cards.css'
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
+import cardimg from '../../images/card-img.jpg'
 
-
-export const Cards = () => { 
+export const Cards = () => {
   const [card, setCard] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -27,27 +27,26 @@ export const Cards = () => {
   useEffect(() => {
     getCard()
   }, [loading])
-  
 
   if (loading) return <h6>loading...</h6>
 
   return (
+    <>
 
-    card.map((cur, index) => {
-      return (
-        <Link to='/serviceform'style={{ textDecoration: 'none', color: 'inherit' }}>
-        <div key={index} className="cards-container">
-          <div className="card">
-            <div  className="card-body">
-              <h5 className="card-title">{cur.title}</h5>
-              <p className="card-text">{cur.description}</p>
-             
+
+      <div className="custom-container">
+        {card.map((cur, ind) => (
+          <div key={ind} className="custom-card">
+            <img className="custom-card-img-top" src={cardimg} alt="Car" />
+            <div className="custom-card-body">
+              <h5 className="custom-card-title">{cur.title}</h5>
+              <p className="custom-card-description">{cur.description}</p> {/* Add description below the title */}
             </div>
-
           </div>
-        </div>
-        </Link>
-      )
-    })
+        ))}
+      </div>
+      <Link to='/serviceform'>
+        <button className='expl'>Get Started</button></Link>
+    </>
   )
 }

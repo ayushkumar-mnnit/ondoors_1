@@ -1,37 +1,81 @@
-.cards-container {
+.custom-container {
+  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px; /* Add space from the top */
+  justify-content: center;
 }
 
-.card {
-  width: calc(25% - 10px); /* Adjust width to fit four cards in a row */
-  margin-bottom: 20px; /* Add space between rows */
-  border: 1px solid #ccc; /* Add border for better separation */
-  border-radius: 8px; /* Rounded corners */
+.custom-card {
+  box-shadow: 3px 3px 6px 5px grey;
+  border-radius: 8px;
+  width: calc(30% - 40px); /* Adjust card width */
+  margin: 0 20px 20px 20px; /* Add equal margin from left and right */
+  background-color: #fff;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 20px; /* Add padding for content */
+.custom-card-img-top {
+  width: 100%;
+  height: 200px; /* Increase card height */
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
-.card-title {
-  font-size: 1.25rem;
+.custom-card-body {
+  padding: 20px;
 }
 
-.card-text {
-  margin-bottom: 20px; /* Add space below text */
+.custom-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.explore{
-  position: absolute;
-  left: 50%;
-  top:80%;
-  translate:transform(-50%,-50%);
-  color: rgb(71, 229, 71);
+.custom-card-description {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#veh {
+  text-align: center;
+  margin-top: 5%;
+  font-family: monospace;
+  color: navy;
+}
+
+/* Media query for smaller devices */
+@media (max-width: 768px) {
+  .custom-card {
+      width: calc(50% - 40px); /* Adjust card width for smaller devices */
+  }
+}
+
+/* Media query for extra small devices */
+@media (max-width: 576px) {
+  .custom-card {
+      width: calc(100% - 40px); /* Adjust card width for extra small devices */
+  }
+}
+
+.expl {
+  position: relative; /* Change position to absolute */
+  bottom: 20px; /* Adjust bottom distance */
+  left: 50%; /* Place the button in the center */
+  transform: translateX(-50%); /* Translate the button to the left by half its width */
+  border: 1px solid green;
+  border-radius: 12px;
+  font-size: xx-large;
+  text-align: center;
+  margin-top: 5%; /* Adjust top margin */
+  margin-bottom: 5%;
+  box-shadow: 2px 2px 8px 2px rgb(2, 13, 5);
+  font-family: monospace;
+  background-color: rgb(82, 239, 229);
+  color: darkblue;
+}
+
+.expl:hover {
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 2px 2px 8px 2px rgb(0, 113, 30);
 }

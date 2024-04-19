@@ -4,6 +4,8 @@ import logo from '../../images/logo-1.png';
 import { Navbar } from '../navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../jwt_Store/jwtStorage';
+
 
 export const Reg = () => {
   const [user, setUser] = useState({
@@ -11,10 +13,12 @@ export const Reg = () => {
     email: '',
     password: '',
     address: '',
-    role: ''  
+    role: '',
+    serviceType: ''
   });
 
   const navigate = useNavigate()
+  const { card } = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +30,6 @@ export const Reg = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     
     try {
       const result = await fetch('http://localhost:5000/register', {
@@ -37,11 +40,9 @@ export const Reg = () => {
         body: JSON.stringify(user)
       });
 
-      console.log(result);
-
       if (result.ok) {
         toast.success('Registration successful');
-        setUser({ name: '', email: '', password: '', address: '', role: '' });
+        setUser({ name: '', email: '', password: '', address: '', role: '', serviceType: '' });
         navigate('/');
       } else {
         toast.error('Some error occurred');
@@ -53,7 +54,7 @@ export const Reg = () => {
 
   return (
     <>
-      <Navbar logo={<img src={logo} width={100} height={50} alt='logo'/>} login='Already a user ? Login now'/>
+      <Navbar logo={<img src={logo} width={100} height={50} alt='logo' />} login='Already a user ? Login now' />
 
       <div className='profile-container'>
         <div className='profile'>
@@ -83,14 +84,15 @@ export const Reg = () => {
                 <input type='radio' id='clt' name='role' value='Client' onChange={handleChange} checked={user.role === 'Client'} required />
               </div>
 
+            
               {user.role === 'Service Provider' && (
                 <div className='field'>
                   <label htmlFor='serviceType'>Service Type:</label>
                   <select id='serviceType' name='serviceType' value={user.serviceType} onChange={handleChange} required>
-                    <option value=''>Select Service Type</option>
-                    <option value='Type 1'>Type 1</option>
-                    <option value='Type 2'>Type 2</option>
-                    <option value='Type 3'>Type 3</option>
+                    <option value=''>Select Service Type</option> {/* Add a default option */}
+                    {card.map((cur,index)=>{
+                      return <option key={index} value={cur.title}>{cur.title}</option> 
+                    })}
                   </select>
                 </div>
               )}

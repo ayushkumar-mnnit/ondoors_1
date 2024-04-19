@@ -12,11 +12,12 @@ export const EditPage = () => {
     name: "",
     email: "",
     address: "",
-    role: ""
+    role: "",
+    serviceType:''
   });
 
   const params = useParams();
-  const { authToken } = useAuth();
+  const { authToken,card} = useAuth();
 
   const getUserById = async () => {
     try {
@@ -100,6 +101,20 @@ export const EditPage = () => {
                 <label className='lab1'>Client</label>
                 <input type="radio" name="role" id="clt" onChange={handleChange} value='Client' checked={user.role === 'Client'} required />
               </div>
+              
+             
+              {user.role === 'Service Provider' && (
+                <div className='field'>
+                  <label htmlFor='serviceType'>Service Type:</label>
+                  <select id='serviceType' name='serviceType' value={user.serviceType} onChange={handleChange} required>
+                    <option value=''>Select Service Type</option> {/* Add a default option */}
+                    {card.map((cur,index)=>{
+                      return <option key={index} value={cur.title}>{cur.title}</option> 
+                    })}
+                  </select>
+                </div>
+              )}
+                  
               <div className='field'>
                 <button className='btn-rlog'>Save Changes</button>
               </div>

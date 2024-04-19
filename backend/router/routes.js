@@ -17,31 +17,31 @@ router.get('/',(req,res)=>{
 
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, address, role, isAdmin, serviceType } = req.body;
-        const existingUser = await User.findOne({ email });
+        const { name, email, password, address, role, isAdmin, serviceType } = req.body
+        const existingUser = await User.findOne({ email })
 
         if (existingUser) {
-            console.log('Email already exists');
-            return res.status(400).json({ msg: 'Email already exists' });
+            console.log('Email already exists')
+            return res.status(400).json({ msg: 'Email already exists' })
         }
 
-        let createUser;
+        let createUser
         if (role === 'Service Provider') {
-            createUser = await User.create({ name, email, password, address, role, isAdmin, serviceType });
+            createUser = await User.create({ name, email, password, address, role, isAdmin, serviceType })
         } else {
-            createUser = await User.create({ name, email, password, address, role, isAdmin });
+            createUser = await User.create({ name, email, password, address, role, isAdmin })
         }
 
-        const token = await createUser.createToken();
-        const userId = createUser._id.toString();
+        const token = await createUser.createToken()
+        const userId = createUser._id.toString()
 
-        res.status(200).json({ msg: 'Registered successfully', createUser, token, userId });
-        console.log('User registered successfully', createUser);
+        res.status(200).json({ msg: 'Registered successfully', createUser, token, userId })
+        console.log('User registered successfully', createUser)
     } catch (err) {
-        res.status(500).json({ msg: 'Internal server error' });
-        console.error(err);
+        res.status(500).json({ msg: 'Internal server error' })
+        console.error(err)
     }
-});
+})
 
 
 
