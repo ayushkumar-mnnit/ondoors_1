@@ -9,7 +9,8 @@ export const AuthProvider = ({children}) => {
   const [token,setToken]=useState(localStorage.getItem('token'))
   
   const [user,setUser]=useState("")
-  const [card,setCard]=useState("")
+  const [card,setCard]=useState([])  
+  const [allUsers,setAllUsers]=useState([])
   
   const [loading,setLoading]=useState(true)
   
@@ -93,9 +94,38 @@ useEffect(()=>{
 },[])
 
 
+// get all users
+
+const getAll = async () => {
+  try {
+    const result = await fetch('http://localhost:5000/admin/allusers', {
+      method: 'GET',
+      headers: {
+        Authorization: authToken
+      }
+    });
+
+    if (result.ok) {
+      const data = await result.json();
+      setAllUsers(data.result);
+      setLoading(false);
+    } else {
+      console.log('error occurred');
+    }
+  } catch (error) {
+    console.log('error fetching all users', error.message);
+  }
+};
+
+useEffect(() => {
+  getAll();
+}, []);
+
+
+
 // ---------------------------------------------------------------------
 
-  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken,card}}>
+  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken,card,allUsers}}>
         {children}
     </AuthContext.Provider> 
   

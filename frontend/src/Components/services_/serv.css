@@ -78,3 +78,9 @@
   }
   
   
+
+  #nosp{
+    text-align: center;
+    font-family: monospace;
+    color: orangered;
+  }
