@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './cards.css'
 import { Link } from 'react-router-dom'
 import cardimg from '../../images/card-img.jpg'
@@ -19,7 +19,7 @@ const {card}=useAuth()
             <img className="custom-card-img-top" src={cardimg} alt="Car" />
             <div className="custom-card-body">
               <h5 className="custom-card-title">{cur.title}</h5>
-              <p className="custom-card-description">{cur.description}</p> {/* Add description below the title */}
+              <p className="custom-card-description">{cur.description}</p> 
             </div>
           </div>
         ))}

@@ -5,6 +5,7 @@ import { MdEdit, MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { MdVerifiedUser } from "react-icons/md";
 import { FaUserLargeSlash } from "react-icons/fa6";
+import {Load} from '../loading/Load'
 
 
 
@@ -54,7 +55,7 @@ export const Allusers = () => {
         getAllUsers();
     }, [loading]);
 
-    if(loading) return <>loading..</>
+    if(loading) return <Load/>
 
     
 
@@ -83,7 +84,7 @@ export const Allusers = () => {
                                 <td>{cur.serviceType}</td>
                                 <td>
                                 <Link to={`/admin/allusers/${cur._id}/editadminpage`}>
-                                {cur.isAdmin==true?<MdVerifiedUser className='adm' />:<FaUserLargeSlash />}</Link>
+                                {cur.isAdmin===true?<MdVerifiedUser className='adm' />:<FaUserLargeSlash />}</Link>
 
                                 </td>
                                 <td><Link to={`/admin/allusers/${cur._id}/editpage`}><MdEdit className='edibtn'/></Link></td>

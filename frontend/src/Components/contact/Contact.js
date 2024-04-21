@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './cont.css';
-import { Navbar } from '../navbar/Navbar';
-import logo from '../../images/logo-1.png';
+import { FaHome } from 'react-icons/fa';
+
 import { toast } from 'react-toastify';
 import { useAuth } from '../../jwt_Store/jwtStorage';
+import { Link } from 'react-router-dom';
 
 export const Contact = () => {
   const [msg, setMsg] = useState({
@@ -14,7 +15,9 @@ export const Contact = () => {
 
   const [userData, setUserData] = useState(true); // 'true' ensures prior name and email of user should present in contact form only for the first time form loading, and after that it sets to false.
 
-  const { user } = useAuth();
+
+
+  const { user,userAuthenticate } = useAuth();
 
   if (userData && user) {
     setMsg({
@@ -24,6 +27,10 @@ export const Contact = () => {
     });
     setUserData(false);
   }
+
+  useEffect(()=>{
+    userAuthenticate()
+  },[])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +67,12 @@ export const Contact = () => {
 
   return (
     <>
-      <Navbar logo={<img src={logo} alt='ondoors' width={100} height={50} />} />
+<Link to='/'>
+  <button className='cnt_h' style={{ textDecoration: 'none' }}>Back to Home
+  </button>
+</Link>
+
+    
 
       <div className='profile-container'>
         <div className='profile'>
@@ -81,6 +93,7 @@ export const Contact = () => {
               <div className='field'>
                 <button className='btn-rlog'>Send</button>
               </div>
+   
             </form>
           </div>
         </div>

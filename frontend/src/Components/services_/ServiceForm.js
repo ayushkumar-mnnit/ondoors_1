@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './serv.css';
 import { useAuth } from '../../jwt_Store/jwtStorage';
 import axios from 'axios';
+import { Load } from '../loading/Load';
+import { RiSendPlaneFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
+
 
 export const ServiceForm = () => {
   const { user, card, allUsers } = useAuth();
@@ -101,10 +105,16 @@ export const ServiceForm = () => {
     return distance;
   }
 
-  if (loading) return <h6>Loading</h6>;
+  if (loading) return <Load />;
 
   return (
     <>
+
+<Link to='/'>
+  <button className='cnt_h' style={{ textDecoration: 'none' }}>Back to Home
+  </button>
+</Link>
+
       <div className="edit-profile-container">
         <div className="edit-profile">
           <h6>Get the services as per your convenience</h6>
@@ -135,12 +145,19 @@ export const ServiceForm = () => {
             </div>
             <button className="btn-rlog">Find the Service Provider</button>
 
-                {ar.length===0?<h5 id='nosp'>Oops! no service provider found</h5>:void 0}
+            {ar.length === 0 ? <h5 id='nosp'>Oops! no service provider found</h5> : void 0}
 
             {ar.map((cur, index) => (
-              <h1 key={index}>{cur.name}</h1>
+              
+                <h1 key={index}>{cur.name}
+                
+                <Link to={`/booksp?spEmail=${cur.email}`}>
+                  <RiSendPlaneFill id='bk' />
+                </Link>
+                </h1>
+
             ))}
-          
+
           </form>
         </div>
       </div>

@@ -1,9 +1,10 @@
 
 import React from 'react'
 import './Nav.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../jwt_Store/jwtStorage'
 import { MdVerifiedUser } from "react-icons/md";
+
 
 
 export const Navbar = (props) => {
@@ -14,7 +15,7 @@ export const Navbar = (props) => {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container"> 
-    <Link className="navbar-brand" to="/">{props.logo}</Link>
+    <NavLink className="navbar-brand" to="/">{props.logo}</NavLink>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -23,16 +24,16 @@ export const Navbar = (props) => {
 
         {!isLoggedIn?
           <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">{props.home}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/">{props.home}</NavLink>
         </li>:void 0
         }
        
        
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/about">{props.about}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/about">{props.about}</NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/contact">{props.contact}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/contact">{props.contact}</NavLink>
         </li>
        
 
@@ -40,32 +41,32 @@ export const Navbar = (props) => {
         ?
         <>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/service">{props.services}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/service">{props.services}</NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/profile">{props.profile}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/profile">{props.profile}</NavLink>
         </li>
         
 
         {user.isAdmin?
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/admin"><MdVerifiedUser className='adm'/>{props.admin}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/admin"><MdVerifiedUser className='adm'/>{props.admin}</NavLink>
         </li>:void 0
         }
 
 
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/logout">{props.logout}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/logout">{props.logout}</NavLink>
         </li>
         </>
         
         :
         <>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/login">{props.login}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/login">{props.login}</NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/signup">{props.signup}</Link>
+          <NavLink className="nav-link active" aria-current="page" to="/signup">{props.signup}</NavLink>
         </li>
         </>
         }

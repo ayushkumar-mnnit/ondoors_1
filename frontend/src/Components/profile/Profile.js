@@ -17,6 +17,10 @@ useEffect(()=>{
 
   return (
     <>
+<Link to='/'>
+  <button className='cnt_h' style={{ textDecoration: 'none' }}>Back to Home
+  </button>
+</Link>
 
     <div className="profile-container">
       <div className="profile">

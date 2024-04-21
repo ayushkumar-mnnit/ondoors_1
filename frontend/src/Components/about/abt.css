@@ -1,0 +1,69 @@
+
+.dev{
+    border: 1px solid navy;
+    border-radius: 1rem;
+    color: navy;
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+}
+.dev:hover{
+    box-shadow: 1px 1px 5px 1px rgb(255, 0, 195);
+}
+.curUser{
+    color: navy;
+    font-size: xx-large;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+#ht1{
+    text-shadow: 1px 1px 1px rgb(5, 69, 2);
+    text-align: center;
+    color: rgb(0, 46, 86);
+    font-family: monospace;
+    background-color: #9decfa;
+    display: inline-flex;
+    position: relative;
+    left: 50%;
+    translate: transform(-50%);
+    border-radius: .6rem;
+    padding: 10px 10px 10px;
+
+}
+.hey1{
+    margin-top: 0;
+    margin-bottom: .5rem;
+    background-color: aliceblue;
+    border-radius: 1rem;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 1px 1.5px 5px 1px greenyellow;
+    line-height: 1.2;
+    color: var(--bs-heading-color);
+}
+
+
+.tex1{
+       
+    background-color: aliceblue;
+    padding: 10px 10px 10px;
+    text-align: justify;
+    box-shadow: 2px 1.5px 5px 2.5px #5fd8ee;
+    font-size: x-large;
+    font-weight: lighter;
+    margin-top: 2%;
+    border-radius: 0.6rem;
+}
+
+.tex2{
+margin-top: 0;
+margin-bottom: 1rem;
+background: #c8f7e7;
+padding: 10px 10px 10px;
+text-align: justify;
+box-shadow: 2px 1.5px 5px 2.5px #f105e6;
+font-size: large;
+font-weight: 350;
+margin-top: 2%;
+border-radius: 0.6rem;
+}

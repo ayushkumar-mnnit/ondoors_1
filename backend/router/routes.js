@@ -365,7 +365,8 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
     })
 
 
-    // --------------------------------------------------------------
+
+// --------------------------------------------------------------
 
     module.exports=router
 

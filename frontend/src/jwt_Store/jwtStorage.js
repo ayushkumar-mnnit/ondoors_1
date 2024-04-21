@@ -33,7 +33,7 @@ const LogoutUser=()=>{
 
 // get loggedin user data--- this is similar to making request to /user route from frontend and , since we may need this user data at various places in our app so instead of making this request everywhere again and again , juts use here once ,with  with contextAPI.
 
-    const userAuthenticate=async()=>{
+     const userAuthenticate=async()=>{
 
       try {
 
@@ -61,6 +61,7 @@ const LogoutUser=()=>{
 
     useEffect(()=>{
       userAuthenticate()
+      
     },[])
 
 
@@ -125,7 +126,7 @@ useEffect(() => {
 
 // ---------------------------------------------------------------------
 
-  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken,card,allUsers}}>
+  return  <AuthContext.Provider value={{StoreToken,LogoutUser,isLoggedIn,user,loading,authToken,card,allUsers,userAuthenticate}}>
         {children}
     </AuthContext.Provider> 
   

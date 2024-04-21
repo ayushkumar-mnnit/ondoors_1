@@ -1,4 +1,8 @@
 
-*{
-background-color: #CDFADB;          
+body{
+ 
+    background-image: url('../../images/bodyImg.jpg');
+    background-size:cover ;
+    background-repeat: repeat; 
+    
 }

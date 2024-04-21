@@ -3,6 +3,7 @@ import { Navbar } from '../navbar/Navbar'
 import logo from '../../images/logo-1.png'
 import {Cards} from '../cards/Cards'
 import Footer from '../footer/Footer'
+import './hom.css'
 
 
 

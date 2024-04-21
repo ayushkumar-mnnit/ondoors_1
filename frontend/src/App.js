@@ -18,6 +18,8 @@ import { EditPage } from './Components/admin/EditPage';
 import { EditAdmin } from './Components/admin/EditAdmin';
 import { EditProfile } from './Components/profile/EditProfile';
 import { ServiceForm } from './Components/services_/ServiceForm';
+import { BookSp } from './Components/services_/BookSp';
+import { Error404 } from './Components/errorPage/Error404';
 
 export const App = () => {
   return (
@@ -37,6 +39,8 @@ export const App = () => {
           <Route path='editprofile/:id' element={<EditProfile />}></Route>
           <Route path='profile' element={<Profile />}></Route>
           <Route path='serviceform' element={<ServiceForm />}></Route>
+          <Route path='booksp' element={<BookSp />}></Route>
+          <Route path='*' element={<Error404 />}></Route>
 
           {/* nested routes for admin panel */}
 

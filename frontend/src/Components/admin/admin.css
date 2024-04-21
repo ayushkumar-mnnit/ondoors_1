@@ -2,19 +2,18 @@
 
 .admin-container {
   display: flex;
+  flex-direction: column; /* Stack the items vertically on small screens */
 }
 
 .nav {
-  width: 250px;
-  position: fixed;
+  width: 100%; /* Full width on small screens */
+  position: relative; /* Remove fixed positioning */
   top: 0;
   left: 0;
-  height: 100%;
+  height: auto; /* Auto height to fit content */
   overflow-y: auto;
   background-color: #f4f4f4;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex; /* Add this line to make the items horizontal */
-  flex-direction: column; /* Add this line to keep the items stacked */
 }
 
 .nav ul {
@@ -27,8 +26,6 @@
   margin: 0;
   padding: 10px 20px;
   width: 100%;
-  display: flex; /* Add this line to make the items horizontal */
-  align-items: center; /* Add this line to vertically center the items */
 }
 
 .nav ul li a {
@@ -44,8 +41,6 @@
 .content {
   flex: 1;
   padding: 20px;
-  margin-left: 250px;
-  overflow-y: auto;
 }
 
 h1 {
@@ -57,4 +52,27 @@ h1 {
 #admuser {
   color: green;
   font-family: 'Times New Roman', Times, serif;
+}
+
+/* Media query for small devices */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .nav {
+    width: 100%;
+    position: static;
+    box-shadow: none;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}
+
+
+.wlm{
+  background-color: aquamarine;
+  margin-top: .5%;
 }
