@@ -13,6 +13,7 @@
     color: navy;
     font-size: xx-large;
     font-family: 'Times New Roman', Times, serif;
+   color: azure;
 
 }
 
@@ -24,7 +25,7 @@
     background-color: #9decfa;
     display: inline-flex;
     position: relative;
-    left: 50%;
+    left: 10%;
     translate: transform(-50%);
     border-radius: .6rem;
     padding: 10px 10px 10px;
@@ -66,4 +67,9 @@ font-size: large;
 font-weight: 350;
 margin-top: 2%;
 border-radius: 0.6rem;
+}
+
+#smile{
+    font-size: larger;
+    margin-bottom: 6px;
 }

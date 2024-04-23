@@ -16,6 +16,8 @@ export const Service = () => {
 </Link>
 
       <Cards />
+      <Link to='/serviceform'>
+        <button className='expl'>Get Started</button></Link>
     </>
   )
 }

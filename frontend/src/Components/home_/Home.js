@@ -8,6 +8,7 @@ import './hom.css'
 
 
 
+
 export const Home = () => {
 
 
@@ -20,6 +21,7 @@ export const Home = () => {
         login='Login' signup='Signup' profile='Profile' admin='Admin' logout='Logout'  />
         
         <Cards/>
+        
         <Footer/>
     
     </>

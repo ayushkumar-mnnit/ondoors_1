@@ -24,8 +24,7 @@ const {card}=useAuth()
           </div>
         ))}
       </div>
-      <Link to='/serviceform'>
-        <button className='expl'>Get Started</button></Link>
+      
     </>
   )
 }

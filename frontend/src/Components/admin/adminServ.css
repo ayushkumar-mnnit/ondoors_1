@@ -1,0 +1,11 @@
+
+#newcd{
+    font-size: 2rem;
+    color: navy;
+    font-weight: bolder;
+}
+#newcd:hover{
+    cursor: pointer;
+    color: rgb(2, 138, 2);
+  
+}

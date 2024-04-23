@@ -76,3 +76,11 @@ h1 {
   background-color: aquamarine;
   margin-top: .5%;
 }
+
+#adm1{
+  color: red;
+  position: absolute;
+left: 25%;
+  top: 50%;
+  translate: transform(-20%,-40%);
+}

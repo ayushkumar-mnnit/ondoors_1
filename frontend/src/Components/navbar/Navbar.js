@@ -1,15 +1,15 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import './Nav.css'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../jwt_Store/jwtStorage'
-import { MdVerifiedUser } from "react-icons/md";
-
+import { MdVerifiedUser } from "react-icons/md"
 
 
 export const Navbar = (props) => {
 
   const {isLoggedIn,user}=useAuth()
+
 
   return (
     <>

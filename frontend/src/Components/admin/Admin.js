@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './admin.css';
-import { NavLink, Navigate, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../../jwt_Store/jwtStorage';
 import { FaUsers } from 'react-icons/fa6';
 import { FaHome } from 'react-icons/fa';
@@ -8,19 +8,19 @@ import { RiFeedbackFill} from 'react-icons/ri';
 import { FaCircleUser } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
+import { MdOutlineAddCard } from "react-icons/md";
+
 
 export const Admin = () => {
  
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
-
-  if (loading) {
-    return <h1>Access denied !! You are not Admin</h1>
-  }
 
   if (!user.isAdmin) {
-    return <Navigate to="/" />;
+    return <h1 id='adm1' >Access denied !! You are not Admin</h1>
   }
+
+
 
   return (
      <>
@@ -50,6 +50,12 @@ export const Admin = () => {
               <NavLink to="/admin/allfeedbacks">
                 <RiFeedbackFill />
                 Feedbacks
+              </NavLink>
+            </li>
+            <li>
+            <NavLink to="/admin/servicecard">
+              <MdOutlineAddCard/>
+               Services
               </NavLink>
             </li>
             <li>

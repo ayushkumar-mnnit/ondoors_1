@@ -72,7 +72,6 @@ export const AllFeedbacks = () => {
                     <thead>
                        <tr>
                        <th>Feedback</th>
-                        <th>Edit</th>
                         <th>Delete</th>
                        </tr>
                     </thead>
@@ -83,7 +82,6 @@ export const AllFeedbacks = () => {
                             return <tr key={index}>
                                
                                 <td>{cur.feedbackMsg}</td>
-                                <td><MdEdit /></td>
                                 <td><MdDelete className='delbtn' onClick={() => deleteUser(cur._id)} /></td>
                             </tr>
                         })}

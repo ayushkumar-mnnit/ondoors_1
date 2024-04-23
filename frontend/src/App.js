@@ -20,6 +20,9 @@ import { EditProfile } from './Components/profile/EditProfile';
 import { ServiceForm } from './Components/services_/ServiceForm';
 import { BookSp } from './Components/services_/BookSp';
 import { Error404 } from './Components/errorPage/Error404';
+import { AdminService } from './Components/admin/AdminService';
+import { AddCard } from './Components/admin/AddCard';
+
 
 export const App = () => {
   return (
@@ -51,6 +54,8 @@ export const App = () => {
             <Route path='allfeedbacks' element={<AllFeedbacks />}></Route>
             <Route path='allusers/:id/editpage' element={<EditPage />}></Route>
             <Route path='allusers/:id/editadminpage' element={<EditAdmin />}></Route>
+            <Route path='servicecard' element={<AdminService />}></Route>
+            <Route path='addnewcard' element={<AddCard />}></Route>
 
           </Route>
 

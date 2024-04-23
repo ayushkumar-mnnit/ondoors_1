@@ -37,7 +37,7 @@ const LogoutUser=()=>{
 
       try {
 
-        setLoading(true)
+        
         const result=await fetch('http://localhost:5000/user',{
         method:'GET',
         headers:{
@@ -50,6 +50,7 @@ const LogoutUser=()=>{
         const data=await result.json()
        
         setUser(data.result)
+
         setLoading(false)
       }
 
@@ -59,10 +60,27 @@ const LogoutUser=()=>{
       
     }
 
-    useEffect(()=>{
-      userAuthenticate()
-      
-    },[])
+
+    // empty user on logout:
+
+    const userEmpty=()=>{
+      setUser('')
+
+    }
+
+
+    useEffect(() => {
+      if (isLoggedIn) {
+        userAuthenticate();
+      }
+    }, [isLoggedIn]);
+    
+    useEffect(() => {
+      if (!isLoggedIn) {
+        userEmpty();
+      }
+    }, [!isLoggedIn]);
+    
 
 
 // same for cards:

@@ -72,7 +72,6 @@ export const AllContacts = () => {
                         <th>Name</th>
                         <th>Email</th>
                        <th>Message</th>
-                        <th>Edit</th>
                         <th>Delete</th>
                         </tr>
                     </thead>
@@ -84,7 +83,6 @@ export const AllContacts = () => {
                                 <td>{cur.name}</td>
                                 <td>{cur.email}</td>
                                 <td>{cur.message}</td>
-                                <td><MdEdit /></td>
                                 <td><MdDelete className='delbtn' onClick={() => deleteUser(cur._id)} /></td>
                             </tr>
                         })}

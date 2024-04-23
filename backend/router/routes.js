@@ -256,6 +256,55 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
 })
 
 
+
+    
+// ------------------------Card routes------------
+    
+    // creating new service route:
+
+    router.post('/admin/newcard',async(req,res)=>{
+        try {
+            const {title,description}=req.body
+            const alreadyPresent=await Service.findOne({title})
+            if(alreadyPresent){
+                res.status(400).json({msg:'already present'})
+            }
+            const createOne=await Service.create({title,description})
+            res.status(200).json({msg:'created successfully',createOne})
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+    // delete card:
+
+    router.delete('/admin/newcard/delete/:id',async(req,res)=>{
+        try {
+            
+            const id=req.params.id
+            const result=await Service.deleteOne({_id:id})
+            res.status(200).json({msg:'card deleted successfully',result})
+
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+
+    // get card data:
+
+    router.get('/newcard/getcard',async(req,res)=>{
+        try {
+            const cardData=await Service.find({})
+            res.status(200).json({msg:'card data',cardData})
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
+
+
+
+
 // -------------------------------------------------------------------------------
 
 
@@ -318,51 +367,6 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
 //  })
 
 
-
-    
-// ------------------------Card routes------------
-    
-    // creating new service route:
-
-    router.post('/newcard',async(req,res)=>{
-        try {
-            const {title,description}=req.body
-            const alreadyPresent=await Service.findOne({title})
-            if(alreadyPresent){
-                res.status(400).json({msg:'already present'})
-            }
-            const createOne=await Service.create({title,description})
-            res.status(200).json({msg:'created successfully',createOne})
-        } catch (error) {
-            res.status(500).json({msg:error.message})
-        }
-    })
-
-    // delete card:
-
-    router.delete('/newcard/delete/:id',async(req,res)=>{
-        try {
-            
-            const id=req.params.id
-            const result=await Service.deleteOne({_id:id})
-            res.status(200).json({msg:'card deleted successfully',result})
-
-        } catch (error) {
-            res.status(500).json({msg:error.message})
-        }
-    })
-
-
-    // get card data:
-
-    router.get('/newcard/getcard',async(req,res)=>{
-        try {
-            const cardData=await Service.find({})
-            res.status(200).json({msg:'card data',cardData})
-        } catch (error) {
-            res.status(500).json({msg:error.message})
-        }
-    })
 
 
 
