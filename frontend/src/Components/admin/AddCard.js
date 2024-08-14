@@ -17,7 +17,7 @@ export const AddCard = () => {
     const handleSubmit=async(e)=>{
         try {
             e.preventDefault()
-            const result = await fetch(`http://localhost:5000/admin/newcard`, {
+            const result = await fetch(`https://ondoors.onrender.com/admin/newcard`, {
                 method: 'POST',
                 headers:{
                     'Content-Type':'application/json'
