@@ -14,7 +14,7 @@ export const AllFeedbacks = () => {
     const getAllusers = async () => {
 
         try {
-            const result = await fetch('http://localhost:5000/admin/allfeedbacks', {
+            const result = await fetch('https://ondoors.onrender.com/admin/allfeedbacks', {
                 method: 'GET',
                 headers: {
                     Authorization: authToken
@@ -41,7 +41,7 @@ export const AllFeedbacks = () => {
 
     const deleteUser = async (id) => {
         try {
-            const result = await fetch(`http://localhost:5000/admin/allfeedbacks/delete/${id}`, {
+            const result = await fetch(`https://ondoors.onrender.com/admin/allfeedbacks/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: authToken
