@@ -14,7 +14,7 @@ export const EditAdmin = () => {
 
   const getUserById = async () => {
     try {
-      const result = await fetch(`http://localhost:5000/admin/allusers/${params.id}`, {
+      const result = await fetch(`https://ondoors.onrender.com/admin/allusers/${params.id}`, {
         method: 'GET',
         headers: {
           Authorization: authToken
@@ -38,7 +38,7 @@ export const EditAdmin = () => {
     e.preventDefault();
 
     try {
-      const result = await fetch(`http://localhost:5000/admin/allusers/update/${params.id}`, {
+      const result = await fetch(`https://ondoors.onrender.com/admin/allusers/update/${params.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
