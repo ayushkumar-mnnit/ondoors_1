@@ -38,7 +38,7 @@ const LogoutUser=()=>{
       try {
 
         
-        const result=await fetch('http://localhost:5000/user',{
+        const result=await fetch('https://ondoors.onrender.com/user',{
         method:'GET',
         headers:{
           Authorization:authToken
@@ -90,7 +90,7 @@ const serviceCards=async()=>{
   try {
 
     setLoading(true)
-    const result=await fetch('http://localhost:5000/newcard/getcard',{
+    const result=await fetch('https://ondoors.onrender.com/newcard/getcard',{
     method:'GET'
   })
 
@@ -117,7 +117,7 @@ useEffect(()=>{
 
 const getAll = async () => {
   try {
-    const result = await fetch('http://localhost:5000/admin/allusers', {
+    const result = await fetch('https://ondoors.onrender.com/admin/allusers', {
       method: 'GET',
       headers: {
         Authorization: authToken
