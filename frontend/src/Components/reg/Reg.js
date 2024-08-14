@@ -32,7 +32,7 @@ export const Reg = () => {
     e.preventDefault();
     
     try {
-      const result = await fetch('http://localhost:5000/register', {
+      const result = await fetch('https://ondoors.onrender.com/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
