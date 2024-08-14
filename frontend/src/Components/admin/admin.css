@@ -3,6 +3,7 @@
 .admin-container {
   display: flex;
   flex-direction: column; /* Stack the items vertically on small screens */
+  
 }
 
 .nav {
@@ -30,7 +31,7 @@
 
 .nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #ceefee;
   font-size: 18px;
 }
 
@@ -83,4 +84,11 @@ h1 {
 left: 25%;
   top: 50%;
   translate: transform(-20%,-40%);
+}
+
+.nav{
+  background-image: url('../../images/adm3.jpg');
+   background-position:top; 
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size:cover; 
 }

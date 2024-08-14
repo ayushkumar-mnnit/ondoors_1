@@ -4,7 +4,15 @@ import { useAuth } from '../../jwt_Store/jwtStorage'
 import abt from '../../images/abt_img.png'
 import { Link } from 'react-router-dom'
 import { HiOutlineEmojiHappy } from "react-icons/hi";
-import { redirect } from 'react-router-dom'
+import menu1 from '../../images/menu1.png'
+import reg1 from '../../images/reg1.png'
+import reg2 from '../../images/reg2.png'
+import login from '../../images/login.png'
+import updmenu from '../../images/updmenu.png'
+import serv2 from '../../images/serv2.png'
+import selsp1 from '../../images/selsp1.png'
+import selsp2 from '../../images/selsp2.png'
+import finl from '../../images/finl.png'
 
 
 export const About = () => {
@@ -54,9 +62,7 @@ export const About = () => {
   </div>
 </section>
 
-<div className="hwt">
-  <h3 id='ht1'>Know how it works</h3>
-</div>
+
     </>
   )
 }

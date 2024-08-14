@@ -303,6 +303,37 @@ router.patch('/admin/allusers/update/:id',authMiddleware,async(req,res)=>{
     })
 
 
+    //for updating card:
+
+    router.get('/admin/newcard/getcard/:id',async(req,res)=>{
+        try {
+            const id=req.params.id
+            const result=await Service.findOne({_id:id})
+            const data=await result
+            res.status(200).json({data})
+        } catch (error) {
+            res.status(400).json({msg:'error fetching card data'})
+        }
+    })
+
+
+    // update card:
+
+    router.patch('/admin/newcard/update/:id',async(req,res)=>{
+        try {
+            
+            const id=req.params.id
+            const updatedData=req.body
+            const result=await Service.updateOne({_id:id},{$set:updatedData})
+    
+            console.log('card updated successfully')
+    
+            res.status(200).json({msg:'card updated successfully',result})
+
+        } catch (error) {
+            res.status(500).json({msg:error.message})
+        }
+    })
 
 
 // -------------------------------------------------------------------------------

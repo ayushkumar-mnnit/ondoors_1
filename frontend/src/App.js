@@ -22,6 +22,7 @@ import { BookSp } from './Components/services_/BookSp';
 import { Error404 } from './Components/errorPage/Error404';
 import { AdminService } from './Components/admin/AdminService';
 import { AddCard } from './Components/admin/AddCard';
+import { EditCard } from './Components/admin/EditCard';
 
 
 export const App = () => {
@@ -56,6 +57,7 @@ export const App = () => {
             <Route path='allusers/:id/editadminpage' element={<EditAdmin />}></Route>
             <Route path='servicecard' element={<AdminService />}></Route>
             <Route path='addnewcard' element={<AddCard />}></Route>
+            <Route path='servicecard/:id/editcard' element={<EditCard />}></Route>
 
           </Route>
 

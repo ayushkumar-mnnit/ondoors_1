@@ -70,7 +70,7 @@ export const AdminService = () => {
                            return <tr key={index}>
                                 <td>{cur.title}</td>
                                 <td>{cur.description}</td>
-                                <td><Link to={`/admin/editcard/${cur._id}/editpage`}><MdEdit className='edibtn'/></Link></td>
+                                <td><Link to={`/admin/servicecard/${cur._id}/editcard`}><MdEdit className='edibtn'/></Link></td>
                                 <td><MdDelete className='delbtn' onClick={() => deleteUser(cur._id)} /></td>
                             </tr>
                         })}

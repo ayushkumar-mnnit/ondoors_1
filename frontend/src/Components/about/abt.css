@@ -13,8 +13,12 @@
     color: navy;
     font-size: xx-large;
     font-family: 'Times New Roman', Times, serif;
-   color: azure;
+   color: rgb(12, 53, 3);
 
+}
+
+.col-lg-6{
+    width: 50%;
 }
 
 #ht1{
@@ -25,7 +29,7 @@
     background-color: #9decfa;
     display: inline-flex;
     position: relative;
-    left: 10%;
+    left: 5%;
     translate: transform(-50%);
     border-radius: .6rem;
     padding: 10px 10px 10px;
@@ -73,3 +77,80 @@ border-radius: 0.6rem;
     font-size: larger;
     margin-bottom: 6px;
 }
+
+
+
+/* how it works */
+
+.step1{
+    
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step2{
+    
+    margin-top: 0.8rem;
+    position: relative;
+    
+    margin-bottom: 0.8rem;
+}
+.step3{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step4{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step5{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step6{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step7{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step8{
+    
+     margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    
+}
+.step9{
+    
+     margin-top: 0.8rem;
+     position: relative;
+     
+    margin-bottom: 0.8rem;
+}
+
+.hwhd{
+    font-family:'Times New Roman', Times, serif;
+    font-size: x-large;
+    color: navy;
+
+}
+
+ 
