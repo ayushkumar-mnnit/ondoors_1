@@ -13,7 +13,7 @@ export const AllContacts = () => {
     const getAllusers = async () => {
 
         try {
-            const result = await fetch('http://localhost:5000/admin/allcontacts', {
+            const result = await fetch('https://ondoors.onrender.com/admin/allcontacts', {
                 method: 'GET',
                 headers: {
                     Authorization: authToken
@@ -38,7 +38,7 @@ export const AllContacts = () => {
 
     const deleteUser = async (id) => {
         try {
-            const result = await fetch(`http://localhost:5000/admin/allcontacts/delete/${id}`, {
+            const result = await fetch(`https://ondoors.onrender.com/admin/allcontacts/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: authToken
