@@ -25,7 +25,7 @@ export const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const result = await fetch('https://ondoors.onrender.com/contact', {
+      const result = await fetch('http://localhost:5000/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

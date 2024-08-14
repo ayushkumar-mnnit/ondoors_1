@@ -18,7 +18,7 @@ export const EditCard = () => {
 
     const getCardById = async () => {
         try {
-            const result = await fetch(`https://ondoors.onrender.com/admin/newcard/getcard/${params.id}`, {
+            const result = await fetch(`http://localhost:5000/admin/newcard/getcard/${params.id}`, {
                 method: 'GET',
             });
             const rest = await result.json();
@@ -39,7 +39,7 @@ export const EditCard = () => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault()
-            const result = await fetch(`https://ondoors.onrender.com/admin/newcard/update/${params.id}`, {
+            const result = await fetch(`http://localhost:5000/admin/newcard/update/${params.id}`, {
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json'

@@ -42,7 +42,7 @@ export const EditProfile = () => {
         
         try {
          
-            const result=await fetch(`https://ondoors.onrender.com/profile/update/${params.id}`,{
+            const result=await fetch(`http://localhost:5000/profile/update/${params.id}`,{
                
                 method:"PATCH",
                 headers:{

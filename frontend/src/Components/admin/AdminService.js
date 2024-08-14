@@ -15,7 +15,7 @@ export const AdminService = () => {
 
     const getCards = async () => {
         try {
-            const result = await fetch('https://ondoors.onrender.com/newcard/getcard', {
+            const result = await fetch('http://localhost:5000/newcard/getcard', {
                 method: 'GET',
             });
             const data = await result.json();
@@ -35,7 +35,7 @@ export const AdminService = () => {
 
     const deleteUser = async (id) => {
         try {
-            const result = await fetch(`https://ondoors.onrender.com/admin/newcard/delete/${id}`, {
+            const result = await fetch(`http://localhost:5000/admin/newcard/delete/${id}`, {
                 method: 'DELETE',
             });
             if (result.ok) {

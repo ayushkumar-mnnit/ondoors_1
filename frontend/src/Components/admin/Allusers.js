@@ -17,7 +17,7 @@ export const Allusers = () => {
 
     const getAllUsers = async () => {
         try {
-            const result = await fetch('https://ondoors.onrender.com/admin/allusers', {
+            const result = await fetch('http://localhost:5000/admin/allusers', {
                 method: 'GET',
                 headers: {
                     Authorization: authToken
@@ -37,7 +37,7 @@ export const Allusers = () => {
 
     const deleteUser = async (id) => {
         try {
-            const result = await fetch(`https://ondoors.onrender.com/admin/allusers/delete/${id}`, {
+            const result = await fetch(`http://localhost:5000/admin/allusers/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: authToken
