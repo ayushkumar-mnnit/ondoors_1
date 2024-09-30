@@ -1,0 +1,6 @@
+
+
+.bg-primary{
+    --bs-bg-opacity: 1;
+background-color: rgb(206 220 243) !important;
+}

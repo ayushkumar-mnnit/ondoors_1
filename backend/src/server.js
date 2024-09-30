@@ -1,37 +1,40 @@
 
-require('dotenv').config()
-const express= require('express')
-const app=express()
-const cors=require('cors')
+
+import 'dotenv/config'
+
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import {connectDB} from './db/conn.js'
+
 const port=process.env.PORT || 5000
 
-const connectDB = require('../db/conn')
-
-// handling cors policy:
-
-const corsOptions = {
-    origin: 'http://localhost:3000',
-   methods:'GET,POST,PATCH,DELETE,HEAD',
-   Credentials:true
-  }
-
-  app.use(cors(corsOptions))
-
-const routers=require('../router/routes')
+const app=express()
 
 
-app.use(express.json())  // middleware: for pasrsing incoming json request
+app.use(cors({
+    origin:process.env.CORS_ORIGIN,
+    credentials:true
+}))
 
-app.use(routers)
+
+app.use(express.json({limit:'16kb'}))
+app.use(express.urlencoded({extended:true,limit:'16kb'}))
+app.use(cookieParser())
 
 
-connectDB()  // for seting-up database connection, here also we can handle promise and run the server iff connection to DB is successful
+import {router} from './router/routes.js'
+
+app.use('/api',router)
+
+
+connectDB() 
 .then(()=>{
     app.listen(port,()=>{
         console.log(`server started at ${port}`)   
     })
 }).catch((er)=>{
-    console.log(er)
+    console.log('server failed to start because DB connection failed',er)
 })
 
 

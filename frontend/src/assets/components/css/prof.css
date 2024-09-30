@@ -1,0 +1,43 @@
+.container-prof {
+    min-height: 350px; /* Increase minimum height for icons */
+    width: 80%; /* Set width to be greater than height */
+    max-width: 600px; /* Limit maximum width */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add some padding */
+    box-shadow: 1px 2px 2px 2px black;
+}
+
+.form-control, .form-select {
+    width: 100%; /* Make fields full width */
+}
+
+.mt-5 {
+    margin-top: 3rem !important; /* Adjust margin for spacing */
+}
+
+.text-center {
+    text-align: center; /* Center text */
+}
+
+.profile-button {
+    width: 50%; /* Adjust button width */
+    margin: 10px auto; /* Center the button */
+}
+
+.labels {
+    font-weight: bold; /* Make labels bold for better visibility */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+}
+
+
+.profile-title{
+    font-family: math;
+    text-align: center;
+    font-size: large;
+}

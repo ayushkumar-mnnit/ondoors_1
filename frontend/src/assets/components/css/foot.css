@@ -1,0 +1,15 @@
+.footer {
+    background-color: rgb(20, 28, 37);
+    color: white;
+}
+
+.footer * {
+    background-color: rgb(20, 28, 37) !important;
+    color: white !important;
+}
+
+.footer input[type="email"]::placeholder {
+    color: white;
+    opacity: 1;
+}
+
