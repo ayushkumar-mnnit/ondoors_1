@@ -27,6 +27,11 @@ import {router} from './router/routes.js'
 
 app.use('/api',router)
 
+// for confirmation of backend running or not
+app.get('/health', (req, res) => {
+    res.status(200).send('Backend is running!');
+  });
+  
 
 connectDB() 
 .then(()=>{
