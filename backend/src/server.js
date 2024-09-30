@@ -13,8 +13,10 @@ const app=express()
 
 
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true
+    origin:process.env.CORS_ORIGIN || 'https://ondoors-frontend.onrender.com' ,
+    credentials:true,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
 
