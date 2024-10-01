@@ -1,24 +1,22 @@
 import { useState } from 'react';
-import intro from '../images/intro.png';
- // Import your CSS for Body styles
 import Login from './Login';
 import Signup from './Signup';
 import About from './About';
 import ContactUs from './ContactUs';
+import intro from '../images/intro.png'
 
 
 
 const Body = () => {
-  const [showLogin, setShowLogin] = useState(true); // State to toggle forms
-
+  const [showLogin, setShowLogin] = useState(true); 
   const toggleForm = () => {
-    setShowLogin(!showLogin); // Switch between login and signup
+    setShowLogin(!showLogin); 
   };
 
   return (
     <>
-      <section id="sec1">
-        <img src={intro} alt="intro" />
+      <section id="sec1" >
+        <img src={intro} alt="" />
       </section>
       
       <section id="sec2">

@@ -1,14 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/nav.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/ContextAPI'
+import { MdAdminPanelSettings } from "react-icons/md";
+
+
 
 const Navbar = () => {
   const navigate = useNavigate()
 
+  const {user}=useAuth()
+
 
 
   const handleScroll = (sectionId) => {
-    navigate('/') // Ensure you navigate to the home route first
+    navigate('/') 
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -18,6 +24,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container">
+      {user && user.isAdmin  ? <Link to='/admin'> <MdAdminPanelSettings color='#06D001' size={25}/></Link> : null}
         <Link className="navbar-brand" to="/">Ondoors</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -29,7 +36,7 @@ const Navbar = () => {
               <a className="nav-link" onClick={() => handleScroll('sec1')}>Home</a>
             </li>
             <li className="nav-item">
-            <a className="nav-link" onClick={() => handleScroll('sec5')}>Services</a>
+            <Link to='/landing' className="nav-link">Services</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" onClick={() => handleScroll('sec3')}>About Us</a>
@@ -40,6 +47,7 @@ const Navbar = () => {
             <li className="nav-item">
               <a className="nav-link" onClick={() => handleScroll('sec2')}>Login/Signup</a>
             </li>
+            
           </ul>
         </div>
       </div>

@@ -22,6 +22,9 @@ export const AuthProvider = ({ children }) => {
   });
 
   const getCurUser = async () => {
+    console.log('before token');
+    
+
     try {
       const result = await axios.get(`/api/userData`);
       if (result.data.success) {
@@ -35,12 +38,19 @@ export const AuthProvider = ({ children }) => {
     finally{
       setLoading(false)
     }
+    
   };
+
+
+    // const token=localStorage.getItem('token')
 
   useEffect(() => {
     getCurUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); 
+
+  
+  
+
 
   const getCards = async () => {
     try {
@@ -62,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getCards();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   return (

@@ -9,6 +9,8 @@ import Profile from '../Profile';
 import ChangePassword from '../ChangePass';
 import AllServices from './AllServices';
 import { useAuth } from '../../context/ContextAPI';
+import { Link } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -28,6 +30,8 @@ const Dashboard = () => {
 
         <TabPanels>
           <TabPanel>
+          <Link to='/' ><Button  ml={2} bg='rgb(1, 1, 57)' color='white'   
+          _hover={{ bg: 'lightblue',color: 'black'}}>Back to Home</Button></Link>
             <h2 id='adm'>Welcome! {user.name ? user.name : 'User'} to the Admin Dashboard</h2>
             <Box color='cyan' gap='3' m='2%' fontSize='1rem' lineHeight='3rem'>
               <Text>

@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 import { useToast } from '@chakra-ui/react';
 import { useState } from 'react';
-import axios from 'axios'; // Ensure axios is imported
+import axios from 'axios'; 
+import authimg from '../images/auth.jpg'
 
 // eslint-disable-next-line react/prop-types
 const Login = ({toggleForm}) => {
@@ -27,6 +28,9 @@ const Login = ({toggleForm}) => {
         },
       });
 
+      localStorage.setItem('token', result.data.data)  // set token in local storage so that it can be sent in auth header
+      //  in case of mobile devices becoz they don't send cookies
+
       if (result.data.success) {
         toast({
           title: result.data.message,
@@ -39,7 +43,10 @@ const Login = ({toggleForm}) => {
           email: '',
           password: '',
         });
-        navigate('/landing')
+
+
+
+        navigate('/')
       }
 
     } catch (error) {
@@ -55,45 +62,34 @@ const Login = ({toggleForm}) => {
     }
   };
 
+
+ ;
+
+    
+
+  
+
   return (
     <>
-      <section className=" py-3 py-md-5 py-xl-8" style={{ backgroundColor: 'rgb(20, 28, 37)' }}>
+      <section className=" py-3 py-md-5 py-xl-8" >
         <div className="container">
           <div className="row gy-4 align-items-center">
             <div className="col-12 col-md-6 col-xl-7 d-flex justify-content-center position-relative">
               <img
-                src="https://img.freepik.com/premium-photo/elegant-young-fashion-beautiful-girl-holding-bag-while-shopping-with-white-sexy-dress_226666-1786.jpg"
-                alt="Fashion girl"
+                src={authimg}
+                alt="auth"
                 className="img-fluid blended-image"
                 style={{
                   maxWidth: '80%',
                   maxHeight: '450px',
-                  objectFit: 'cover',
-                  filter: 'blur(0)',
-                  zIndex: '1',
-                  borderRadius: '5x',
+                  objectFit: 'cover'
                 }}
               />
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  width: '100%',
-                  height: '100%',
-                  filter: 'blur(30px)',
-                  backgroundImage:
-                    'url(https://img.freepik.com/premium-photo/elegant-young-fashion-beautiful-girl-holding-bag-while-shopping-with-white-sexy-dress_226666-1786.jpg)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  zIndex: '0',
-                  borderRadius: '10px',
-                }}
-              ></div>
+              
             </div>
 
             <div className="col-12 col-md-6 col-xl-5">
-              <div className="card border-0 rounded-4 shadow">
+              <div className="card border-0 rounded-2" style={{ boxShadow:'1px 2px 2px 2px gray' }}>
                 <div className="card-body p-3 p-md-4 p-xl-5">
                   <div className="row">
                     <div className="col-12">
@@ -157,3 +153,4 @@ const Login = ({toggleForm}) => {
 };
 
 export default Login;
+

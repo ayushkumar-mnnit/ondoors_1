@@ -18,7 +18,9 @@ import { useAuth } from "../context/ContextAPI";
     
     const {card}=useAuth()
   
+
     return (
+
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",
