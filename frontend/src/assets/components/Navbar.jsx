@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/ContextAPI'
 import { MdAdminPanelSettings } from "react-icons/md";
 
-
-
 const Navbar = () => {
   const navigate = useNavigate()
 
@@ -38,8 +36,12 @@ const Navbar = () => {
               <a className="nav-link" onClick={() => handleScroll('sec1')}>Home</a>
             </li>
             <li className="nav-item">
+          {user && user.name ? (
+            <Link to='/landing' className="nav-link">Services</Link>
+          ) : (
             <a className="nav-link" onClick={() => handleScroll('sec5')}>Services</a>
-            </li>
+          )}
+        </li>
             <li className="nav-item">
               <a className="nav-link" onClick={() => handleScroll('sec3')}>About Us</a>
             </li>
