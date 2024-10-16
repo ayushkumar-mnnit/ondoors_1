@@ -7,8 +7,15 @@ import Services from './Services'
 import ChangePassword from './ChangePass'
 import { Link } from 'react-router-dom'
 
+import History from './History'
+import Notif from './Notif'
+import { useAuth } from '../context/ContextAPI'
+import ContactAdmin from './ContactAdmin'
+
 
 const LandingPage = () => {
+
+    const {user}=useAuth()
     return (
         <>
         
@@ -17,6 +24,8 @@ const LandingPage = () => {
 
                     <Tab color='navy'>Services</Tab>
                     <Tab color='navy'>Profile</Tab>
+                    <Tab color='navy'>History</Tab>
+                    {user?.role==='Service Provider'?<Tab color='navy'>Notification</Tab>:null}
                     <Tab color='navy'>Change password</Tab>
                     <Tab color='navy'>Contact Admin</Tab>
                    
@@ -32,10 +41,16 @@ const LandingPage = () => {
                   <Profile/>
                     </TabPanel>
                     <TabPanel>
+                        <History/>
+                        </TabPanel>
+                    {
+                        user?.role==='Service Provider'?<TabPanel><Notif/></TabPanel>:null
+                    }
+                    <TabPanel>
                         <ChangePassword/>
                     </TabPanel>
                     <TabPanel>
-                        <p>admin help</p>
+                       <ContactAdmin/>
                     </TabPanel>
                   
                 </TabPanels>

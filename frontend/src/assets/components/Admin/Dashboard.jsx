@@ -11,6 +11,7 @@ import AllServices from './AllServices';
 import { useAuth } from '../../context/ContextAPI';
 import { Link } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
+import AdminContacts from './AdminContacts';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ const Dashboard = () => {
           <Tab>Admin Home</Tab>
           <Tab>Users</Tab>
           <Tab>Contact Msg</Tab>
+          <Tab>Admin Contact Msg</Tab>
           <Tab>Feedbacks</Tab>
           <Tab>Services</Tab>
           <Tab>Profile</Tab>
@@ -65,6 +67,9 @@ const Dashboard = () => {
           </TabPanel>
           <TabPanel>
             <AllContacts />
+          </TabPanel>
+          <TabPanel>
+            <AdminContacts />
           </TabPanel>
           <TabPanel>
             <AllFeedbacks />

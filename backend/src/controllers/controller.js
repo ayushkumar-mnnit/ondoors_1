@@ -7,6 +7,9 @@ import { Contact } from '../models/contact.js'
 import { Feedback } from '../models/feedback.js'
 import { Service } from '../models/services.js'
 import { generateToken } from '../utils/generateToken.js'
+import { BookService } from '../models/booking.js'
+import { Notification } from "../models/notification.js"
+import { AdminContact } from "../models/adminContact.js"
 
 
 
@@ -28,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
       // Conditionally check if serviceType is required based on the role
       if (role === 'Service Provider' && !serviceType?.trim()) {
-        throw new ApiError(400, 'Service Type is required for Service Providers');
+        throw new ApiError(400, 'Service Type is required for Service Providers')
     }
 
 
@@ -115,13 +118,13 @@ export const updateProfile = asyncHandler(async (req, res) => {
 
 
         if (address.length < 15) {
-            throw new ApiError(400, 'Address must be at least 15 characters long');
+            throw new ApiError(400, 'Address must be at least 15 characters long')
         }
         if (mobile.length < 10) {
-            throw new ApiError(400, 'Phone number must be at least of 10 digits ');
+            throw new ApiError(400, 'Phone number must be at least of 10 digits ')
         }
         if (pincode.length < 4) {
-            throw new ApiError(400, 'pin code must be at least of 4 digits');
+            throw new ApiError(400, 'pin code must be at least of 4 digits')
         }
 
     const cur_user = await User.findByIdAndUpdate(req.user._id, { $set: {mobile, address, role, serviceType,pincode } }).select('-password -isAdmin -token')
@@ -134,25 +137,25 @@ export const updateProfile = asyncHandler(async (req, res) => {
 // update password:
 
 export const changePassword = asyncHandler(async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
+    const { oldPassword, newPassword } = req.body
 
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id)
     if (!user) {
-        throw new ApiError(404, 'User not found');
+        throw new ApiError(404, 'User not found')
     }
 
-    const isOldPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+    const isOldPasswordCorrect = await user.isPasswordCorrect(oldPassword)
     if (!isOldPasswordCorrect) {
-        throw new ApiError(400, 'Invalid old password');
+        throw new ApiError(400, 'Invalid old password')
     }
 
     // Explicitly mark the password as modified
-    user.password = newPassword; // Set the new password
-    user.markModified('password'); // Mark it as modified
-    await user.save(); // Save the updated user
+    user.password = newPassword // Set the new password
+    user.markModified('password') // Mark it as modified
+    await user.save() // Save the updated user
 
-    res.status(200).json(new ApiResponse(201, {}, 'Password changed successfully'));
-});
+    res.status(200).json(new ApiResponse(201, {}, 'Password changed successfully'))
+})
 
 
 
@@ -166,7 +169,7 @@ export const changePassword = asyncHandler(async (req, res) => {
 export const getAllUsers = asyncHandler(async (req, res) => {
    
     
-    console.log(req.user);
+    console.log(req.user)
 
     const result = await User.find({}).select('-password -token')
     if (!result || result.length === 0) throw new ApiError(404, 'No user data exists')
@@ -231,26 +234,43 @@ export const deleteFeedback = asyncHandler(async (req, res) => {
 // update user (-change admin role)
 
 export const changeAdmin = asyncHandler(async (req, res) => {
-    const { isAdmin } = req.body;
-    const id = req.params.cur_userId;
+    const { isAdmin } = req.body
+    const id = req.params.cur_userId
 
 
     if (typeof isAdmin === 'undefined') {
-        throw new ApiError(400, 'isAdmin field is required');
+        throw new ApiError(400, 'isAdmin field is required')
     }
 
     const cur_user = await User.findByIdAndUpdate(
         id,
         { $set: { isAdmin } },
         { new: true } // This option returns the updated document
-    ).select('-password -token');
+    ).select('-password -token')
 
     // Send response
-    res.status(200).json(new ApiResponse(201, cur_user, 'Admin role updated successfully'));
-});
+    res.status(200).json(new ApiResponse(201, cur_user, 'Admin role updated successfully'))
+})
 
 
 
+
+export const adminContacts=asyncHandler(async (req, res) => {
+   const {message, email} = req.body   
+
+   const result = await AdminContact.create({message, email})
+   if (!message) throw new ApiError(400, 'Input field can not be empty')
+   res.status(200).json(new ApiResponse(201, result, 'message sent to admin successfully'))
+})
+
+export const getAdminContacts=asyncHandler(async (req, res) => {
+
+    const result = await AdminContact.find({})
+    console.log(result,'thi si resilt');
+    if (!result || result.length === 0) throw new ApiError(404, 'No data exists')
+
+    res.status(200).json(new ApiResponse(201, result, 'All data fetched successfully'))
+})
 
 // create service card:
 
@@ -346,4 +366,73 @@ export const sendFeedback = asyncHandler(async (req, res) => {
 
 
 
+// booking route:
+
+
+export const bookService = asyncHandler(async (req, res) => {
+    
+    const { client, clientName, bookingFor, address, pin, mobile, serviceProvider, spName, spAddress } = req.body
+
+    // Create a new booking
+    const newBooking = await BookService.create({
+        client,
+        clientName,
+        bookingFor,
+        address,
+        pin,
+        mobile,
+        serviceProvider,
+        spName,
+        spAddress,
+    })
+
+     // Create a new notification for the service provider
+  await Notification.create({
+    serviceProvider,
+    client,
+    clientName,
+    bookingFor,
+    address,
+    pin,
+    mobile,
+  });
+
+    
+    if (!newBooking) {
+        throw new ApiError(500, 'Error occurred while creating the booking')
+    }
+
+    // Respond with success
+    res.status(201).json(new ApiResponse(201, newBooking, 'Booking created successfully'))
+})
+
+
+export const fetchBookings = asyncHandler(async (req, res) => {
+    // Fetch the bookings for the authenticated client and sort by date descending
+    const bookings = await BookService.find({ client: req.user._id });
+
+    if (!bookings || bookings.length === 0) {
+        throw new ApiError(404, 'No bookings found for this client');
+    }
+
+    // Respond with success
+    res.status(200).json(new ApiResponse(200, bookings, 'Bookings fetched successfully'));
+});
+
+
+export const getNotificationsForServiceProvider = asyncHandler(async (req, res) => {
+  
+    const notifications = await Notification.find({ serviceProvider:req.user._id})
+console.log(notifications,'notif from backend');
+
+    if (!notifications) {
+      throw new ApiError(404, 'No notifications found ');
+    }
+  
+    res.status(200).json({
+      success: true,
+      notifications,
+    });
+  });
+  
 

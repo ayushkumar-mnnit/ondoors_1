@@ -11,6 +11,8 @@ const Navbar = () => {
 
   const {user}=useAuth()
 
+  
+
 
 
   const handleScroll = (sectionId) => {
@@ -36,7 +38,10 @@ const Navbar = () => {
               <a className="nav-link" onClick={() => handleScroll('sec1')}>Home</a>
             </li>
             <li className="nav-item">
+            
             <Link to='/landing' className="nav-link">Services</Link>
+            
+             
             </li>
             <li className="nav-item">
               <a className="nav-link" onClick={() => handleScroll('sec3')}>About Us</a>

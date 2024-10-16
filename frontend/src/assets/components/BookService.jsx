@@ -1,33 +1,30 @@
-import {
-  useToast,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Heading,
-  Box,
-  Text,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; 
-import { CiBookmarkPlus } from "react-icons/ci";
-import { useAuth } from "../context/ContextAPI";
+import { useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Box, Text } from "@chakra-ui/react"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { CiBookmarkPlus } from "react-icons/ci"
+import { useAuth } from "../context/ContextAPI"
+
 
 const BookService = () => {
-  const toast = useToast();
-  const [sp, setSp] = useState([]);
-  const { title } = useParams(); 
-  const { user } = useAuth();
+  const toast = useToast()
+  const [sp, setSp] = useState([])
+  const { title } = useParams()
+  const { user } = useAuth()
   
+
+
+  useEffect(() => {
+
+    getAllUsers()
+    
+  }, [])
+
   const getAllUsers = async () => {
     try {
-      const result = await axios.get('/api/admin/allUsers');
+      const result = await axios.get('/api/admin/allUsers')
       if (result.data.success) {
-        setSp(result.data.data);
+        setSp(result.data.data)
       }
     } catch (error) {
       toast({
@@ -36,39 +33,68 @@ const BookService = () => {
         duration: 4000,
         isClosable: true,
         position: 'top',
-      });
+      })
     }
-  };
+  }
 
-  useEffect(() => {
-    getAllUsers();
-  }, []);
-
-  // Filter service providers based on the selected serviceType (title)
-  const filteredSP = sp.filter(provider => provider.serviceType === title);
-
-  // Function to handle booking request and send email
-  const handleBook = (provider) => {
+  const handleBook = async (provider) => {
     const userDetails = {
-      name: user.name,  
-      email: user.email,
+      client: user._id, 
+      clientName: user.name,
+      bookingFor: provider.serviceType,
       address: user.address,
+      pin: user.pincode,
       mobile: user.mobile,
-      pin: user.pincode
-    };
+      serviceProvider: provider._id,  
+      spName: provider.name,
+      spAddress: provider.address
+    }
 
-    const mailtoLink = `mailto:${provider.email}?subject=Booking Request&body=Name: ${userDetails.name}%0AEmail: ${userDetails.email}%0AAddress: ${userDetails.address}%0AMobile: ${userDetails.mobile}%0APin: ${userDetails.pin}`;
+    
+    try {
+        const response = await axios.post('/api/bookings', userDetails)
+        
+        if (response.data.success) {
+          toast({
+              title: 'Booking successful',
+              status: 'success',
+              duration: 4000,
+              isClosable: true,
+              position: 'top',
+          })
+        
+      } 
+      else {
+            toast({
+              title: 'Booking failed',
+              status: 'error',
+              duration: 4000,
+              isClosable: true,
+              position: 'top',
+          })
+     }
+    } catch (error) {
+          toast({
+            title: error.response?.data?.message || 'some error occured while booking',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
+            position: 'top',
+        })
+    }
+}
 
-    // Open the user's email client
-    window.location.href = mailtoLink;
-  };
+
+
+  const filteredSP = sp.filter(provider => provider.serviceType === title)
+
+
 
   return (
     <Box className="service-provider-container" mt={6}>
       <Heading as="h2" size="lg" textAlign="center" fontFamily="'Math', sans-serif" mb={4}>
         Available Service Providers for {title}
       </Heading>
-
       {filteredSP.length === 0 ? (
         <Text color="orangered" textAlign="center">
           Oops! Looks like no service provider found for this service.
@@ -93,11 +119,10 @@ const BookService = () => {
                   <Td>{provider.address}</Td>
                   <Td>{provider.pincode}</Td>
                   <Td>
-                    <Box 
-                      as="span" 
-                      _hover={{ color: "blue", cursor: "pointer" }} 
-                      onClick={() => handleBook(provider)}
-                    >
+                    <Box
+                      as="span"
+                      _hover={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => handleBook(provider)} >
                       <CiBookmarkPlus size={25} />
                     </Box>
                   </Td>
@@ -108,7 +133,7 @@ const BookService = () => {
         </TableContainer>
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default BookService;
+export default BookService

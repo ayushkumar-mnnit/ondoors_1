@@ -21,10 +21,24 @@ export const AuthProvider = ({ children }) => {
     isAdmin: false,
   });
 
+
+  const [bookingData, setBookingData] = useState([{
+    client: "",
+    clientName: "",
+    bookingFor: "",
+    address: "",
+    pin: "",
+    mobile: "",
+    serviceProvider: "",
+    spName: "",
+    spAddress: "",
+}]);
+
+
+
   const getCurUser = async () => {
     console.log('before token');
     
-
     try {
       const result = await axios.get(`/api/userData`);
       if (result.data.success) {
@@ -48,7 +62,6 @@ export const AuthProvider = ({ children }) => {
     getCurUser();
   }, []); 
 
-  
   
 
 
@@ -75,8 +88,44 @@ export const AuthProvider = ({ children }) => {
 
   }, []);
 
+
+
+  const fetchBookingDetails = async () => {
+    try {
+        const result = await axios.get('/api/fetchBookings'); 
+        if (result.data.success) {
+            const bookingDetails = result.data.data; // This should be an array of booking objects
+
+            // Assuming you want to set all booking details in state as an array
+            setBookingData(bookingDetails.map(booking => ({
+                client: booking.client || "",
+                clientName: booking.clientName || "",
+                bookingFor: booking.bookingFor || "",
+                address: booking.address || "",
+                pin: booking.pin || "",
+                mobile: booking.mobile || "",
+                serviceProvider: booking.serviceProvider || "",
+                spName: booking.spName || "",
+                spAddress: booking.spAddress || "",
+            })));
+        }
+    } catch (error) {
+        console.log(error.response?.data?.message || 'Server is down');
+    }
+};
+
+
+  useEffect(() => {
+    fetchBookingDetails();
+  }, []);
+
+
+ 
+  
+
+
   return (
-    <AuthContext.Provider value={{ user,card,loading }}>
+    <AuthContext.Provider value={{ user,card,loading,bookingData }}>
       {children}
     </AuthContext.Provider>
   );
