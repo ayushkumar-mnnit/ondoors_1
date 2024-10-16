@@ -41,13 +41,7 @@ const AllServices = () => {
         setCard(result.data.data);
       }
     } catch (error) {
-      toast({
-        title: error.response?.data?.message || "Server is down",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-        position: "top",
-      });
+      console.log(error.response?.data?.message || 'Server is down');
     }
   };
 

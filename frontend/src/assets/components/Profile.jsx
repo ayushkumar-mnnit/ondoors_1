@@ -8,13 +8,13 @@ import { useAuth } from '../context/ContextAPI';
 
 const Profile = () => {
     const toast = useToast();
-    const { user,card } = useAuth();
+    const { user,HardCodedCards } = useAuth();
 
     
     
     const [editMode, setEditMode] = useState(false);
-    
-    const serviceTypes = card;
+   
+    const serviceTypes = HardCodedCards;
   
 
     const [info, setInfo] = useState({
@@ -35,6 +35,7 @@ const Profile = () => {
             serviceType: user.serviceType || '',
         });
     }, [user]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -136,6 +137,7 @@ const Profile = () => {
                                     type="text"
                                     className="form-control"
                                     name="mobile"
+
                                     value={info.mobile}
                                     onChange={handleChange}
                                     readOnly={!editMode}
@@ -208,7 +210,7 @@ const Profile = () => {
                                     >
                                         <option value="" disabled>Select service type</option>
                                         {serviceTypes.map((type) => (
-                                            <option key={type._id} value={type.title}>{type.title}</option>
+                                            <option key={type} value={type}>{type}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -221,6 +223,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+           
         </div>
     );
 }

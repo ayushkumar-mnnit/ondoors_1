@@ -12,9 +12,11 @@ const Footer = () => {
 
   const toast = useToast()
 
-  const {card}=useAuth()
+  const {HardCodedCards}=useAuth()
 
-  const cards=card.slice(0,5)
+
+
+  const cards=HardCodedCards.slice(0,5)
 
   const [feedback, setFeedback] = useState({ feedbackMsg: '' })
 
@@ -82,9 +84,9 @@ const Footer = () => {
                           <ul className="list-unstyled">
 
                           {cards.map((item)=>(
-                            <li key={item._id} className="mb-2">
+                            <li key={item} className="mb-2">
                             <a className="link-secondary text-decoration-none">
-                              {item.title}
+                              {item}
                               </a>
                             </li>
                           ))}

@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 const AllFeedbacks = () => {
-  const toast = useToast();
+
   const [feed, setfeed] = useState([]);
 
   const getAllFeedbacks = async () => {
@@ -24,13 +24,7 @@ const AllFeedbacks = () => {
         setfeed(result.data.data);
       }
     } catch (error) {
-      toast({
-        title: error.response?.data?.message || "Server is down",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-        position: "top",
-      });
+      console.log(error.response?.data?.message || 'Server is down');
     }
   };
 

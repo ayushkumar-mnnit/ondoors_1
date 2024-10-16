@@ -1,4 +1,4 @@
-import { useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Heading, Box, Text } from "@chakra-ui/react"
+import { useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, Text } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -92,9 +92,9 @@ const BookService = () => {
 
   return (
     <Box className="service-provider-container" mt={6}>
-      <Heading as="h2" size="lg" textAlign="center" fontFamily="'Math', sans-serif" mb={4}>
-        Available Service Providers for {title}
-      </Heading>
+      <h4 style={{ textAlign: "center" ,fontFamily:'monospace'}}>
+        Available Service Providers as <span style={{ color: "purple" }}>{title}</span> 
+      </h4>
       {filteredSP.length === 0 ? (
         <Text color="orangered" textAlign="center">
           Oops! Looks like no service provider found for this service.

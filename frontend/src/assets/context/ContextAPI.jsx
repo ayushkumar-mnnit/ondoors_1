@@ -5,7 +5,7 @@ import { useEffect, useState, createContext, useContext } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
+  const HardCodedCards=['Educator','Home maker','Carpenter','Plumber','Grocery','Medical','Electrical & Electronics']
   const [loading,setLoading]=useState(true)
 
   const [card, setCard] = useState([]);
@@ -125,7 +125,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user,card,loading,bookingData }}>
+    <AuthContext.Provider value={{ user,card,loading,bookingData,HardCodedCards }}>
       {children}
     </AuthContext.Provider>
   );

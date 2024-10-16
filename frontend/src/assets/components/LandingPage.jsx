@@ -1,6 +1,6 @@
 
 import { TabList, TabPanel, TabPanels, Tabs, Tab, Button} from '@chakra-ui/react'
-// import './css/land.css' // Assuming this file contains custom CSS for your landing page
+// import './css/land.css' 
 import './css/prof.css'
 import Profile from './Profile'
 import Services from './Services'
@@ -22,12 +22,12 @@ const LandingPage = () => {
             <Tabs  p='10px'>
                 <TabList>
 
-                    <Tab color='navy'>Services</Tab>
-                    <Tab color='navy'>Profile</Tab>
-                    <Tab color='navy'>History</Tab>
-                    {user?.role==='Service Provider'?<Tab color='navy'>Notification</Tab>:null}
-                    <Tab color='navy'>Change password</Tab>
-                    <Tab color='navy'>Contact Admin</Tab>
+                    <Tab color='purple'>Services</Tab>
+                    <Tab color='purple'>Profile</Tab>
+                    <Tab color='purple'>History</Tab>
+                    {user?.role==='Service Provider'?<Tab color='purple'>Notification</Tab>:null}
+                    <Tab color='purple'>Change password</Tab>
+                    <Tab color='purple'>Contact Admin</Tab>
                    
                 </TabList>
                 
@@ -38,6 +38,7 @@ const LandingPage = () => {
                         <Services />
                     </TabPanel>
                     <TabPanel>
+                    <p style={{color:'red', fontSize:'14px'}}>*profile is incomplete until the mobile number is updated and you may fail to avail the services</p>
                   <Profile/>
                     </TabPanel>
                     <TabPanel>

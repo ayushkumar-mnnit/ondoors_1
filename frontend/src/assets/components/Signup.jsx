@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import './css/login.css'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
-import { useAuth } from '../context/ContextAPI'
+
 import authimg from '../images/auth.jpg'
+import { useAuth } from '../context/ContextAPI'
 
 // eslint-disable-next-line react/prop-types
 const Signup = ({toggleForm}) => {
@@ -12,7 +13,7 @@ const Signup = ({toggleForm}) => {
     const navigate=useNavigate()
     const toast=useToast()
 
-    const {card}=useAuth()
+    const {HardCodedCards}=useAuth()
 
     const [showServiceType, setShowServiceType] = useState(false)
 
@@ -178,15 +179,15 @@ const Signup = ({toggleForm}) => {
                                                 </div>
                                             </div>
 
-                                            {/* Conditionally rendered Service Type dropdown */}
+                                            
                                             {showServiceType && (
                                                 <div className="col-12">
                                                     <div className="form-floating mb-3">
                                                         <select className="form-select" id="serviceType" name="serviceType" onChange={handleChange} value={user.serviceType}>
                                                             <option value="">Select</option>
-                                                            {card.map((item)=>(
+                                                            {HardCodedCards.map((item)=>(
 
-                                                            <option key={item._id}>{item.title}</option>
+                                                            <option key={item}>{item}</option>
                                                             ))}
                                                            
                                                         </select>

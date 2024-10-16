@@ -93,7 +93,7 @@ const ContactUs = () => {
             <textarea
               name="message"
               id="message"
-              cols="52"
+              cols="60"
               rows="7"
               placeholder="Message"
               onChange={handleChange}

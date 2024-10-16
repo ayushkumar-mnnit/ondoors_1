@@ -46,7 +46,7 @@ const Login = ({toggleForm}) => {
 
 
 
-        navigate('/')
+        navigate('/landing')
       }
 
     } catch (error) {
