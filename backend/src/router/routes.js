@@ -1,8 +1,8 @@
 
 import Router  from "express"
 import { getLoggedInUser } from "../middlewares/jwtAuth.js"
-import { loginUser, registerUser,getUser,updateProfile,changePassword,sendFeedback,contactUs, bookService, fetchBookings, getNotificationsForServiceProvider, adminContacts, getAdminContacts} from "../controllers/controller.js"
-import { addCard, changeAdmin, deleteCard, deleteFeedback, deleteUser, getAllContacts, getAllFeedbacks, getAllUsers, getCard, updateCard } from "../controllers/controller.js"
+import { loginUser, registerUser,getUser,updateProfile,changePassword,sendFeedback,contactUs, bookService, fetchBookings, getNotificationsForServiceProvider, adminContacts, getAdminContacts, updateBookingStatus} from "../controllers/controller.js"
+import { addCard, changeAdmin, deleteCard, deleteUser, getAllContacts, getAllFeedbacks, getAllUsers, getCard, updateCard } from "../controllers/controller.js"
 
 
  const router=Router()
@@ -23,7 +23,6 @@ router.route('/admin/allUsers').get(getLoggedInUser,getAllUsers)
 router.route('/admin/allFeedbacks').get(getLoggedInUser,getAllFeedbacks)
 router.route('/admin/allContacts').get(getLoggedInUser,getAllContacts)
 router.route('/admin/allUsers/deleteUser/:cur_userId').delete(getLoggedInUser,deleteUser)
-router.route('/admin/allFeedbacks/deleteFeedback/:cur_feedbackId').delete(getLoggedInUser,deleteFeedback)
 router.route('/admin/allUsers/changeAdmin/:cur_userId').patch(getLoggedInUser,changeAdmin)
 router.route('/admin/contactAdmin').post(getLoggedInUser,adminContacts)
 router.route('/admin/getAdminContacts').get(getLoggedInUser,getAdminContacts)
@@ -43,6 +42,7 @@ router.route('/getcards').get(getCard)
 router.route('/bookings').post(getLoggedInUser,bookService)
 router.route('/fetchBookings').get(getLoggedInUser,fetchBookings)
 router.route('/fetchNotifications').get(getLoggedInUser,getNotificationsForServiceProvider)
+router.route('/updateStatus/:bookingID').post(getLoggedInUser,updateBookingStatus)
 
 
 export {router}

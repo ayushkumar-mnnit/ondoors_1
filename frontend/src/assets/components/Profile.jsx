@@ -1,20 +1,20 @@
-import axios from 'axios';
-import './css/prof.css';
-import { useState, useEffect } from 'react';
-import { useToast } from '@chakra-ui/react';
-import { FaEdit } from "react-icons/fa";
-import { MdDoneOutline } from "react-icons/md";
-import { useAuth } from '../context/ContextAPI';
+import axios from 'axios'
+import './css/prof.css'
+import { useState, useEffect } from 'react'
+import { useToast } from '@chakra-ui/react'
+import { FaEdit } from "react-icons/fa"
+import { MdDoneOutline } from "react-icons/md"
+import { useAuth } from '../context/ContextAPI'
 
 const Profile = () => {
-    const toast = useToast();
-    const { user,HardCodedCards } = useAuth();
+    const toast = useToast()
+    const { user,card,userLoding } = useAuth()
 
-    
-    
-    const [editMode, setEditMode] = useState(false);
    
-    const serviceTypes = HardCodedCards;
+    
+    const [editMode, setEditMode] = useState(false)
+   
+    const serviceTypes = card
   
 
     const [info, setInfo] = useState({
@@ -23,9 +23,10 @@ const Profile = () => {
         pincode: user.pincode || '',
         role: user.role || '',
         serviceType: user.serviceType || '',
-    });
+    })
 
     // Sync info state with user data when user changes
+
     useEffect(() => {
         setInfo({
             mobile: user.mobile || '',
@@ -33,30 +34,30 @@ const Profile = () => {
             pincode: user.pincode || '',
             role: user.role || '',
             serviceType: user.serviceType || '',
-        });
-    }, [user]);
+        })
+    }, [user])
 
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setInfo({
             ...info,
             [name]: value
-        });
-    };
+        })
+    }
 
     const handleRoleChange = (e) => {
-        const { value } = e.target;
+        const { value } = e.target
         setInfo((prevUser) => ({
             ...prevUser,
             role: value,
             serviceType: value === 'Client' ? '' : prevUser.serviceType
-        }));
-    };
+        }))
+    }
 
     const saveChanges = async () => {
         try {
-            const { name } = user; // Assuming you get the name from the user object
+            const { name } = user // Assuming you get the name from the user object
 
             const response = await axios.patch(`/api/updateProfile`, {
                 name,
@@ -65,7 +66,7 @@ const Profile = () => {
                 role: info.role,
                 serviceType: info.serviceType,
                 pincode: info.pincode
-            });
+            })
 
             if (response.data.success) {
                 toast({
@@ -74,23 +75,26 @@ const Profile = () => {
                     duration: 4000,
                     isClosable: true,
                     position: 'top',
-                });
-                setEditMode(false);
+                })
+                setEditMode(false)
             } else {
-                throw new Error(response.data.message);
+                throw new Error(response.data.message)
             }
         } catch (error) {
-            console.error('Error updating profile:', error);
+            console.error('Error updating profile:', error)
             toast({
                 title: error.response?.data?.message || 'Failed to update profile',
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
                 position: 'top',
-            });
+            })
         }
-    };
+    }
 
+
+    if(userLoding) return <h5>Loading...</h5>
+  
     return (
         <div className="container-prof rounded bg-white mt-3 mb-5">
             <div className="row">
@@ -210,7 +214,7 @@ const Profile = () => {
                                     >
                                         <option value="" disabled>Select service type</option>
                                         {serviceTypes.map((type) => (
-                                            <option key={type} value={type}>{type}</option>
+                                            <option key={type._id} value={type.title}>{type.title}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -225,7 +229,7 @@ const Profile = () => {
             </div>
            
         </div>
-    );
+    )
 }
 
-export default Profile;
+export default Profile

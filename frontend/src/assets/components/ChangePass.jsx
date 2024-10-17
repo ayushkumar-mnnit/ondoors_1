@@ -55,7 +55,7 @@ const ChangePassword = () => {
 
     return (
         <div className="profile-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px' }}>
-            <div className="form-wrapper" style={{ maxWidth: '400px', width: '100%', padding: '20px', borderRadius: '8px', boxShadow: '1px 2px 10px rgba(0, 0, 0, 0.5)', backgroundColor: '#fff' }}>
+            <div className="form-wrapper" style={{ maxWidth: '400px', width: '100%', padding: '20px', borderRadius: '8px', boxShadow: '1px 2px 10px rgba(0, 0, 0,1)', backgroundColor: '#fff' }}>
                 <h4 className="profile-title">Change Password</h4>
                 <form className="profile-form" onSubmit={handleSubmit}>
                     <div className="form-group" style={{ marginBottom: '15px' }}>

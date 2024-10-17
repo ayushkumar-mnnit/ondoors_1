@@ -12,11 +12,11 @@ const Footer = () => {
 
   const toast = useToast()
 
-  const {HardCodedCards}=useAuth()
+  const {card}=useAuth()
 
 
 
-  const cards=HardCodedCards.slice(0,5)
+  const cards=card.slice(0,5)
 
   const [feedback, setFeedback] = useState({ feedbackMsg: '' })
 
@@ -26,6 +26,7 @@ const Footer = () => {
       const result = await axios.post(`/api/feedback`, feedback, {
         headers: {
           'Content-Type': 'application/json',
+         
         }
       })
 
@@ -61,6 +62,10 @@ const Footer = () => {
     setFeedback({ ...feedback, [name]: value })
   }
 
+
+
+  
+
   return (
     <>
       <footer className="footer py-3 py-xl-8">
@@ -84,9 +89,9 @@ const Footer = () => {
                           <ul className="list-unstyled">
 
                           {cards.map((item)=>(
-                            <li key={item} className="mb-2">
+                            <li key={item._id} className="mb-2">
                             <a className="link-secondary text-decoration-none">
-                              {item}
+                              {item.title}
                               </a>
                             </li>
                           ))}

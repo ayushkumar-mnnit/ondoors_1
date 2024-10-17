@@ -20,7 +20,7 @@ const About = () => {
           <div className="col-12 col-xl-11">
             <h2 className="mb-3">Who Are We?</h2>
             <p className="lead fs-4 text-secondary mb-3">Our mission is to deliver outstanding and captivating experiences, ensuring your needs are met with ease and efficiency</p>
-            <p className="mb-5">Meet <Link to='https://www.linkedin.com/in/ayushkumar2025/'><span className='dev'>Ayush Kumar</span></Link>  , the ingenious mind behind this groundbreaking web application. A dynamic engineering undergrad from the prestigious National Institute Of Technology Allahabad (MNNIT) <Link to='http://www.mnnit.ac.in/'>better known as<span className='dev'> NIT Allahabad</span></Link>, Ayush specializes in Electronics and Communication Engineering. Fueled by a relentless passion for innovation and his keen eye for detail and unwavering dedication, he has crafted a seamless platform that brings essential services to your fingertips.</p>
+            <p className="mb-5"><Link to='https://www.linkedin.com/in/ayushkumar2025/'><span className='dev'>Ayush Kumar</span></Link>, the visionary developer of this web application is an engineering undergrad at the renowned Motilal Nehru National Institute of Technology Allahabad (MNNIT) <Link to='http://www.mnnit.ac.in/'> better known as <span className='dev'>NIT Allahabad</span></Link> is specializing in Electronics and Communication Engineering. His passion for innovation and a meticulous approach to problem-solving have resulted in this platform, designed to deliver essential services with ease and precision.</p>
             <div className="row gy-4 gy-md-0 gx-xxl-5X">
               <div className="col-12 col-md-6">
                 <div className="d-flex">

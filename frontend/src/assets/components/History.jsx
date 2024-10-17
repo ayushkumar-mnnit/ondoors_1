@@ -8,15 +8,67 @@ import {
   TableContainer,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { useAuth } from "../context/ContextAPI.jsx";
 
-// import { useAuth } from "../context/ContextAPI"
 
 const History = () => {
-  const { bookingData } = useAuth();
+  
 
-  // const [status, setStatus] = useState('pending')
+  const [bookingData, setBookingData] = useState([{
+    bookingID: "",
+    clientID: "",
+    clientName: "",
+    bookingFor: "",
+    address: "",
+    pin: "",
+    mobile: "",
+    spID: "",
+    spName: "",
+    spAddress: "",
+    bookingDate: "",
+    bookingStatus: "",
+  }])
+
+  const fetchBookingDetails = async () => {
+    try {
+      const result = await axios.get('/api/fetchBookings')
+      if (result.data.success) {
+        setBookingData(result.data.data.map(booking => ({
+          bookingID: booking._id || "",
+          clientID: booking.clientID || "",
+          clientName: booking.clientName || "",
+          bookingFor: booking.bookingFor || "",
+          address: booking.address || "",
+          pin: booking.pin || "",
+          mobile: booking.mobile || "",
+          spID: booking.spID || "",
+          spName: booking.spName || "",
+          spAddress: booking.spAddress || "",
+          bookingDate: booking.bookingDate || "",
+          bookingStatus: booking.bookingStatus || "pending",
+        })))
+      }
+    } catch (error) {
+      console.log(error.response?.data?.message || 'Server is down')
+    }
+  }
+  
+
+  useEffect(() => {
+    fetchBookingDetails()
+  }, [])
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchBookingDetails()
+    },1000); 
+
+    return () => clearInterval(interval); 
+  }, []);
+
 
   return (
     <Box className="service-provider-container" mt={6}>
@@ -26,8 +78,9 @@ const History = () => {
             <Tr>
               <Th>Service Provider</Th>
               <Th>Address</Th>
-              <Th>Service Type</Th>
-              <Th>Status</Th>
+              <Th>Booking for</Th>
+              <Th>Booking Status</Th>
+              <Th>Booked on</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -37,7 +90,32 @@ const History = () => {
                   <Td>{booking.spName}</Td>
                   <Td>{booking.spAddress}</Td>
                   <Td>{booking.bookingFor}</Td>
-                  <Td></Td>
+                  <Td> {booking.bookingStatus==='Pending'?
+                  
+                    ( <Box 
+                        borderRadius="20px" 
+                        p={1.5} 
+                        bg='blue.200'
+                        color='blue'
+                        textAlign="center" 
+                      >
+                     {booking.bookingStatus}
+                      </Box>)
+                  
+                     :( <Box 
+                        borderRadius="20px" 
+                        p={1.5} 
+                        bg={booking.bookingStatus === 'Accepted' ? 'green.200' : 'red.200'}
+                        color={booking.bookingStatus === 'Accepted' ? 'green' : 'red'} 
+                        textAlign="center" 
+                      >
+                        {booking.bookingStatus}
+                      </Box>)
+
+                  }
+                  </Td>
+                  <Td>{booking.bookingDate.slice(0, 10)}</Td>
+                  
                 </Tr>
               ))
             ) : (

@@ -25,8 +25,9 @@ const ContactUs = () => {
 
     try {
       const result = await axios.post(`/api/contactUs`, contactData, {
-        headers: {
+       headers: {
           'Content-Type': 'application/json',
+         
         }
       });
 

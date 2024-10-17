@@ -54,7 +54,6 @@ export const registerUser = asyncHandler(async (req, res) => {
 })
 
 
-
 // login
 
 export const loginUser = asyncHandler(async (req, res) => {
@@ -266,7 +265,7 @@ export const adminContacts=asyncHandler(async (req, res) => {
 export const getAdminContacts=asyncHandler(async (req, res) => {
 
     const result = await AdminContact.find({})
-    console.log(result,'thi si resilt');
+    console.log(result,'thi si resilt')
     if (!result || result.length === 0) throw new ApiError(404, 'No data exists')
 
     res.status(200).json(new ApiResponse(201, result, 'All data fetched successfully'))
@@ -364,38 +363,42 @@ export const sendFeedback = asyncHandler(async (req, res) => {
 
 
 
-
-
 // booking route:
 
 
 export const bookService = asyncHandler(async (req, res) => {
     
-    const { client, clientName, bookingFor, address, pin, mobile, serviceProvider, spName, spAddress } = req.body
+    const { clientID, clientName, bookingFor, address, pin, mobile, spID, spName, spAddress } = req.body
 
     // Create a new booking
     const newBooking = await BookService.create({
-        client,
+        clientID,
         clientName,
         bookingFor,
         address,
         pin,
         mobile,
-        serviceProvider,
+        spID,
         spName,
         spAddress,
     })
 
      // Create a new notification for the service provider
+
+     const bookingID = newBooking._id
+     const bookingStatus = newBooking.bookingStatus
+
   await Notification.create({
-    serviceProvider,
-    client,
+    spID,
+    clientID,
+    bookingID,
+    bookingStatus,
     clientName,
     bookingFor,
     address,
     pin,
     mobile,
-  });
+  })
 
     
     if (!newBooking) {
@@ -403,36 +406,76 @@ export const bookService = asyncHandler(async (req, res) => {
     }
 
     // Respond with success
-    res.status(201).json(new ApiResponse(201, newBooking, 'Booking created successfully'))
+    res.status(201).json(new ApiResponse(201, newBooking, 'Booking successful'))
 })
 
 
 export const fetchBookings = asyncHandler(async (req, res) => {
     // Fetch the bookings for the authenticated client and sort by date descending
-    const bookings = await BookService.find({ client: req.user._id });
+    
+    const bookings = await BookService.find({ clientID: req.user._id })
+      
 
     if (!bookings || bookings.length === 0) {
-        throw new ApiError(404, 'No bookings found for this client');
+        throw new ApiError(404, 'No bookings found for this client')
     }
 
     // Respond with success
-    res.status(200).json(new ApiResponse(200, bookings, 'Bookings fetched successfully'));
-});
+    res.status(200).json(new ApiResponse(200, bookings, 'Bookings fetched successfully'))
+})
 
 
 export const getNotificationsForServiceProvider = asyncHandler(async (req, res) => {
   
-    const notifications = await Notification.find({ serviceProvider:req.user._id})
-console.log(notifications,'notif from backend');
+    const notifications = await Notification.find({ spID:req.user._id})
+
 
     if (!notifications) {
-      throw new ApiError(404, 'No notifications found ');
+      throw new ApiError(404, 'No notifications found ')
     }
   
     res.status(200).json({
       success: true,
       notifications,
-    });
-  });
+    })
+  })
   
 
+
+//   update status:
+
+export const updateBookingStatus = asyncHandler(async (req, res) => {
+    const { bookingID } = req.params
+    const { status } = req.body // Expect status to be 'Accepted' or 'Rejected'
+  
+    // Update the booking status
+    const updatedBooking = await BookService.findByIdAndUpdate(
+      bookingID,
+      { bookingStatus: status },
+      { new: true } // Return the updated document
+    )
+  
+    if (!updatedBooking) {
+      throw new ApiError(404, 'Booking not found')
+    }
+  
+    
+    const updatedNotification = await Notification.findOneAndUpdate(
+      { bookingID: bookingID }, 
+      { bookingStatus: status }, 
+      { new: true } 
+    )
+  
+    if (!updatedNotification) {
+      console.log('No notification found for this booking.')
+    }
+  
+    res.status(200).json({
+      success: true,
+      data: {
+        booking: updatedBooking,
+        notification: updatedNotification
+      },
+    })
+  })
+  

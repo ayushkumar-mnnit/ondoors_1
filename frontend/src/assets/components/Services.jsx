@@ -9,10 +9,10 @@ import {
     Heading,
     Text,
     
-  } from "@chakra-ui/react";
+  } from "@chakra-ui/react"
 
-  import { Link } from "react-router-dom";
-import { useAuth } from "../context/ContextAPI";
+  import { Link } from "react-router-dom"
+import { useAuth } from "../context/ContextAPI"
   
   const Services = () => {
     
@@ -37,9 +37,10 @@ import { useAuth } from "../context/ContextAPI";
               display="flex"
               flexDirection="column"
               justifyContent="space-between"
-              boxShadow="1px 2px 2px 2px gray"
+              boxShadow="1px 2px 2px 2px green"
               borderRadius="md"
               minHeight="300px"
+             fontFamily={"arial"}
               height="100%" 
               p={4}
             >
@@ -50,7 +51,7 @@ import { useAuth } from "../context/ContextAPI";
                 <Text>{item.description}</Text>
               </CardBody>
               <CardFooter>
-                <Button  >
+                <Button bg={"green.100"} color="green" _hover={{ bg: "blue.100",color:"blue" }} >
                   <Link to={`/bookservice/${item.title}`}>Get service</Link>
                 </Button>
               </CardFooter>
@@ -58,8 +59,8 @@ import { useAuth } from "../context/ContextAPI";
           </GridItem>
         ))}
       </Grid>
-    );
-  };
+    )
+  }
   
-  export default Services;
+  export default Services
   

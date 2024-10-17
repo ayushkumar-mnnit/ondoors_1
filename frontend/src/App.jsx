@@ -8,11 +8,7 @@ import Dashboard from "./assets/components/Admin/Dashboard.jsx";
 import { useAuth } from './assets/context/ContextAPI.jsx'; 
 
 function App() {
-  const { user, loading } = useAuth(); 
-
-  if (loading) {
-    return <h1>Loading...</h1>; 
-  }
+  const { user} = useAuth(); 
 
   return (
     <Router>

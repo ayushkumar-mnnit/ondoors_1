@@ -34,6 +34,7 @@ const ContactAdmin = () => {
       const result = await axios.post(`/api/admin/ContactAdmin`, contactData, {
         headers: {
           'Content-Type': 'application/json',
+         
         }
       });
 

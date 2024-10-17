@@ -1,15 +1,19 @@
-/* eslint-disable react/prop-types */
-import axios from 'axios';
-import { useEffect, useState, createContext, useContext } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import axios from 'axios'
+import { useEffect, useState, createContext, useContext } from 'react'
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
-  const HardCodedCards=['Educator','Home maker','Carpenter','Plumber','Grocery','Medical','Electrical & Electronics']
-  const [loading,setLoading]=useState(true)
 
-  const [card, setCard] = useState([]);
 
+  const [userLoding,setUserLoading]=useState(true)
+  const [cardLoding,setCardLoading]=useState(true)
+
+ 
+
+  const [card, setCard] = useState([])
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -19,119 +23,63 @@ export const AuthProvider = ({ children }) => {
     role: '',
     serviceType: '',
     isAdmin: false,
-  });
+  })
+ 
 
-
-  const [bookingData, setBookingData] = useState([{
-    client: "",
-    clientName: "",
-    bookingFor: "",
-    address: "",
-    pin: "",
-    mobile: "",
-    serviceProvider: "",
-    spName: "",
-    spAddress: "",
-}]);
-
-
-
+  // Function to fetch current user
   const getCurUser = async () => {
-    console.log('before token');
-    
     try {
-      const result = await axios.get(`/api/userData`);
+      const result = await axios.get(`/api/userData`)
       if (result.data.success) {
-        setUser(result.data.data);
+        setUser(result.data.data)
       } else {
-        console.log('Failed to fetch user data:', result.data.message);
+        console.log('Failed to fetch user data:', result.data.message)
       }
     } catch (error) {
-      console.log(error.response?.data?.message || 'Server is down');
-    } 
-    finally{
-      setLoading(false)
+      console.log(error.response?.data?.message || 'Server is down')
+    }finally{
+      setUserLoading(false)
     }
-    
-  };
+  }
 
-
-    // const token=localStorage.getItem('token')
-
-  useEffect(() => {
-    getCurUser();
-  }, []); 
-
-  
-
-
+  // Function to fetch cards
   const getCards = async () => {
     try {
-      const result = await axios.get(`/api/getcards`);
-      console.log(result.data.data);
+      const result = await axios.get(`/api/getcards`)
       if (result.data.success) {
-        setCard(result.data.data);
+        setCard(result.data.data)
       } else {
-        console.log('Failed to fetch cards:', result.data.message);
+        console.log('Failed to fetch cards:', result.data.message)
       }
-      
     } catch (error) {
-      console.log(error.response?.data?.message || 'Server is down');
+      console.log(error.response?.data?.message || 'Server is down')
+    } finally{
+      setCardLoading(false)
     }
-    finally{
-      setLoading(false)
-    }
-  };
+  }
 
-  useEffect(() => {
-    getCards();
-
-  }, []);
-
-
-
-  const fetchBookingDetails = async () => {
-    try {
-        const result = await axios.get('/api/fetchBookings'); 
-        if (result.data.success) {
-            const bookingDetails = result.data.data; // This should be an array of booking objects
-
-            // Assuming you want to set all booking details in state as an array
-            setBookingData(bookingDetails.map(booking => ({
-                client: booking.client || "",
-                clientName: booking.clientName || "",
-                bookingFor: booking.bookingFor || "",
-                address: booking.address || "",
-                pin: booking.pin || "",
-                mobile: booking.mobile || "",
-                serviceProvider: booking.serviceProvider || "",
-                spName: booking.spName || "",
-                spAddress: booking.spAddress || "",
-            })));
-        }
-    } catch (error) {
-        console.log(error.response?.data?.message || 'Server is down');
-    }
-};
-
-
-  useEffect(() => {
-    fetchBookingDetails();
-  }, []);
-
-
+  // Function to fetch booking details
  
-  
+
+  useEffect(() => {
+    getCurUser()
+  }, [])
+
+  useEffect(() => {
+    getCards()
+  }, [])
+
+
 
 
   return (
-    <AuthContext.Provider value={{ user,card,loading,bookingData,HardCodedCards }}>
+    <AuthContext.Provider value={{user,card,userLoding,cardLoding}}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-// eslint-disable-next-line react-refresh/only-export-components
+// Custom hook for easy use of AuthContext
 export const useAuth = () => {
-  return useContext(AuthContext);
-};
+  return useContext(AuthContext)
+}

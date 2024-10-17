@@ -7,10 +7,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 const Navbar = () => {
   const navigate = useNavigate()
 
-  const {user}=useAuth()
-
-  
-
+  const {user}=useAuth();
 
 
   const handleScroll = (sectionId) => {
@@ -20,6 +17,8 @@ const Navbar = () => {
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }
+
+ 
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light">

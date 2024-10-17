@@ -1,36 +1,72 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, ButtonGroup, Button } from "@chakra-ui/react"
-import axios from "axios"
-import { useEffect, useState } from "react"
-
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, ButtonGroup, Button } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState} from "react";
 
 const Notif = () => {
-  const [notificationData, setNotificationData] = useState([]) // Start with an empty array
+  const [notificationData, setNotificationData] = useState([]); 
+  
 
+  
   const fetchServiceProviderNotifications = async () => {
     try {
-      const result = await axios.get(`/api/fetchNotifications`)
+      const result = await axios.get(`/api/fetchNotifications`);
       if (result.data.success) {
-        const notif = result.data.notifications
-     
-        
-        setNotificationData(notif) // Use setNotificationData to store fetched notifications
+        const notif = result.data.notifications;
+        setNotificationData(notif);
       }
     } catch (error) {
-      console.log(error.response?.data?.message || 'Server is down')
+      console.log(error.response?.data?.message || 'Server is down');
     }
-  }
+  };
 
+  
   useEffect(() => {
-    fetchServiceProviderNotifications()
-  }, [])
+    fetchServiceProviderNotifications();
+  }, []); 
 
-  const handleAccept = () => {
-    // Implement accept logic using notificationId
-  }
+  // Polling to check for new notifications periodically (every 1 seconds)- better to use websocket
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchServiceProviderNotifications();
+    },1000); 
 
-  const handleReject = () => {
-    // Implement reject logic using notificationId
-  }
+    return () => clearInterval(interval); 
+  }, []);
+
+  // Handle status update (accept/reject) and re-fetch data
+  const handleAccept = async (bookingID) => {
+    try {
+      await axios.post(`/api/updateStatus/${bookingID}`, 
+        { status: 'Accepted' }, 
+        { headers: {
+          'Content-Type': 'application/json',
+         
+        } }
+      );
+      console.log('Booking accepted successfully');
+      
+      fetchServiceProviderNotifications(); // Trigger re-fetch after status update
+    } catch (error) {
+      console.error('Error accepting booking:', error.response?.data?.message || error.message);
+    }
+  };
+
+  const handleReject = async (bookingID) => {
+    try {
+      await axios.post(`/api/updateStatus/${bookingID}`, 
+        { status: 'Rejected' }, 
+        {headers: {
+          'Content-Type': 'application/json',
+         
+        } } 
+      );
+      console.log('Booking rejected successfully');
+
+      fetchServiceProviderNotifications(); 
+    } catch (error) {
+      console.error('Error rejecting booking:', error.response?.data?.message || error.message);
+    }
+  };
 
   return (
     <Box className="service-provider-container" mt={6}>
@@ -40,6 +76,7 @@ const Notif = () => {
             <Tr>
               <Th>Client</Th>
               <Th>Booking for</Th>
+              <Th>Booked on</Th>
               <Th>Address</Th>
               <Th>Pin code</Th>
               <Th>Ph.No.</Th>
@@ -52,28 +89,42 @@ const Notif = () => {
                 <Tr key={index}>
                   <Td>{notification.clientName}</Td>
                   <Td>{notification.bookingFor}</Td>
+                  <Td>{notification.bookingDate.slice(0, 10)}</Td>
                   <Td>{notification.address}</Td>
                   <Td>{notification.pin}</Td>
                   <Td>{notification.mobile}</Td>
+
                   <Td>
-                    <ButtonGroup>
-                      <Button 
-                        bg="green" 
-                        colorScheme="white" 
-                        onClick={() => handleAccept(notification._id)} 
-                        _hover={{ cursor: 'pointer' }}
+                    {notification.bookingStatus === 'Pending' ? (
+                      <ButtonGroup>
+                        <Button 
+                          bg="green" 
+                          colorScheme="white" 
+                          onClick={() => handleAccept(notification.bookingID)} 
+                          _hover={{ cursor: 'pointer' }}
+                        >
+                          Accept
+                        </Button>
+                        <Button 
+                          bg="red.500" 
+                          colorScheme="white" 
+                          onClick={() => handleReject(notification.bookingID)} 
+                          _hover={{ cursor: 'pointer' }}
+                        >
+                          Reject
+                        </Button>
+                      </ButtonGroup>
+                    ) : (
+                      <Box 
+                        borderRadius="20px" 
+                        p={1.5} 
+                        bg={notification.bookingStatus === 'Accepted' ? 'green.200' : 'red.200'}
+                        color={notification.bookingStatus === 'Accepted' ? 'green' : 'red'} 
+                        textAlign="center"
                       >
-                        Accept
-                      </Button>
-                      <Button 
-                        bg="red.500" 
-                        colorScheme="white" 
-                        onClick={() => handleReject(notification._id)} 
-                        _hover={{ cursor: 'pointer' }}
-                      >
-                        Reject
-                      </Button>
-                    </ButtonGroup>
+                        {notification.bookingStatus}
+                      </Box>
+                    )}
                   </Td>
                 </Tr>
               ))
@@ -86,7 +137,7 @@ const Notif = () => {
         </Table>
       </TableContainer>
     </Box>
-  )
-}
+  );
+};
 
-export default Notif
+export default Notif;
