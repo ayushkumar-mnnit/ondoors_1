@@ -4,6 +4,7 @@ import { useEffect, useState, createContext, useContext } from 'react'
 
 export const AuthContext = createContext()
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
 
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   // Function to fetch current user
   const getCurUser = async () => {
     try {
-      const result = await axios.get(`/api/userData`)
+      const result = await axios.get(`${api}/userData`)
       if (result.data.success) {
         setUser(result.data.data)
       } else {
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   // Function to fetch cards
   const getCards = async () => {
     try {
-      const result = await axios.get(`/api/getcards`)
+      const result = await axios.get(`${api}/getcards`)
       if (result.data.success) {
         setCard(result.data.data)
       } else {

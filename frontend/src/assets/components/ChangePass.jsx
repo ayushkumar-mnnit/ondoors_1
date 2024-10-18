@@ -3,6 +3,8 @@ import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import './css/prof.css';
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const ChangePassword = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -24,7 +26,7 @@ const ChangePassword = () => {
         }
 
         try {
-            const response = await axios.patch('/api/changePassword', {
+            const response = await axios.patch(`${api}/changePassword`, {
                 oldPassword,
                 newPassword,
             });

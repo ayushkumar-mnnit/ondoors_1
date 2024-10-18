@@ -11,13 +11,15 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const AllFeedbacks = () => {
 
   const [feed, setfeed] = useState([]);
 
   const getAllFeedbacks = async () => {
     try {
-      const result = await axios.get(`/api/admin/allFeedbacks`);
+      const result = await axios.get(`${api}/admin/allFeedbacks`);
       console.log(result.data.data);
 
       if (result.data.success) {

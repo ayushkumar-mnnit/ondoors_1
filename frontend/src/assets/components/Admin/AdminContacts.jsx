@@ -11,13 +11,15 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const AdminContacts = () => {
   
   const [contact, setContact] = useState([]);
 
   const getAdminContacts = async () => {
     try {
-      const result = await axios.get(`/api/admin/getAdminContacts`);
+      const result = await axios.get(`${api}/admin/getAdminContacts`);
      
 
       if (result.data.success) {

@@ -5,6 +5,8 @@ import { useState } from 'react'
 import axios from 'axios'
 import authimg from '../images/auth.jpg'
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 // eslint-disable-next-line react/prop-types
 const Login = ({ toggleForm }) => {
 
@@ -23,7 +25,7 @@ const Login = ({ toggleForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const result = await axios.post(`/api/login`, user, {
+      const result = await axios.post(`${api}/login`, user, {
         headers: {
           'Content-Type': 'application/json',
          

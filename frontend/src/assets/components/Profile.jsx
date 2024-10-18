@@ -6,6 +6,9 @@ import { FaEdit } from "react-icons/fa"
 import { MdDoneOutline } from "react-icons/md"
 import { useAuth } from '../context/ContextAPI'
 
+
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const Profile = () => {
     const toast = useToast()
     const { user,card,userLoding } = useAuth()
@@ -59,7 +62,7 @@ const Profile = () => {
         try {
             const { name } = user // Assuming you get the name from the user object
 
-            const response = await axios.patch(`/api/updateProfile`, {
+            const response = await axios.patch(`${api}/updateProfile`, {
                 name,
                 mobile: info.mobile,
                 address: info.address,

@@ -7,6 +7,8 @@ import { FaEdit } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const AllUsers = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,7 +19,7 @@ const AllUsers = () => {
   // Fetch all users
   const getAllUsers = async () => {
     try {
-      const result = await axios.get(`/api/admin/allUsers`);
+      const result = await axios.get(`${api}/admin/allUsers`);
       if (result.data.success) {
         setUser(result.data.data);
       }
@@ -41,7 +43,7 @@ const AllUsers = () => {
   const handleSaveEdit = async () => {
     try {
       const isAdmin = newRole === "Admin" ? true : false;
-      const result = await axios.patch(`/api/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin });
+      const result = await axios.patch(`${api}/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin });
 
       if (result.data.success) {
         toast({
@@ -68,7 +70,7 @@ const AllUsers = () => {
   // Delete the user using the provided route
   const handleDelete = async (id) => {
     try {
-      const result = await axios.delete(`/api/admin/allUsers/deleteUser/${id}`);
+      const result = await axios.delete(`${api}/admin/allUsers/deleteUser/${id}`);
       if (result.data.success) {
         toast({
           title: "User deleted successfully",

@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 
 const History = () => {
@@ -33,7 +34,7 @@ const History = () => {
 
   const fetchBookingDetails = async () => {
     try {
-      const result = await axios.get('/api/fetchBookings')
+      const result = await axios.get(`${api}/fetchBookings`)
       if (result.data.success) {
         setBookingData(result.data.data.map(booking => ({
           bookingID: booking._id || "",

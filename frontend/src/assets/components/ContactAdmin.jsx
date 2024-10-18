@@ -3,6 +3,7 @@ import './css/cont.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/ContextAPI';
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const ContactAdmin = () => {
   const toast = useToast();
@@ -31,7 +32,7 @@ const ContactAdmin = () => {
     };
 
     try {
-      const result = await axios.post(`/api/admin/ContactAdmin`, contactData, {
+      const result = await axios.post(`${api}/admin/ContactAdmin`, contactData, {
         headers: {
           'Content-Type': 'application/json',
          

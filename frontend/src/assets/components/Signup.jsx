@@ -7,6 +7,8 @@ import { useToast } from "@chakra-ui/react";
 import authimg from "../images/auth.jpg";
 import { useAuth } from "../context/ContextAPI";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 // eslint-disable-next-line react/prop-types
 const Signup = ({ toggleForm }) => {
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const Signup = ({ toggleForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post(`/api/register`, user, {
+      const result = await axios.post(`${api}/register`, user, {
         headers: {
           "Content-Type": "application/json",
          

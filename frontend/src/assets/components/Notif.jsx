@@ -2,6 +2,8 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, ButtonGroup, Butt
 import axios from "axios";
 import { useEffect, useState} from "react";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const Notif = () => {
   const [notificationData, setNotificationData] = useState([]); 
   
@@ -9,7 +11,7 @@ const Notif = () => {
   
   const fetchServiceProviderNotifications = async () => {
     try {
-      const result = await axios.get(`/api/fetchNotifications`);
+      const result = await axios.get(`${api}/fetchNotifications`);
       if (result.data.success) {
         const notif = result.data.notifications;
         setNotificationData(notif);
@@ -36,7 +38,7 @@ const Notif = () => {
   // Handle status update (accept/reject) and re-fetch data
   const handleAccept = async (bookingID) => {
     try {
-      await axios.post(`/api/updateStatus/${bookingID}`, 
+      await axios.post(`${api}/updateStatus/${bookingID}`, 
         { status: 'Accepted' }, 
         { headers: {
           'Content-Type': 'application/json',
@@ -53,7 +55,7 @@ const Notif = () => {
 
   const handleReject = async (bookingID) => {
     try {
-      await axios.post(`/api/updateStatus/${bookingID}`, 
+      await axios.post(`${api}/updateStatus/${bookingID}`, 
         { status: 'Rejected' }, 
         {headers: {
           'Content-Type': 'application/json',

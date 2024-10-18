@@ -26,6 +26,8 @@ import { useEffect, useState } from "react";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 const AllServices = () => {
   const toast = useToast();
   const [card, setCard] = useState([]);
@@ -36,7 +38,7 @@ const AllServices = () => {
 
   const getAllServices = async () => {
     try {
-      const result = await axios.get(`/api/getcards`);
+      const result = await axios.get(`${api}/getcards`);
       if (result.data.success) {
         setCard(result.data.data);
       }
@@ -59,7 +61,7 @@ const AllServices = () => {
 
   const handleDelete = async (id) => {
     try {
-      const result = await axios.post(`/api/admin/delete/${id}`);
+      const result = await axios.post(`${api}/admin/delete/${id}`);
       if (result.data.success) {
         toast({
           title: "Card deleted successfully",
@@ -91,7 +93,7 @@ const AllServices = () => {
     try {
       if (selectedCard) {
         // Update existing card
-        const result = await axios.patch(`/api/admin/update/${selectedCard._id}`, {
+        const result = await axios.patch(`${api}/admin/update/${selectedCard._id}`, {
           title: cardTitle,
           description: cardDescription,
         });
@@ -106,7 +108,7 @@ const AllServices = () => {
         }
       } else {
         // Add new card
-        const result = await axios.post(`/api/admin/newcard`, {
+        const result = await axios.post(`${api}/admin/newcard`, {
           title: cardTitle,
           description: cardDescription,
         });

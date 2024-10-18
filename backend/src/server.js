@@ -11,9 +11,10 @@ const port=process.env.PORT || 5000
 
 const app=express()
 
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 app.use(cors({
-    origin:process.env.CORS_ORIGIN || 'https://ondoors-frontend.onrender.com' ,
+    origin:process.env.CORS_ORIGIN || 'https://ondoors-frontend.onrender.com' ,  // hosted frontend url
     credentials:true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -27,7 +28,7 @@ app.use(cookieParser())
 
 import {router} from './router/routes.js'
 
-app.use('/api',router)
+app.use(api,router)
 
 // for confirmation of backend running or not
 app.get('/health', (req, res) => {
