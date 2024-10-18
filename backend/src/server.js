@@ -28,7 +28,7 @@ app.use(cookieParser())
 
 import {router} from './router/routes.js'
 
-app.use(api,router)
+app.use('/',router)
 
 // for confirmation of backend running or not
 app.get('/health', (req, res) => {
