@@ -5,7 +5,7 @@ import { useEffect, useState, createContext, useContext } from 'react'
 
 export const AuthContext = createContext()
 
-const api = 'https://ondoors-frontend.onrender.com' // hosted backend url
+const api = 'https://ondoors-1.onrender.com' // hosted backend url
 
 export const AuthProvider = ({ children }) => {
   

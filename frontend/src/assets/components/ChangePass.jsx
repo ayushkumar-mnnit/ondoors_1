@@ -4,7 +4,7 @@ import axios from 'axios';
 import './css/prof.css';
 import { useAuth } from '../context/ContextAPI';
 
-const api='https://ondoors-frontend.onrender.com'  // hosted backend url
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const ChangePassword = () => {
     const [oldPassword, setOldPassword] = useState('');

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-frontend.onrender.com'  // hosted backend url
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const AllFeedbacks = () => {
 

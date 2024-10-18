@@ -6,7 +6,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 
 import axios from "axios";
 
-const api = "https://ondoors-frontend.onrender.com"; // hosted backend url
+const api = "https://ondoors-1.onrender.com"; // hosted backend url
 
 const Navbar = () => {
   const navigate = useNavigate();

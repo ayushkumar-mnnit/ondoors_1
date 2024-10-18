@@ -27,7 +27,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-frontend.onrender.com'  // hosted backend url
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const AllServices = () => {
   const toast = useToast();

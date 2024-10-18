@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState} from "react";
 import { useAuth } from "../context/ContextAPI";
 
-const api='https://ondoors-frontend.onrender.com'  // hosted backend url
+const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const Notif = () => {
   const [notificationData, setNotificationData] = useState([]); 
