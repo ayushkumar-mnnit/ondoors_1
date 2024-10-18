@@ -10,16 +10,22 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const AllFeedbacks = () => {
 
   const [feed, setfeed] = useState([]);
+  const { token } = useAuth();  
 
   const getAllFeedbacks = async () => {
     try {
-      const result = await axios.get(`${api}/admin/allFeedbacks`);
+      const result = await axios.get(`${api}/admin/allFeedbacks` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       console.log(result.data.data);
 
       if (result.data.success) {

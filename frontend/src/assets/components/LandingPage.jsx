@@ -15,11 +15,9 @@ import ContactAdmin from './ContactAdmin'
 
 const LandingPage = () => {
 
-    const {user,cardLoading}=useAuth();
+    const {user}=useAuth();
 
-    if(cardLoading){
-        return <h5>Loading..</h5>
-    }
+    
 
     return (
         <>

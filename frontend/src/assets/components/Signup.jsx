@@ -7,14 +7,14 @@ import { useToast } from "@chakra-ui/react";
 import authimg from "../images/auth.jpg";
 import { useAuth } from "../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 // eslint-disable-next-line react/prop-types
 const Signup = ({ toggleForm }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const { card } = useAuth();
+  const { card, token } = useAuth();
 
   const [showServiceType, setShowServiceType] = useState(false);
 
@@ -46,9 +46,9 @@ const Signup = ({ toggleForm }) => {
     try {
       const result = await axios.post(`${api}/register`, user, {
         headers: {
-          "Content-Type": "application/json",
-         
-        },
+          'Content-Type': 'application/json',
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
       });
 
       if (result.data.success) {

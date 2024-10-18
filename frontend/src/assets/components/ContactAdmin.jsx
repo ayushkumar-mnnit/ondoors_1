@@ -3,11 +3,11 @@ import './css/cont.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/ContextAPI';
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const ContactAdmin = () => {
   const toast = useToast();
-  const { user } = useAuth();  // Get the logged-in user's details
+  const { user,token } = useAuth();  // Get the logged-in user's details
 
   const [contact, setContact] = useState({
     message: '',
@@ -35,8 +35,8 @@ const ContactAdmin = () => {
       const result = await axios.post(`${api}/admin/ContactAdmin`, contactData, {
         headers: {
           'Content-Type': 'application/json',
-         
-        }
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
       });
 
       if (result.data.success) {

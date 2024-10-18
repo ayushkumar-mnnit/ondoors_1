@@ -9,8 +9,11 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 
 
 export const getLoggedInUser=asyncHandler(async(req,res,next)=>{
+    
 
     const token=req.cookies?.token || req.header('Authorization')?.replace('Bearer ' , '') 
+
+    
 
     if(!token) throw new ApiError(404,'token not found')
         

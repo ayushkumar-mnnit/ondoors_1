@@ -7,7 +7,7 @@ const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const ContactUs = () => {
   const toast = useToast();
-  const { user } = useAuth();  // Get the logged-in user's details
+  const { user,token } = useAuth();  // Get the logged-in user's details
 
   const [contact, setContact] = useState({
     message: ''
@@ -24,12 +24,15 @@ const ContactUs = () => {
       message: contact.message  // 
     };
 
+
+   
+
     try {
       const result = await axios.post(`${api}/contactUs`, contactData, {
-       headers: {
+        headers: {
           'Content-Type': 'application/json',
-         
-        }
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
       });
 
       if (result.data.success) {

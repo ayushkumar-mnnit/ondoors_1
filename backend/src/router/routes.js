@@ -1,7 +1,7 @@
 
 import Router  from "express"
 import { getLoggedInUser } from "../middlewares/jwtAuth.js"
-import { loginUser, registerUser,getUser,updateProfile,changePassword,sendFeedback,contactUs, bookService, fetchBookings, getNotificationsForServiceProvider, adminContacts, getAdminContacts, updateBookingStatus} from "../controllers/controller.js"
+import { loginUser, registerUser,getUser,updateProfile,changePassword,sendFeedback,contactUs, bookService, fetchBookings, getNotificationsForServiceProvider, adminContacts, getAdminContacts, updateBookingStatus, logoutUser} from "../controllers/controller.js"
 import { addCard, changeAdmin, deleteCard, deleteUser, getAllContacts, getAllFeedbacks, getAllUsers, getCard, updateCard } from "../controllers/controller.js"
 
 
@@ -16,6 +16,7 @@ router.route('/updateProfile').patch(getLoggedInUser,updateProfile)
 router.route('/changePassword').patch(getLoggedInUser,changePassword)
 router.route('/contactUs').post(getLoggedInUser,contactUs)
 router.route('/feedback').post(sendFeedback)
+router.route('/logout').post(getLoggedInUser,logoutUser) 
 
 // -------------------------admin routes--------------
 
@@ -32,7 +33,7 @@ router.route('/admin/getAdminContacts').get(getLoggedInUser,getAdminContacts)
 // ------------------------service card routes------------
 
 router.route('/admin/newcard').post(addCard)
-router.route('/admin/delete/:cur_id').post(getLoggedInUser,deleteCard)
+router.route('/admin/delete/:cur_id').delete(getLoggedInUser,deleteCard)
 router.route('/admin/update/:cur_id').patch(getLoggedInUser,updateCard)
 router.route('/getcards').get(getCard)
 
@@ -42,7 +43,7 @@ router.route('/getcards').get(getCard)
 router.route('/bookings').post(getLoggedInUser,bookService)
 router.route('/fetchBookings').get(getLoggedInUser,fetchBookings)
 router.route('/fetchNotifications').get(getLoggedInUser,getNotificationsForServiceProvider)
-router.route('/updateStatus/:bookingID').post(getLoggedInUser,updateBookingStatus)
+router.route('/updateStatus/:bookingID').patch(getLoggedInUser,updateBookingStatus)
 
 
 export {router}

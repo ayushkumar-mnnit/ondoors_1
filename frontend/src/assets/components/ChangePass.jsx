@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import './css/prof.css';
+import { useAuth } from '../context/ContextAPI';
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const ChangePassword = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const toast = useToast();
     const [isHovered, setIsHovered] = useState(false); // State to manage hover
+
+    const { token } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +32,12 @@ const ChangePassword = () => {
             const response = await axios.patch(`${api}/changePassword`, {
                 oldPassword,
                 newPassword,
-            });
+            } , {
+                headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`,
+                },withCredentials: true
+              });
 
             if (response.data.success) {
                 toast({

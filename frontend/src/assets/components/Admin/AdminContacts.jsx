@@ -10,16 +10,24 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const AdminContacts = () => {
   
   const [contact, setContact] = useState([]);
 
+  const { token } = useAuth();
+
+
   const getAdminContacts = async () => {
     try {
-      const result = await axios.get(`${api}/admin/getAdminContacts`);
+      const result = await axios.get(`${api}/admin/getAdminContacts` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
      
 
       if (result.data.success) {

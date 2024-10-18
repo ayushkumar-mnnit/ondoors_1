@@ -6,8 +6,9 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const AllUsers = () => {
   const toast = useToast();
@@ -16,10 +17,16 @@ const AllUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [newRole, setNewRole] = useState("");
 
+  const { token } = useAuth();
+
   // Fetch all users
   const getAllUsers = async () => {
     try {
-      const result = await axios.get(`${api}/admin/allUsers`);
+      const result = await axios.get(`${api}/admin/allUsers` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       if (result.data.success) {
         setUser(result.data.data);
       }
@@ -43,7 +50,12 @@ const AllUsers = () => {
   const handleSaveEdit = async () => {
     try {
       const isAdmin = newRole === "Admin" ? true : false;
-      const result = await axios.patch(`${api}/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin });
+      const result = await axios.patch(`${api}/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin } , {
+        headers: {
+          'Content-Type': 'application/json', 
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
 
       if (result.data.success) {
         toast({
@@ -70,7 +82,11 @@ const AllUsers = () => {
   // Delete the user using the provided route
   const handleDelete = async (id) => {
     try {
-      const result = await axios.delete(`${api}/admin/allUsers/deleteUser/${id}`);
+      const result = await axios.delete(`${api}/admin/allUsers/deleteUser/${id}` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       if (result.data.success) {
         toast({
           title: "User deleted successfully",

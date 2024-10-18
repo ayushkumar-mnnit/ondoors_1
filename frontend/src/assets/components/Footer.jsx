@@ -8,13 +8,13 @@ import { FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { SiGithub } from 'react-icons/si'
 import { Link } from 'react-router-dom'
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const Footer = () => {
 
   const toast = useToast()
 
-  const {card}=useAuth()
+  const {card,token}=useAuth()
 
 
 
@@ -28,8 +28,8 @@ const Footer = () => {
       const result = await axios.post(`${api}/feedback`, feedback, {
         headers: {
           'Content-Type': 'application/json',
-         
-        }
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
       })
 
       if (result.data.success) {

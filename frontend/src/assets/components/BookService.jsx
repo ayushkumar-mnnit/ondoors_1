@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import { CiBookmarkPlus } from "react-icons/ci";
 import { useAuth } from "../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const BookService = () => {
   const toast = useToast();
@@ -29,9 +29,17 @@ const BookService = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+ const { token } = useAuth();
+
   const getAllUsers = async () => {
     try {
-      const result = await axios.get(`${api}/admin/allUsers`);
+      const result = await axios.get(`${api}/admin/allUsers` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
+
+
       if (result.data.success) {
         setSp(result.data.data);
       }
@@ -60,7 +68,12 @@ const BookService = () => {
     };
 
     try {
-      const response = await axios.post(`${api}/bookings`, userDetails);
+      const response = await axios.post(`${api}/bookings`, userDetails,{
+        headers: {
+          'Content-Type': 'application/json',
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
 
       if (response.data.success) {
         toast({

@@ -1,19 +1,14 @@
-/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import { useEffect, useState, createContext, useContext } from 'react'
 
 export const AuthContext = createContext()
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
-// eslint-disable-next-line react/prop-types
+const api = 'https://ondoors-frontend.onrender.com' // hosted backend url
+
 export const AuthProvider = ({ children }) => {
-
-
-  const [userLoding,setUserLoading]=useState(true)
-  const [cardLoding,setCardLoading]=useState(true)
-
- 
-
+  
   const [card, setCard] = useState([])
   const [user, setUser] = useState({
     name: '',
@@ -25,28 +20,40 @@ export const AuthProvider = ({ children }) => {
     serviceType: '',
     isAdmin: false,
   })
- 
+
+  // State to manage token
+  const [token, setToken] = useState(localStorage.getItem('token') || '') // Initialize token from localStorage
 
   // Function to fetch current user
   const getCurUser = async () => {
+    if (!token) return // Exit if there's no token
     try {
-      const result = await axios.get(`${api}/userData`)
+      const result = await axios.get(`${api}/userData`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
       if (result.data.success) {
         setUser(result.data.data)
-      } else {
-        console.log('Failed to fetch user data:', result.data.message)
       }
     } catch (error) {
       console.log(error.response?.data?.message || 'Server is down')
-    }finally{
-      setUserLoading(false)
-    }
+    } 
   }
 
-  // Function to fetch cards
-  const getCards = async () => {
+
+
+   // Function to fetch cards
+   const getCards = async () => {
+    if (!token) return // Prevent fetching cards if token is not available
     try {
-      const result = await axios.get(`${api}/getcards`)
+      const result = await axios.get(`${api}/getcards`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
       if (result.data.success) {
         setCard(result.data.data)
       } else {
@@ -54,33 +61,29 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error.response?.data?.message || 'Server is down')
-    } finally{
-      setCardLoading(false)
-    }
+    } 
   }
 
-  // Function to fetch booking details
- 
 
   useEffect(() => {
     getCurUser()
-  }, [])
+  }, [token]) 
 
   useEffect(() => {
     getCards()
-  }, [])
-
+  }, [token])
 
 
 
   return (
-    <AuthContext.Provider value={{user,card,userLoding,cardLoding}}>
+    <AuthContext.Provider value={{ user, card, setToken }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-// Custom hook for easy use of AuthContext
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   return useContext(AuthContext)
 }

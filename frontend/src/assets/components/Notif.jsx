@@ -1,17 +1,22 @@
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box, ButtonGroup, Button } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState} from "react";
+import { useAuth } from "../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const Notif = () => {
   const [notificationData, setNotificationData] = useState([]); 
   
-
+const { token } = useAuth();
   
   const fetchServiceProviderNotifications = async () => {
     try {
-      const result = await axios.get(`${api}/fetchNotifications`);
+      const result = await axios.get(`${api}/fetchNotifications` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       if (result.data.success) {
         const notif = result.data.notifications;
         setNotificationData(notif);
@@ -38,12 +43,12 @@ const Notif = () => {
   // Handle status update (accept/reject) and re-fetch data
   const handleAccept = async (bookingID) => {
     try {
-      await axios.post(`${api}/updateStatus/${bookingID}`, 
+      await axios.patch(`${api}/updateStatus/${bookingID}`, 
         { status: 'Accepted' }, 
-        { headers: {
+        {  headers: {
           'Content-Type': 'application/json',
-         
-        } }
+        'Authorization': `Bearer ${token}`,
+        },withCredentials: true }
       );
       console.log('Booking accepted successfully');
       
@@ -57,10 +62,10 @@ const Notif = () => {
     try {
       await axios.post(`${api}/updateStatus/${bookingID}`, 
         { status: 'Rejected' }, 
-        {headers: {
+        { headers: {
           'Content-Type': 'application/json',
-         
-        } } 
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true } 
       );
       console.log('Booking rejected successfully');
 

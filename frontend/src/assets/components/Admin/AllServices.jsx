@@ -25,8 +25,9 @@ import { useEffect, useState } from "react";
 
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
+import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const AllServices = () => {
   const toast = useToast();
@@ -36,9 +37,15 @@ const AllServices = () => {
   const [cardDescription, setCardDescription] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { token } = useAuth();    
+
   const getAllServices = async () => {
     try {
-      const result = await axios.get(`${api}/getcards`);
+      const result = await axios.get(`${api}/getcards` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       if (result.data.success) {
         setCard(result.data.data);
       }
@@ -61,7 +68,11 @@ const AllServices = () => {
 
   const handleDelete = async (id) => {
     try {
-      const result = await axios.post(`${api}/admin/delete/${id}`);
+      const result = await axios.delete(`${api}/admin/delete/${id}` , {
+        headers: {
+         'Authorization': `Bearer ${token}`,
+        },withCredentials: true
+      });
       if (result.data.success) {
         toast({
           title: "Card deleted successfully",
@@ -96,6 +107,11 @@ const AllServices = () => {
         const result = await axios.patch(`${api}/admin/update/${selectedCard._id}`, {
           title: cardTitle,
           description: cardDescription,
+        } , {
+          headers: {
+            'Content-Type': 'application/json',
+           'Authorization': `Bearer ${token}`,
+          },withCredentials: true
         });
         if (result.data.success) {
           toast({
@@ -111,6 +127,11 @@ const AllServices = () => {
         const result = await axios.post(`${api}/admin/newcard`, {
           title: cardTitle,
           description: cardDescription,
+        },{
+          headers: {
+            'Content-Type': 'application/json',
+           'Authorization': `Bearer ${token}`,
+          },withCredentials: true
         });
         if (result.data.success) {
           toast({

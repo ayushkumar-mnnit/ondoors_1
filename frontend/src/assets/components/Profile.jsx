@@ -7,7 +7,7 @@ import { MdDoneOutline } from "react-icons/md"
 import { useAuth } from '../context/ContextAPI'
 
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-frontend.onrender.com'  // hosted backend url
 
 const Profile = () => {
     const toast = useToast()
@@ -58,6 +58,9 @@ const Profile = () => {
         }))
     }
 
+
+    const { token } = useAuth()
+
     const saveChanges = async () => {
         try {
             const { name } = user // Assuming you get the name from the user object
@@ -69,7 +72,12 @@ const Profile = () => {
                 role: info.role,
                 serviceType: info.serviceType,
                 pincode: info.pincode
-            })
+            } , {
+                headers: {
+                    'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`,
+                },withCredentials: true
+              })
 
             if (response.data.success) {
                 toast({

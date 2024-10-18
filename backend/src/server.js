@@ -11,7 +11,7 @@ const port=process.env.PORT || 5000
 
 const app=express()
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+
 
 app.use(cors({
     origin:process.env.CORS_ORIGIN || 'https://ondoors-frontend.onrender.com' ,  // hosted frontend url

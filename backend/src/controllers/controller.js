@@ -80,17 +80,35 @@ export const loginUser = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true
-    }
+    };
 
     // send the tokens in cookie of the client (i.e. set the cookie) becoz when auth is successful then website expect tokens in cookies and send the tokens in cookies of each subsequent request
-    res.status(200).cookie('token', token, options)
-
-    // send the reponse
-    res.status(200).json(new ApiResponse(200, token, 'logged in successfully'))
+    res.cookie('token', token, options) 
+   .status(200) 
+   .json(new ApiResponse(200, token, 'Logged in successfully')); 
     // send tokens in response also becoz response is actually main body and mobile apps expect the tokens in body,then store the token locally (e.g., in secure storage) and send it in the Authorization header with every subsequent request.
 
 
 })
+
+
+
+
+// logout
+
+
+export const logoutUser = asyncHandler(async (req, res) => {
+    try {
+        await User.updateOne({ _id: req.user._id }, { $set: { token: null } })
+        // Clear the cookie by setting it to null and giving it an expiration in the past
+        res.cookie('token', null, { expires: new Date(Date.now()), httpOnly: true })
+        .status(200).json(new ApiResponse(200, null, 'Logged out successfully'))
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(new ApiError(500, 'Logout failed, please try again.'))
+    }
+})
+
 
 
 
@@ -217,17 +235,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
 
 
-// delete feedback:
 
-export const deleteFeedback = asyncHandler(async (req, res) => {
-   
-    const id = req.params.cur_feedbackId
-    const result = await Feedback.deleteOne({ _id: id })
-    if (result.deletedCount === 0) throw new ApiError(404, 'Feedback does not exists')
-
-    res.status(200).json(new ApiResponse(201, result, 'Feedback deleted successfully'))
-
-})
 
 
 // update user (-change admin role)
