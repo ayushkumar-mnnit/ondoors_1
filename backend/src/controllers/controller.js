@@ -79,8 +79,10 @@ export const loginUser = asyncHandler(async (req, res) => {
     // set these options so that cookie data is only modifiable from server side (preventing XSS)
     const options = {
         httpOnly: true,
-        secure: true
-    };
+        secure: process.env.NODE_ENV === 'production', 
+        samesite: 'strict',
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+      };
 
     // send the tokens in cookie of the client (i.e. set the cookie) becoz when auth is successful then website expect tokens in cookies and send the tokens in cookies of each subsequent request
     res.cookie('token', token, options) 

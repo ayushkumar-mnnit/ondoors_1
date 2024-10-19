@@ -249,6 +249,7 @@ const Signup = ({ toggleForm }) => {
                             <label className="form-label" htmlFor="serviceType">
                               Service Type
                             </label>
+                            <p style={{ color: "red" , fontSize:'13px'}} >service not listed? signup as client, go to <span style={{ color: "blue" , fontSize:'12px'}} >Contact Admin</span>, send a request to add your service then update it from <span style={{ color: "blue" , fontSize:'12px'}} >Profile</span></p>
                           </div>
                         </div>
                       )}

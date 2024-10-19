@@ -45,34 +45,34 @@ export const AuthProvider = ({ children }) => {
 
 
    // Function to fetch cards
+   // Function to fetch cards
    const getCards = async () => {
-    if (!token) return // Prevent fetching cards if token is not available
-    try {
-      const result = await axios.get(`${api}/getcards`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        withCredentials: true,
-      })
-      if (result.data.success) {
-        setCard(result.data.data)
-      } else {
-        console.log('Failed to fetch cards:', result.data.message)
-      }
-    } catch (error) {
-      console.log(error.response?.data?.message || 'Server is down')
-    } 
-  }
-
-
-  useEffect(() => {
-    getCurUser()
-  }, [token]) 
-
-  useEffect(() => {
-    getCards()
-  }, [token])
-
+    // if (!token) return // Prevent fetching cards if token is not available
+     try {
+       const result = await axios.get(`${api}/getcards`, {
+         headers: {
+           'Authorization': `Bearer ${token}`,
+         },
+         withCredentials: true,
+       })
+       if (result.data.success) {
+         setCard(result.data.data)
+       } else {
+         console.log('Failed to fetch cards:', result.data.message)
+       }
+     } catch (error) {
+       console.log(error.response?.data?.message || 'Server is down')
+     } 
+   }
+ 
+ 
+   useEffect(() => {
+     getCurUser()
+   }, [token]) 
+ 
+   useEffect(() => {
+     getCards()
+   }, [])
 
 
   return (

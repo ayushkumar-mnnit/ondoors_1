@@ -60,7 +60,7 @@ const { token } = useAuth();
 
   const handleReject = async (bookingID) => {
     try {
-      await axios.post(`${api}/updateStatus/${bookingID}`, 
+      await axios.patch(`${api}/updateStatus/${bookingID}`, 
         { status: 'Rejected' }, 
         { headers: {
           'Content-Type': 'application/json',
