@@ -9,10 +9,11 @@ import {
   TableContainer,
   Box,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CiBookmarkPlus } from "react-icons/ci";
 import { useAuth } from "../context/ContextAPI";
 
@@ -108,6 +109,7 @@ const BookService = () => {
 
   return (
     <Box className="service-provider-container" mt={6}>
+    <Link to='/landing' ><Button variant='ghost' ml={2} bg='green.100' _hover={{bg:'blue.100'}} >Back</Button></Link>
       <h4 style={{ textAlign: "center", fontFamily: "monospace" }}>
         Available Service Providers as{" "}
         <span style={{ color: "purple" }}>{title}</span>

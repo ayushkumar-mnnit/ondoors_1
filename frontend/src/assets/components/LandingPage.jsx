@@ -12,6 +12,12 @@ import Notif from './Notif'
 import { useAuth } from '../context/ContextAPI'
 import ContactAdmin from './ContactAdmin'
 
+import { FaUserCircle } from "react-icons/fa";
+import { PiNote } from "react-icons/pi";
+import { BiSolidMessageDetail } from "react-icons/bi";
+import { BiSolidBellRing } from "react-icons/bi";
+import { RiLockPasswordLine, RiServiceFill } from "react-icons/ri";
+
 
 const LandingPage = () => {
 
@@ -25,19 +31,19 @@ const LandingPage = () => {
             <Tabs  p='10px'>
                 <TabList>
 
-                    <Tab color='purple'>Services</Tab>
-                    <Tab color='purple'>Profile</Tab>
-                    <Tab color='purple'>History</Tab>
-                    {user?.role==='Service Provider'?<Tab color='purple'>Notification</Tab>:null}
-                    <Tab color='purple'>Change password</Tab>
-                    <Tab color='purple'>Contact Admin</Tab>
+                    <Tab color='purple'><RiServiceFill size={20} /></Tab>
+                    <Tab color='purple'><FaUserCircle size={20} /></Tab>
+                    <Tab color='purple'><PiNote  size={20} /></Tab>
+                    {user?.role==='Service Provider'?<Tab color='purple'><BiSolidBellRing size={20} /></Tab>:null}
+                    <Tab color='purple'><RiLockPasswordLine size={20} /></Tab>
+                    <Tab color='purple'><BiSolidMessageDetail size={20} /></Tab>
                    
                 </TabList>
                 
                 <TabPanels >
                    
                     <TabPanel>
-                    <Link to='/' ><Button variant='ghost' ml={2}  >Back to Home</Button></Link>
+                    <Link to='/' ><Button variant='ghost' ml={2} bg='green.100' _hover={{bg:'blue.100'}} >Back to Home</Button></Link>
                         <Services />
                     </TabPanel>
                     <TabPanel>

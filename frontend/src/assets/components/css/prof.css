@@ -1,43 +1,134 @@
-.container-prof {
-    min-height: 350px; /* Increase minimum height for icons */
-    width: 80%; /* Set width to be greater than height */
-    max-width: 600px; /* Limit maximum width */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Add some padding */
-    box-shadow: 1px 2px 2px 2px black;
+body, html {
+    height: 100%;
 }
 
-.form-control, .form-select {
-    width: 100%; /* Make fields full width */
+body {
+    background: #daa000;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.mt-5 {
-    margin-top: 3rem !important; /* Adjust margin for spacing */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12% 0; /* Adjusted for better vertical spacing */
 }
 
-.text-center {
-    text-align: center; /* Center text */
+.user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%; /* Changed to 100% for responsiveness */
+    max-width: 650px; /* Set max width for larger screens */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 20px -5px rgba(0, 0, 0, 0.5);
 }
 
-.profile-button {
-    width: 50%; /* Adjust button width */
-    margin: 10px auto; /* Center the button */
+.user-card:before {
+    content: '';
+    position: absolute;
+    height: 300%;
+    width: 173px;
+    background: #262626;
+    top: -60px;
+    left: -125px;
+    z-index: 0;
+    transform: rotate(17deg);
 }
 
-.labels {
-    font-weight: bold; /* Make labels bold for better visibility */
+.user-card-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .container {
-        width: 90%; /* Adjust width for smaller screens */
+.user-card-img img {
+    width: 150px; /* Adjusted size for better fit */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.user-card-info {
+    text-align: center;
+}
+
+.user-card-info h2 {
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 10px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 3px;
+}
+
+.user-card-info p {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.user-card-info p span {
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+    .user-card {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .user-card-img {
+        margin-right: 20px;
+    }
+    .user-card-info {
+        text-align: left;
     }
 }
 
+@media (max-width: 767px) {
+    .wrapper {
+        padding-top: 3%;
+    }
+    .user-card:before {
+        width: 300%;
+        height: 200px;
+        transform: rotate(0);
+    }
+    .user-card-info h2 {
+        margin-top: 25px;
+        font-size: 35px;
+    }
+    .user-card-info p span {
+        display: block;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+}
 
-.profile-title{
-    font-family: math;
-    text-align: center;
-    font-size: large;
+.container-prof {
+    max-width: 800px; /* Limit the max width on larger screens */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add some padding */
+    border-radius: 10px;
+    box-shadow: 0 2px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+
+.labels {
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    margin-bottom: 15px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
 }

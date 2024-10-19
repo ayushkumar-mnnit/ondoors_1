@@ -1,14 +1,13 @@
 import { useToast, Select, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from "@chakra-ui/react";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../../context/ContextAPI";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api = 'https://ondoors-1.onrender.com';  // hosted backend url
 
 const AllUsers = () => {
   const toast = useToast();
@@ -22,10 +21,10 @@ const AllUsers = () => {
   // Fetch all users
   const getAllUsers = async () => {
     try {
-      const result = await axios.get(`${api}/admin/allUsers` , {
+      const result = await axios.get(`${api}/admin/allUsers`, {
         headers: {
-         'Authorization': `Bearer ${token}`,
-        },withCredentials: true
+          'Authorization': `Bearer ${token}`,
+        }, withCredentials: true
       });
       if (result.data.success) {
         setUser(result.data.data);
@@ -50,11 +49,11 @@ const AllUsers = () => {
   const handleSaveEdit = async () => {
     try {
       const isAdmin = newRole === "Admin" ? true : false;
-      const result = await axios.patch(`${api}/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin } , {
+      const result = await axios.patch(`${api}/admin/allUsers/changeAdmin/${selectedUser._id}`, { isAdmin }, {
         headers: {
-          'Content-Type': 'application/json', 
-         'Authorization': `Bearer ${token}`,
-        },withCredentials: true
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }, withCredentials: true
       });
 
       if (result.data.success) {
@@ -82,10 +81,10 @@ const AllUsers = () => {
   // Delete the user using the provided route
   const handleDelete = async (id) => {
     try {
-      const result = await axios.delete(`${api}/admin/allUsers/deleteUser/${id}` , {
+      const result = await axios.delete(`${api}/admin/allUsers/deleteUser/${id}`, {
         headers: {
-         'Authorization': `Bearer ${token}`,
-        },withCredentials: true
+          'Authorization': `Bearer ${token}`,
+        }, withCredentials: true
       });
       if (result.data.success) {
         toast({
@@ -110,54 +109,56 @@ const AllUsers = () => {
 
   return (
     <>
-      <TableContainer mt="2%">
-        <Table variant="unstyled" color="cyan.100">
-          <Thead>
-            <Tr>
-              <Th color="lightgreen">Name</Th>
-              <Th color="lightgreen">Email</Th>
-              <Th color="lightgreen">Phone</Th>
-              <Th color="lightgreen">Role</Th>
-              <Th color="lightgreen">Admin</Th>
-              <Th color="lightgreen">Pin</Th>
-              <Th color="lightgreen">Address</Th>
-              <Th color="lightgreen">Service Type</Th>
-              <Th color="lightgreen">Edit</Th>
-              <Th color="lightgreen">Delete</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {user.map((item) => (
-              <Tr key={item._id}>
-                <Td>{item.name.split(' ')[0]}</Td>
-                <Td>{item.email}</Td>
-                <Td>{item.mobile}</Td>
-                <Td>{item.role[0]}</Td>
-                <Td>
+      <div className="container table-responsive py-5">
+        <table className="table table-bordered table-hover">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">S.No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Role</th>
+              <th scope="col">Admin</th>
+              <th scope="col">Pin</th>
+              <th scope="col">Address</th>
+              <th scope="col">Service Type</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {user.map((item, index) => (
+              <tr key={item._id}>
+                <td scope="row">{index + 1}</td>
+                <td>{item.name.split(' ')[0]}</td>
+                <td>{item.email}</td>
+                <td>{item.mobile}</td>
+                <td>{item.role[0]}</td>
+                <td>
                   {item.isAdmin ? (
                     <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-                      <MdVerifiedUser style={{ marginRight: '5px', color: 'lightgreen' }} /> Yes
+                      <MdVerifiedUser style={{ marginRight: '5px', color: 'green' }} /> Yes
                     </span>
                   ) : (
                     <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                       <FaUserCircle style={{ marginRight: '5px', color: 'blue' }} /> No
                     </span>
                   )}
-                </Td>
-                <Td>{item.pincode}</Td>
-                <Td>{item.address}</Td>
-                <Td>{item.serviceType ? item.serviceType.split(' ')[0] : 'N/A'}</Td>
-                <Td>
-                  <FaEdit className="edbtn" color="white" onClick={() => handleEdit(item)} aria-label="Edit" />
-                </Td>
-                <Td>
+                </td>
+                <td>{item.pincode}</td>
+                <td>{item.address}</td>
+                <td>{item.serviceType ? item.serviceType.split(' ')[0] : 'N/A'}</td>
+                <td>
+                  <FaEdit className="edbtn" color="blue" onClick={() => handleEdit(item)} aria-label="Edit" />
+                </td>
+                <td>
                   <RiDeleteBin2Fill className="edbtn" color="red" onClick={() => handleDelete(item._id)} aria-label="Delete" />
-                </Td>
-              </Tr>
+                </td>
+              </tr>
             ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
 
       {/* Edit Role Modal */}
       <Modal isOpen={isOpen} onClose={onClose}>

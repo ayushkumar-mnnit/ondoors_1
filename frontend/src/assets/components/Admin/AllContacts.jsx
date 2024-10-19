@@ -1,33 +1,20 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
 import { useAuth } from "../../context/ContextAPI";
 
-
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api='https://ondoors-1.onrender.com';  // hosted backend url
 
 const AllContacts = () => {
-
   const [contact, setContact] = useState([]);
   const { token } = useAuth();
 
   const getAllContacts = async () => {
     try {
-      const result = await axios.get(`${api}/admin/allContacts` , {
+      const result = await axios.get(`${api}/admin/allContacts`, {
         headers: {
-         'Authorization': `Bearer ${token}`,
-        },withCredentials: true
+          'Authorization': `Bearer ${token}`,
+        }, withCredentials: true
       });
-      console.log(result.data.data);
 
       if (result.data.success) {
         setContact(result.data.data);
@@ -39,30 +26,31 @@ const AllContacts = () => {
 
   useEffect(() => {
     getAllContacts();
- 
   }, []);
 
   return (
-    <TableContainer mt='2%'>
-      <Table variant="unstyled" color="cyan.100">
-        <Thead  >
-          <Tr >
-            <Th color='lightgreen'>Name</Th>
-            <Th color='lightgreen'>Email</Th>
-            <Th color='lightgreen'>Message</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {contact.map((item) => (
-            <Tr key={item._id}>
-              <Td>{item.name}</Td>
-              <Td>{item.email}</Td>
-              <Td>{item.message}</Td>
-            </Tr>
+    <div className="container table-responsive py-5">
+      <table className="table table-bordered table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contact.map((item,index) => (
+            <tr key={item._id}>
+            <td>{index+1}</td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.message}</td>
+            </tr>
           ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
