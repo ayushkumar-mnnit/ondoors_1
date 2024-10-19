@@ -99,7 +99,7 @@ const { token } = useAuth();
                   <Td>{notification.bookingDate.slice(0, 10)}</Td>
                   <Td>{notification.address}</Td>
                   <Td>{notification.pin}</Td>
-                  <Td>{notification.mobile}</Td>
+                  <Td>{notification.bookingStatus==='Accepted'?notification.mobile:'N/A'}</Td>
 
                   <Td>
                     {notification.bookingStatus === 'Pending' ? (
