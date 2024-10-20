@@ -24,7 +24,7 @@ const Body = () => {
       <section id="sec1" >
         <img src={intro} alt="" />
       </section>
-      
+      <p style={{color:'red', fontSize:'15px',textAlign:'center' }}>Website is currently hosted on a <span style={{color:'blue'}}>free server</span> that sleeps during inactivity, so for the first time response <span style={{color:'blue'}}>may</span> be delayed by atmost 50 seconds while it wakes up.<span style={{color:'green'}}>Please be patient !</span>  </p>
       <section id="sec2">
         {showLogin ? <Login toggleForm={toggleForm} /> : <Signup toggleForm={toggleForm} />}
       </section>
