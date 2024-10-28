@@ -86,7 +86,7 @@ const AllServices = () => {
       toast({
         title: error.response?.data?.message || "Failed to delete card",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });
@@ -149,7 +149,7 @@ const AllServices = () => {
       toast({
         title: error.response?.data?.message || "Failed to save card",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });

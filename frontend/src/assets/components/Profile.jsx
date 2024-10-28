@@ -75,7 +75,7 @@ const Profile = () => {
                 toast({
                     title: 'Profile updated successfully',
                     status: 'success',
-                    duration: 4000,
+                    duration: 2000,
                     isClosable: true,
                     position: 'top',
                 });
@@ -88,7 +88,7 @@ const Profile = () => {
             toast({
                 title: error.response?.data?.message || 'Failed to update profile',
                 status: 'error',
-                duration: 4000,
+                duration: 2000,
                 isClosable: true,
                 position: 'top',
             });

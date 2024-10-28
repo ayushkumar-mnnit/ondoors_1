@@ -45,7 +45,7 @@ const Login = ({ toggleForm }) => {
         toast({
           title: result.data.message,
           status: 'success',
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
           position: 'top',
         })
@@ -56,7 +56,7 @@ const Login = ({ toggleForm }) => {
       toast({
         title: error.response?.data?.message || 'Server is down',
         status: 'error',
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       })

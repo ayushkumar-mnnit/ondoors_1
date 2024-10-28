@@ -71,7 +71,7 @@ const AllUsers = () => {
       toast({
         title: error.response?.data?.message || "Failed to update role",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });
@@ -100,7 +100,7 @@ const AllUsers = () => {
       toast({
         title: error.response?.data?.message || "Failed to delete user",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });

@@ -36,7 +36,7 @@ const Footer = () => {
         toast({
           title: result.data.message,
           status: 'success',
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
           position: 'bottom-right',
         })
@@ -52,7 +52,7 @@ const Footer = () => {
         title: x.length > 40 ? x.split(':')[0] : x,
         description:x!='server is down'?'input field is too short or too long':'',
         status: x.length > 45 ? 'warning' : 'error',
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: 'bottom-right',
       });

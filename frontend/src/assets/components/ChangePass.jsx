@@ -21,7 +21,7 @@ const ChangePassword = () => {
             toast({
                 title: 'New password must be at least 8 characters long',
                 status: 'error',
-                duration: 4000,
+                duration: 2000,
                 isClosable: true,
                 position: 'top',
             });
@@ -43,7 +43,7 @@ const ChangePassword = () => {
                 toast({
                     title: 'Password changed successfully',
                     status: 'success',
-                    duration: 4000,
+                    duration: 2000,
                     isClosable: true,
                     position: 'top',
                 });
@@ -56,7 +56,7 @@ const ChangePassword = () => {
             toast({
                 title: error.response?.data?.message || 'Failed to change password',
                 status: 'error',
-                duration: 4000,
+                duration: 2000,
                 isClosable: true,
                 position: 'top',
             });

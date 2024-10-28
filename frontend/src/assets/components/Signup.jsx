@@ -55,7 +55,7 @@ const Signup = ({ toggleForm }) => {
         toast({
           title: result.data.message,
           status: "success",
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
           position: "top",
         });
@@ -76,7 +76,7 @@ const Signup = ({ toggleForm }) => {
         title: x.length > 45 ? x.split(":")[0] : x,
         description: "some input field(s) is too short or too long",
         status: x.length > 45 ? "loading" : "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });

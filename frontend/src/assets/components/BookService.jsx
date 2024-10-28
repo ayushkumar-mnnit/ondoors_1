@@ -43,7 +43,7 @@ const BookService = () => {
       toast({
         title: error.response?.data?.message || "Server is down",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });
@@ -76,7 +76,7 @@ const BookService = () => {
         toast({
           title: "Booking successful",
           status: "success",
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
           position: "top",
         });
@@ -84,7 +84,7 @@ const BookService = () => {
         toast({
           title: "Booking failed",
           status: "error",
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
           position: "top",
         });
@@ -93,7 +93,7 @@ const BookService = () => {
       toast({
         title: error.response?.data?.message || "some error occured while booking",
         status: "error",
-        duration: 4000,
+        duration: 2000,
         isClosable: true,
         position: "top",
       });
