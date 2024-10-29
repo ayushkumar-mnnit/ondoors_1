@@ -53,11 +53,11 @@ const Signup = ({ toggleForm }) => {
 
       if (result.data.success) {
         toast({
-          title: result.data.message,
+          description: result.data.message,
           status: "success",
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top-right',
         });
         setUser({
           name: "",
@@ -78,7 +78,7 @@ const Signup = ({ toggleForm }) => {
         status: x.length > 45 ? "loading" : "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };

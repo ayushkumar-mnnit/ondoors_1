@@ -43,11 +43,11 @@ const Login = ({ toggleForm }) => {
 
         
         toast({
-          title: result.data.message,
+          description: result.data.message,
           status: 'success',
           duration: 2000,
           isClosable: true,
-          position: 'top',
+          position: 'top-right',
         })
         setUser({ email: '', password: '' })
         navigate('/')
@@ -58,7 +58,7 @@ const Login = ({ toggleForm }) => {
         status: 'error',
         duration: 2000,
         isClosable: true,
-        position: 'top',
+        position: 'top-right',
       })
     }
   }

@@ -62,7 +62,7 @@ const AllUsers = () => {
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: 'top'
+          position: 'top-right'
         });
         getAllUsers(); // Refresh the user list
         onClose(); // Close the modal
@@ -73,7 +73,7 @@ const AllUsers = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };
@@ -92,7 +92,7 @@ const AllUsers = () => {
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "top",
+          position: 'top-right',
         });
         getAllUsers(); // Refresh the user list after deletion
       }
@@ -102,7 +102,7 @@ const AllUsers = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };

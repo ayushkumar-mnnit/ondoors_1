@@ -23,7 +23,7 @@ const ChangePassword = () => {
                 status: 'error',
                 duration: 2000,
                 isClosable: true,
-                position: 'top',
+                position: 'top-right',
             });
             return;
         }
@@ -45,7 +45,7 @@ const ChangePassword = () => {
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
-                    position: 'top',
+                    position: 'top-right',
                 });
                 setOldPassword('');
                 setNewPassword('');
@@ -58,7 +58,7 @@ const ChangePassword = () => {
                 status: 'error',
                 duration: 2000,
                 isClosable: true,
-                position: 'top',
+                position: 'top-right',
             });
         }
     };

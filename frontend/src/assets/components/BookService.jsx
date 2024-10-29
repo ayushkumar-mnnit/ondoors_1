@@ -45,7 +45,7 @@ const BookService = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };
@@ -74,11 +74,11 @@ const BookService = () => {
 
       if (response.data.success) {
         toast({
-          title: "Booking successful",
+          description: "Booking successful",
           status: "success",
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top-right',
         });
       } else {
         toast({
@@ -86,7 +86,7 @@ const BookService = () => {
           status: "error",
           duration: 2000,
           isClosable: true,
-          position: "top",
+          position: 'top-right',
         });
       }
     } catch (error) {
@@ -95,7 +95,7 @@ const BookService = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };

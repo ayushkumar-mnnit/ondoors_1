@@ -77,7 +77,7 @@ const Profile = () => {
                     status: 'success',
                     duration: 2000,
                     isClosable: true,
-                    position: 'top',
+                    position: 'top-right',
                 });
                 setEditMode(false);
             } else {
@@ -90,7 +90,7 @@ const Profile = () => {
                 status: 'error',
                 duration: 2000,
                 isClosable: true,
-                position: 'top',
+                position: 'top-right',
             });
         }
     };

@@ -41,7 +41,7 @@ const ContactAdmin = () => {
 
       if (result.data.success) {
         toast({
-          title: result.data.message,
+          description: result.data.message,
           status: 'success',
           duration: 2000,
           isClosable: true,

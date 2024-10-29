@@ -88,7 +88,7 @@ const AllServices = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };
@@ -119,7 +119,7 @@ const AllServices = () => {
             status: "success",
             duration: 3000,
             isClosable: true,
-            position: "top",
+            position: 'top-right',
           });
         }
       } else {
@@ -139,7 +139,7 @@ const AllServices = () => {
             status: "success",
             duration: 3000,
             isClosable: true,
-            position: "top",
+            position: 'top-right',
           });
         }
       }
@@ -151,7 +151,7 @@ const AllServices = () => {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top",
+        position: 'top-right',
       });
     }
   };
