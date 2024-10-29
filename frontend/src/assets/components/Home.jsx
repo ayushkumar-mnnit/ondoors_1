@@ -13,16 +13,9 @@ const Home = () => {
     const {loading} = useAuth();
 
     if (loading) {
-        return (
-            <div className="loading-container">
-                <div className="lds-ripple"><div></div><div></div></div>
-                <p className="loading-text">
-                    The site is currently hosted on a free server, so it may take some time to load
-                </p>
-            </div>
-        );
+        return <div className="lds-ripple"><div></div><div></div></div>
     }
-    
+
     return (
    <>
     <Navbar/>
