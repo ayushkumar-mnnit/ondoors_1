@@ -2,12 +2,12 @@ import { useToast } from '@chakra-ui/react';
 import './css/cont.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/ContextAPI';
+import { useAuth } from '../context/ContextAPI.jsx';
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const ContactAdmin = () => {
   const toast = useToast();
-  const { user,token } = useAuth();  // Get the logged-in user's details
+  const { user,token,toggle } = useAuth();  // Get the logged-in user's details
 
   const [contact, setContact] = useState({
     message: '',
@@ -73,8 +73,8 @@ const ContactAdmin = () => {
         <div className="form">
           <div className="form-txt">
 
-            <span>You may write us any query which you think needs attention of the admin directly. </span>
-            <h3 id='adr'>For ex: If you are new service provider on this platform and your service is not listed
+            <span style={{color:toggle?'white':'black'}} >You may write us any query which you think needs attention of the admin directly. </span>
+            <h3 style={{color:toggle?'white':'black'}} id='adr'>For ex: If you are new service provider on this platform and your service is not listed
             then simply send the service description  and admin will add it</h3>
           </div>
           <div className="form-details">
@@ -90,7 +90,7 @@ const ContactAdmin = () => {
               required
             />
 
-            <button type="submit" onClick={handleClick}>SEND MESSAGE</button>
+            <button type="submit" onClick={handleClick} style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black',border:toggle?'1px solid white':'1px solid black'}} >SEND MESSAGE</button>
           </div>
         </div>
       </form>

@@ -11,7 +11,11 @@ const api = 'https://ondoors-1.onrender.com' // hosted backend url
 export const AuthProvider = ({ children }) => {
 
 const [loading, setLoading] = useState(true)
+const [toggle, setToggle] = useState(false)
 
+const handleToggle = () => {
+  setToggle(!toggle)
+}
 
   const [card, setCard] = useState([])
   const [user, setUser] = useState({
@@ -85,7 +89,7 @@ const [loading, setLoading] = useState(true)
 
 
   return (
-    <AuthContext.Provider value={{ user, card, setToken,loading }}>
+    <AuthContext.Provider value={{ user, card, setToken,loading,toggle,handleToggle }}>
       {children}
     </AuthContext.Provider>
   )

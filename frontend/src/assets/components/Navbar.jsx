@@ -1,17 +1,20 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/nav.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/ContextAPI";
+import { useAuth } from "../context/ContextAPI.jsx";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { FaSun } from "react-icons/fa6";
+import { IoMoonSharp } from "react-icons/io5";
 
 import axios from "axios";
+import { Switch } from "@chakra-ui/react";
 
 const api = "https://ondoors-1.onrender.com"; // hosted backend url
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const { user, token } = useAuth();
+  const { user, token, toggle, handleToggle } = useAuth();
 
   const handleScroll = (sectionId) => {
     navigate("/");
@@ -50,16 +53,24 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
-      <div className="container">
+      <div className="container" >
         {user && user.isAdmin ? (
           <Link to="/admin">
             {" "}
-            <MdAdminPanelSettings color="#06D001" size={25} />
+            <MdAdminPanelSettings color="#06D001" size={25} style={{marginRight:"10px"}}  />
           </Link>
         ) : null}
+       
+      
+          <Switch display="flex" alignItems="center" onChange={handleToggle} mr={4}>
+            {toggle ?  <IoMoonSharp color="cyan" />:<FaSun color="yellow" />}
+          </Switch>
+          
+
         <Link className="navbar-brand" to="/">
           Ondoors
         </Link>
+     
         <button
           className="navbar-toggler"
           type="button"
@@ -80,7 +91,7 @@ const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              {user && user.name!=='' ? (
+              {user && user.name !== "" ? (
                 <Link to="/landing" className="nav-link">
                   Services
                 </Link>
@@ -101,9 +112,11 @@ const Navbar = () => {
               </a>
             </li>
 
-            {user && user.name!=='' ? (
+            {user && user.name !== "" ? (
               <li className="nav-item">
-                <a className="nav-link"  onClick={handleLogout}>Logout</a>
+                <a className="nav-link" onClick={handleLogout}>
+                  Logout
+                </a>
               </li>
             ) : (
               <li className="nav-item">

@@ -76,6 +76,7 @@ const Login = ({ toggleForm }) => {
               maxWidth: '80%',
               maxHeight: '450px',
               objectFit: 'cover',
+              borderRadius: '6px',
             }}
           />
         </div>

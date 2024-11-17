@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import './css/prof.css';
-import { useAuth } from '../context/ContextAPI';
+import { useAuth } from '../context/ContextAPI.jsx';
 
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 
@@ -12,7 +12,7 @@ const ChangePassword = () => {
     const toast = useToast();
     const [isHovered, setIsHovered] = useState(false); // State to manage hover
 
-    const { token } = useAuth();
+    const { token,toggle } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -65,7 +65,7 @@ const ChangePassword = () => {
 
     return (
         <div className="profile-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px' }}>
-            <div className="form-wrapper" style={{ maxWidth: '400px', width: '100%', padding: '20px', borderRadius: '8px', boxShadow: '1px 2px 10px rgba(0, 0, 0,1)', backgroundColor: '#fff' }}>
+            <div className="form-wrapper" style={{ maxWidth: '400px', width: '100%', padding: '20px', borderRadius: '8px', boxShadow: '1px 2px 10px rgba(0, 0, 0,1)',backgroundColor:toggle ? "lightblue" : "white"  }}>
                 <h4 className="profile-title">Change Password</h4>
                 <form className="profile-form" onSubmit={handleSubmit}>
                     <div className="form-group" style={{ marginBottom: '15px' }}>

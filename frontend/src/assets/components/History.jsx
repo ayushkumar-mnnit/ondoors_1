@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/ContextAPI";
+import { useAuth } from "../context/ContextAPI.jsx";
 
 const api = "https://ondoors-1.onrender.com"; // hosted backend url
 
 const History = () => {
-  const { token } = useAuth();
+  const { token,toggle } = useAuth();
 
   const [bookingData, setBookingData] = useState([
     {
@@ -70,12 +70,12 @@ const History = () => {
 
   return (
     <Box className="service-provider-container" mt={6}>
-      <h6 className="text-center" style={{ color: "navy" }}>
+      <h6 className="text-center" style={{ color:toggle ? "white" : "navy" }}>
         Service History
       </h6>
-      <div className="container table-responsive py-5">
-        <table className="table table-bordered table-hover">
-          <thead className="thead-dark">
+      <div className="container table-responsive py-5"  >
+        <table className="table table-bordered table-hover" >
+          <thead className="thead-dark"  >
             <tr>
               <th scope="col">S.No.</th>
               <th scope="col">Service Provider</th>
@@ -85,7 +85,7 @@ const History = () => {
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {bookingData && bookingData.length > 0 ? (
               bookingData.map((booking, index) => (
                 <tr key={index}>

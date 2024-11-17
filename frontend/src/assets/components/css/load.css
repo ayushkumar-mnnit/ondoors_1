@@ -1,23 +1,15 @@
-
-
 .lds-ripple,
 .lds-ripple div {
   box-sizing: border-box;
 }
 
-
 .lds-ripple {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: purple;
+  display: inline-block; /* Inline to align with text */
+  vertical-align: middle; /* Align with text */
+  width: 40px;
+  height: 40px;
+  color: purple;
+  position: relative;
 }
 
 .lds-ripple div {
@@ -27,37 +19,37 @@
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 .lds-ripple div:nth-child(2) {
   animation-delay: -0.5s;
 }
+
 @keyframes lds-ripple {
   0% {
-    top: 36px;
-    left: 36px;
-    width: 8px;
-    height: 8px;
-    opacity: 0;
-  }
-  4.9% {
-    top: 36px;
-    left: 36px;
-    width: 8px;
-    height: 8px;
+    top: 18px;
+    left: 18px;
+    width: 4px;
+    height: 4px;
     opacity: 0;
   }
   5% {
-    top: 36px;
-    left: 36px;
-    width: 8px;
-    height: 8px;
+    top: 18px;
+    left: 18px;
+    width: 4px;
+    height: 4px;
     opacity: 1;
   }
   100% {
     top: 0;
     left: 0;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     opacity: 0;
   }
 }
 
+.center-container {
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}

@@ -1,13 +1,13 @@
-import { useToast } from '@chakra-ui/react';
+import { Box, useToast } from '@chakra-ui/react';
 import './css/cont.css';
 import { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/ContextAPI';
+import { useAuth } from '../context/ContextAPI.jsx';
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 
 const ContactUs = () => {
   const toast = useToast();
-  const { user,token } = useAuth();  // Get the logged-in user's details
+  const { user,token,toggle } = useAuth();  // Get the logged-in user's details
 
   const [contact, setContact] = useState({
     message: ''
@@ -67,14 +67,14 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="contact container">
+    <div className="contact container" >
       <form>
         <div className="form">
-          <div className="form-txt">
-            <h1>Contact us</h1>
-            <span>We pay strict attention to our clients regarding their concerns</span>
-            <h3 id='adr'>7th floor, C-block, New Boys Hostel, MNNIT Allahabad</h3>
-            <p>Prayagraj, 211004<br />Uttar Pradesh, India</p>
+          <div className="form-txt" >
+            <h1 style={{color:toggle?'white':'black'}}>Contact us</h1>
+            <span style={{color:toggle?'white':'black'}}>We pay strict attention to our clients regarding their concerns</span>
+            <h3 style={{color:toggle?'white':'black'}} id='adr'>7th floor, C-block, New Boys Hostel, MNNIT Allahabad</h3>
+            <p style={{color:toggle?'white':'black'}}>Prayagraj, 211004<br />Uttar Pradesh, India</p>
           </div>
           <div className="form-details">
 
@@ -105,8 +105,10 @@ const ContactUs = () => {
               value={contact.message}
               required
             />
-
-            <button type="submit" onClick={handleClick}>SEND MESSAGE</button>
+              <Box display="flex" gap="10px" alignItems={"center"} >
+            <button type="submit" onClick={handleClick} style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black',border:toggle?'1px solid white':'1px solid #0B192C',padding:'2px 10px' }}>SEND</button>
+            <p style={{color:toggle?'lightgreen':'red',fontSize:'14px'}}>you need to login to send a message</p>
+            </Box>
           </div>
         </div>
       </form>

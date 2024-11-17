@@ -1,7 +1,7 @@
 import { Box, ButtonGroup, Button } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/ContextAPI";
+import { useAuth } from "../context/ContextAPI.jsx";
 
 const api = "https://ondoors-1.onrender.com"; // hosted backend URL
 

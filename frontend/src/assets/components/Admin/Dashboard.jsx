@@ -16,7 +16,7 @@ import AllFeedbacks from "./AllFeedbacks";
 import Profile from "../Profile";
 import ChangePassword from "../ChangePass";
 import AllServices from "./AllServices";
-import { useAuth } from "../../context/ContextAPI";
+import { useAuth } from "../../context/ContextAPI.jsx";
 import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import AdminContacts from "./AdminContacts";

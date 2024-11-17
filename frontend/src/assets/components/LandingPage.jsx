@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 import History from './History'
 import Notif from './Notif'
-import { useAuth } from '../context/ContextAPI'
+import { useAuth } from '../context/ContextAPI.jsx'
 import ContactAdmin from './ContactAdmin'
 
 import { FaUserCircle } from "react-icons/fa";
@@ -21,9 +21,9 @@ import { RiLockPasswordLine, RiServiceFill } from "react-icons/ri";
 
 const LandingPage = () => {
 
-    const {user}=useAuth();
+    const {user,toggle}=useAuth();
 
-    
+    {toggle?document.body.style.backgroundColor="#0B192C":document.body.style.backgroundColor="white"}    
 
     return (
         <>
@@ -31,12 +31,12 @@ const LandingPage = () => {
             <Tabs  p='10px'>
                 <TabList>
 
-                    <Tab color='purple'><RiServiceFill size={20} /></Tab>
-                    <Tab color='purple'><FaUserCircle size={20} /></Tab>
-                    <Tab color='purple'><PiNote  size={20} /></Tab>
+                    <Tab  color={toggle?'cyan':'purple'}><RiServiceFill size={20} /></Tab>
+                    <Tab color={toggle?'cyan':'purple'}><FaUserCircle size={20} /></Tab>
+                    <Tab color={toggle?'cyan':'purple'}><PiNote  size={20} /></Tab>
                     {user?.role==='Service Provider'?<Tab color='purple'><BiSolidBellRing size={20} /></Tab>:null}
-                    <Tab color='purple'><RiLockPasswordLine size={20} /></Tab>
-                    <Tab color='purple'><BiSolidMessageDetail size={20} /></Tab>
+                    <Tab color={toggle?'cyan':'purple'}><RiLockPasswordLine size={20} /></Tab>
+                    <Tab color={toggle?'cyan':'purple'}><BiSolidMessageDetail size={20} /></Tab>
                    
                 </TabList>
                 

@@ -4,13 +4,13 @@ import { useState, useEffect } from 'react';
 import { useToast } from '@chakra-ui/react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDoneOutline } from 'react-icons/md';
-import { useAuth } from '../context/ContextAPI';
+import { useAuth } from '../context/ContextAPI.jsx';
 
 const api = 'https://ondoors-1.onrender.com'; // hosted backend url
 
 const Profile = () => {
     const toast = useToast();
-    const { user, card, userLoding } = useAuth();
+    const { user, card, userLoding,toggle } = useAuth();
 
     const [editMode, setEditMode] = useState(false);
     const serviceTypes = card;
@@ -98,7 +98,7 @@ const Profile = () => {
     if (userLoding) return <h5>Loading...</h5>;
 
     return (
-        <div className="container-prof rounded bg-white  mt-3 mb-5" style={{ boxShadow: '1px 2px 2px 2px rgba(0, 0, 0, 0.6)' }} >
+        <div className="container-prof rounded  mt-3 mb-5" style={{ boxShadow: '1px 2px 2px 2px rgba(0, 0, 0, 0.6)',backgroundColor:toggle ? "lightblue" : "white" }} >
             <div className="p-3 py-5">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="text-right d-flex align-items-center">

@@ -25,7 +25,7 @@ import { useEffect, useState } from "react";
 
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import { useAuth } from "../../context/ContextAPI";
+import { useAuth } from "../../context/ContextAPI.jsx";
 
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 

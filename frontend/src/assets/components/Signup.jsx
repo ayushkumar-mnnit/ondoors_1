@@ -5,7 +5,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
 import authimg from "../images/auth.jpg";
-import { useAuth } from "../context/ContextAPI";
+import { useAuth } from "../context/ContextAPI.jsx";
 
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 

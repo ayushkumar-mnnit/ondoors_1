@@ -1,12 +1,15 @@
 import './css/foot.css'
 import logo from '../images/logo-1.png'
 import { useState } from 'react'
-import { useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import axios from 'axios'
-import { useAuth } from '../context/ContextAPI'
+import { useAuth } from '../context/ContextAPI.jsx'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { SiGithub } from 'react-icons/si'
 import { Link } from 'react-router-dom'
+import { IoHeart } from "react-icons/io5";
+import { BsEmojiWinkFill } from "react-icons/bs";
+
 
 const api='https://ondoors-1.onrender.com'  // hosted backend url
 
@@ -161,8 +164,15 @@ const Footer = () => {
                         </div>
 
                         <div className="credits text-secondary text-center text-md-start mt-2 fs-8">
+                        <Box display={'flex'} gap={1} alignItems={'center'} fontSize={'13px'}>
+                          
                           Made with love
+                          <IoHeart size={19} color='red'/>
+                          and a bit of code <BsEmojiWinkFill/> <span style={{fontSize:'13px'}}> by Ayush Kumar</span> 
+                        </Box>
                         </div>
+
+
                       </div>
 
                       <div className="col-xs-12 col-md-5 order-0 order-md-1">
