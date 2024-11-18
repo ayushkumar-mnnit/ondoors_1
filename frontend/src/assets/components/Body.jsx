@@ -32,7 +32,7 @@ const Body = () => {
 
       <section>
   {loading ? (
-    <div className="center-container">
+    <div className="center-container" >
       <p
         style={{ textAlign: "center", color:toggle?'orangered':'red', margin: "0 10px" }}
       >
@@ -40,10 +40,7 @@ const Body = () => {
         <span style={{ color: "purple" }}>free plan</span> that may
         sleep during inactivity, please be patient
       </p>
-      <div className="lds-ripple">
-        <div></div>
-        <div></div>
-      </div>
+     
     </div>
   ) : (
     

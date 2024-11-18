@@ -7,14 +7,14 @@ import { useToast } from "@chakra-ui/react";
 import authimg from "../images/auth.jpg";
 import { useAuth } from "../context/ContextAPI.jsx";
 
-const api='https://ondoors-1.onrender.com'  // hosted backend url
+const api = 'https://ondoors-1.onrender.com'; // hosted backend url
 
 // eslint-disable-next-line react/prop-types
 const Signup = ({ toggleForm }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const { card, token } = useAuth();
+  const { card, token, toggle } = useAuth();
 
   const [showServiceType, setShowServiceType] = useState(false);
 
@@ -47,8 +47,8 @@ const Signup = ({ toggleForm }) => {
       const result = await axios.post(`${api}/register`, user, {
         headers: {
           'Content-Type': 'application/json',
-         'Authorization': `Bearer ${token}`,
-        },withCredentials: true
+          'Authorization': `Bearer ${token}`,
+        }, withCredentials: true
       });
 
       if (result.data.success) {
@@ -97,6 +97,7 @@ const Signup = ({ toggleForm }) => {
                   maxWidth: "80%",
                   maxHeight: "100%",
                   objectFit: "cover",
+                  borderRadius: "8px",
                 }}
               />
             </div>
@@ -104,16 +105,26 @@ const Signup = ({ toggleForm }) => {
             <div className="col-12 col-md-6 col-xl-5">
               <div
                 className="card border-0 rounded-2"
-                style={{ boxShadow: "1px 2px 2px 2px gray" }}
+                style={{
+                 boxShadow:toggle ? '0.5px 0.5px 0.5px 0.5px white' : '1px 2px 2px 2px gray',
+                  backgroundColor: toggle ? "#0B192C" : "white",
+                }}
               >
-                <div className="card-body p-3 p-md-4 p-xl-5">
+                <div
+                  className="card-body p-3 p-md-4 p-xl-5"
+                  style={{
+                    color: toggle ? "white" : "black",
+                  }}
+                >
                   <div className="row">
                     <div className="col-12">
                       <div className="mb-4">
                         <h3>Register</h3>
                         <p>
                           Already have an account?{" "}
-                          <button onClick={toggleForm}>Log In</button>
+                          <button onClick={toggleForm} style={{ color: toggle ? "#4AA3DF" : "blue" }}>
+                            Log In
+                          </button>
                         </p>
                       </div>
                     </div>
@@ -130,6 +141,10 @@ const Signup = ({ toggleForm }) => {
                             name="name"
                             id="name"
                             required
+                            style={{
+                              backgroundColor: toggle ? "#0B192C" : "white",
+                              color: toggle ? "white" : "black",
+                            }}
                           />
                           <label className="form-label">Name</label>
                         </div>
@@ -144,6 +159,10 @@ const Signup = ({ toggleForm }) => {
                             name="email"
                             id="email"
                             required
+                            style={{
+                              backgroundColor: toggle ? "#0B192C" : "white",
+                              color: toggle ? "white" : "black",
+                            }}
                           />
                           <label className="form-label">E-mail</label>
                         </div>
@@ -158,8 +177,12 @@ const Signup = ({ toggleForm }) => {
                             name="password"
                             id="password"
                             required
+                            style={{
+                              backgroundColor: toggle ? "#0B192C" : "white",
+                              color: toggle ? "white" : "black",
+                            }}
                           />
-                          <label className="form-label">Password</label>
+                          <label className="form-label" >Password</label>
                         </div>
                       </div>
                       <div className="col-12">
@@ -172,6 +195,10 @@ const Signup = ({ toggleForm }) => {
                             name="address"
                             id="address"
                             required
+                            style={{
+                              backgroundColor: toggle ? "#0B192C" : "white",
+                              color: toggle ? "white" : "black",
+                            }}
                           />
                           <label className="form-label">Address</label>
                         </div>
@@ -186,6 +213,10 @@ const Signup = ({ toggleForm }) => {
                             name="pincode"
                             id="address"
                             required
+                            style={{
+                              backgroundColor: toggle ? "#0B192C" : "white",
+                              color: toggle ? "white" : "black",
+                            }}
                           />
                           <label className="form-label">Pin code</label>
                         </div>
@@ -204,10 +235,7 @@ const Signup = ({ toggleForm }) => {
                               onChange={handleChange}
                               checked={user.role === "Client"}
                             />
-                            <label
-                              className="form-check-label"
-                              htmlFor="client"
-                            >
+                            <label className="form-check-label" htmlFor="client">
                               Client
                             </label>
                           </div>
@@ -221,10 +249,7 @@ const Signup = ({ toggleForm }) => {
                               onChange={handleChange}
                               checked={user.role === "Service Provider"}
                             />
-                            <label
-                              className="form-check-label"
-                              htmlFor="serviceProvider"
-                            >
+                            <label className="form-check-label" htmlFor="serviceProvider">
                               Service Provider
                             </label>
                           </div>
@@ -240,6 +265,10 @@ const Signup = ({ toggleForm }) => {
                               name="serviceType"
                               onChange={handleChange}
                               value={user.serviceType}
+                              style={{
+                                backgroundColor: toggle ? "#0B192C" : "white",
+                                color: toggle ? "white" : "black",
+                              }}
                             >
                               <option value="">Select</option>
                               {card.map((item) => (
@@ -249,21 +278,44 @@ const Signup = ({ toggleForm }) => {
                             <label className="form-label" htmlFor="serviceType">
                               Service Type
                             </label>
-                            <p style={{ color: "red" , fontSize:'13px'}} >service not listed? signup as client, go to <span style={{ color: "blue" , fontSize:'12px'}} >Contact Admin</span>, send a request to add your service then update it from <span style={{ color: "blue" , fontSize:'12px'}} >Profile</span></p>
+                            <p
+                              style={{
+                                color: toggle ? "lightcoral" : "red",
+                                fontSize: "13px",
+                              }}
+                            >
+                              service not listed? signup as client, go to{" "}
+                              <span
+                                style={{
+                                  color: toggle ? "#4AA3DF" : "blue",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                Contact Admin
+                              </span>
+                              , send a request to add your service then update it from{" "}
+                              <span
+                                style={{
+                                  color: toggle ? "#4AA3DF" : "blue",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                My Profile
+                              </span>
+                              .
+                            </p>
                           </div>
                         </div>
                       )}
-
                       <div className="col-12">
-                        <div className="d-grid">
-                          <button
-                            className="btn btn-primary btn-lg"
-                            type="submit"
-                            onClick={handleSubmit}
-                          >
-                            Register now
-                          </button>
-                        </div>
+                        <button
+                          type="submit"
+                          onClick={handleSubmit}
+                          className="btn btn-primary w-100"
+                          style={{ backgroundColor: toggle ? '#0B192C' : null }}
+                        >
+                          Register Now
+                        </button>
                       </div>
                     </div>
                   </form>

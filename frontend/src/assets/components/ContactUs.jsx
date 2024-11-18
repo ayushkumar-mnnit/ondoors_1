@@ -85,6 +85,7 @@ const ContactUs = () => {
               placeholder="Name"
               value={user ? user.name : 'Please login first'}
               readOnly
+              style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black'}}
             />
             <input
               type="email"
@@ -93,6 +94,7 @@ const ContactUs = () => {
               placeholder="Email"
               value={user ? user.email : 'Please login first'}
               readOnly
+              style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black'}}
             />
             
             <textarea
@@ -104,6 +106,7 @@ const ContactUs = () => {
               onChange={handleChange}
               value={contact.message}
               required
+              style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black'}}
             />
               <Box display="flex" gap="10px" alignItems={"center"} >
             <button type="submit" onClick={handleClick} style={{backgroundColor:toggle?'#0B192C':'white',color:toggle?'white':'black',border:toggle?'1px solid white':'1px solid #0B192C',padding:'2px 10px' }}>SEND</button>

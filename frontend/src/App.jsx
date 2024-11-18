@@ -6,6 +6,7 @@ import LandingPage from "./assets/components/LandingPage.jsx";
 import BookService from "./assets/components/BookService.jsx";
 import Dashboard from "./assets/components/Admin/Dashboard.jsx";
 import { useAuth } from './assets/context/ContextAPI.jsx'; 
+import ErrorPage from "./assets/components/ErrorPage.jsx";
 
 function App() {
   const { user} = useAuth(); 
@@ -28,6 +29,9 @@ function App() {
             user?.isAdmin ? <Dashboard /> : <Navigate to="/" replace /> 
           }
         />
+
+          <Route path="*" element={<ErrorPage />} />
+
       </Routes>
     </Router>
   );

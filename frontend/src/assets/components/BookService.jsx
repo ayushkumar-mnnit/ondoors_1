@@ -18,7 +18,7 @@ const BookService = () => {
   const toast = useToast();
   const [sp, setSp] = useState([]);
   const { title } = useParams();
-  const { user } = useAuth();
+  const { user,toggle } = useAuth();
 
   useEffect(() => {
     getAllUsers();
@@ -105,8 +105,8 @@ const BookService = () => {
   return (
     <Box className="service-provider-container" mt={6}>
       <Link to='/landing'><Button variant='ghost' ml={2} bg='green.100' _hover={{bg:'blue.100'}}>Back</Button></Link>
-      <h4 style={{ textAlign: "center", fontFamily: "monospace" }}>
-        Available Service Providers as <span style={{ color: "purple" }}>{title}</span>
+      <h4 style={{ textAlign: "center", fontFamily: "monospace",color:toggle?'cyan':'black' }}>
+        Available Service Providers for <span style={{ color: toggle? "lightgreen": "purple" }}>{title}</span>
       </h4>
       {filteredSP.length === 0 ? (
         <Text color="orangered" textAlign="center">
@@ -120,6 +120,7 @@ const BookService = () => {
               borderWidth="1px"
               borderRadius="lg"
               overflow="hidden"
+              bg={toggle?'lightblue':'white'}
               p={4}
               style={{boxShadow: '1px 4px 5px gray'}}
             >
@@ -135,7 +136,7 @@ const BookService = () => {
                   _hover={{ color: "blue", cursor: "pointer" }}
                   onClick={() => handleBook(provider)}
                 >
-                  <Button bg='green.100' _hover={{bg:'blue.100'}} >Book now</Button>
+                  <Button bg='green.100' _hover={{bg:toggle?'orange':'blue.100'}} >Book now</Button>
                 </Box>
               </HStack>
               <Divider mt={2} />
